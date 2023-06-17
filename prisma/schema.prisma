@@ -1,0 +1,109 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+model Categories {
+  id           Int           @id @default(autoincrement())
+  name         String
+  subcategories SubCategory[]
+  products Products[]
+}
+
+model SubCategory {
+  id          Int         @id @default(autoincrement())
+  name        String
+  category_id Int
+
+  products Products[]
+  category    Categories  @relation(fields: [category_id], references: [id], onDelete: Cascade)
+}
+model Products {
+  id                Int       @id @default(autoincrement())
+  product_name              String
+  category_id       Int
+  subcategory_id Int
+  favorite_counters Int
+  product_references        String
+  information       String
+  created_at        DateTime
+  gender_id         Int
+  sale_id Int @default(-10)
+
+  rates Rate[]
+  productVariants ProductsVariant[]
+  sale              Sale @relation(fields: [sale_id],references: [id],onDelete: Cascade)
+  genders           Gender  @relation(fields: [gender_id],references: [id])
+  category        Categories @relation(fields: [category_id],references: [id],onDelete: Cascade)
+  sub_category SubCategory @relation(fields: [subcategory_id],references: [id],onDelete: Cascade)
+}
+model ProductsVariant{
+  id                Int       @id @default(autoincrement())
+  product_variant_name String
+  product_id Int
+  price Float
+  color String
+  quantity Int
+
+  size Size[]
+  images ProductsVariantImage[]
+  product Products @relation(fields: [product_id],references: [id],onDelete: Cascade)
+}
+model Size{
+  id                Int       @id @default(autoincrement())
+  name_size String
+  product_variant_id Int
+
+  technical_specification Technical_specification[]
+  product_variant ProductsVariant @relation(fields: [product_variant_id],references: [id],onDelete: Cascade)
+}
+model Technical_specification{
+  id                Int       @id @default(autoincrement())
+  name_technical_specification String
+  value Float
+  size_id Int
+
+  size Size @relation(fields: [size_id],references: [id],onDelete: Cascade)
+}
+model ProductsVariantImage{
+  id      Int      @id @default(autoincrement())
+  imageUrl String
+  product_variant_id Int
+  productVariant ProductsVariant @relation(fields: [product_variant_id],references: [id],onDelete: Cascade)
+}
+model Gender {
+  id      Int      @id @default(autoincrement())
+  name    String
+  products Products []
+}
+model Rate{
+  id      Int      @id @default(autoincrement())
+  title String
+  description String
+  star Float
+  product_id Int
+  created_at DateTime @default(now())
+
+  images RateImage[]
+  product Products @relation(fields: [product_id],references: [id],onDelete: Cascade)
+}
+model RateImage{
+  id      Int      @id @default(autoincrement())
+  imageUrl String
+  rate_id Int
+  rate Rate @relation(fields: [rate_id],references: [id],onDelete: Cascade)
+}
+model Sale{
+  id      Int      @id @default(autoincrement())
+  discount_percentage Int
+  sale_start_date DateTime?
+  sale_end_date DateTime?
+
+  product Products[]
+}

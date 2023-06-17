@@ -1,0 +1,41 @@
+import { NextResponse } from "next/server";
+
+import prisma from "@/libs/prismadb";
+import { parse } from "url";
+import { NextApiRequest } from "next";
+
+export async function GET(req: NextApiRequest) {
+  // ...
+  const { search } = parse(req.url || "", true);
+  const searchParams = new URLSearchParams(search || "");
+  const id = searchParams.get("id") as string;
+
+  if (!id) {
+    return NextResponse.json([]);
+  }
+  if (isNaN(parseInt(id))) {
+    return NextResponse.json([]);
+  }
+  const products = await prisma.products.findUnique({
+    where: { id: parseInt(id) },
+
+    include: {
+      genders: true,
+      category: true,
+      sub_category: true,
+
+      productVariants: {
+        include: {
+          images: true,
+          size: {
+            include: {
+              technical_specification: true,
+            },
+          },
+        },
+      },
+      sale: true,
+    },
+  });
+  return NextResponse.json(products);
+}
