@@ -10,12 +10,38 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
     const key = searchParams.get("key") as string;
     const value = searchParams.get("value") as string;
     if (!key || !value) {
-      const products = await prisma.products.findMany({});
+      const products = await prisma.products.findMany({
+        include: {
+          productVariants: true,
+        },
+      });
       return NextResponse.json(products);
     }
 
-    let products;
+    if (key === "category") {
+      const category = await prisma.categories.findMany({
+        where: {
+          name: value,
+        },
+        include: {
+          products: true,
+        },
+      });
+      return NextResponse.json(category);
+    }
+    if (key === "sub_category") {
+      const category = await prisma.categories.findMany({
+        where: {
+          name: value,
+        },
+        include: {
+          products: true,
+        },
+      });
+      return NextResponse.json(category);
+    }
 
+    let products;
     if (key === "color") {
       products = await prisma.products.findMany({
         where: {

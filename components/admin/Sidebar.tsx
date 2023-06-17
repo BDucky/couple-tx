@@ -3,6 +3,7 @@
 import React, { useMemo } from "react";
 import { AiFillAppstore } from "react-icons/ai";
 import { HiShoppingCart, HiUser } from "react-icons/hi";
+import { MdCategory } from "react-icons/md";
 import SidebarItem from "./SidebarItem";
 import { usePathname } from "next/navigation";
 
@@ -29,6 +30,13 @@ const Sidebar = () => {
         href: `/abc`,
         onClick: undefined,
         selected: pathname === "/abc",
+      },
+      {
+        icon: MdCategory,
+        label: "Categories",
+        href: `/admin/category`,
+        onClick: undefined,
+        selected: pathname === "/admin/category",
       },
     ],
     [pathname]

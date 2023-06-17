@@ -1,7 +1,7 @@
 "use client";
 
-import { useParams, usePathname, useRouter } from "next/navigation";
-import React, { useCallback, useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import React, { useCallback, useState } from "react";
 import { IconType } from "react-icons";
 interface SidebarItemProps {
   label: string;
@@ -9,8 +9,6 @@ interface SidebarItemProps {
   href?: string;
   onClick?: () => void;
   selected?: boolean;
-  // auth?: boolean;
-  // alert?: boolean;
 }
 const SidebarItem: React.FC<SidebarItemProps> = ({
   label,
