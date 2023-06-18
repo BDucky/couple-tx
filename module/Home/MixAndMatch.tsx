@@ -27,7 +27,6 @@ const MixAndMatch = () => {
       <div className="grid grid-cols-4 gap-x-3 mt-8 mb-[34px]">
         {images &&
           images.map((item) => {
-            console.log("item", item);
             return (
               <div key={item.id} className="cursor-pointer">
                 <Image
