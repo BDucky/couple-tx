@@ -11,7 +11,7 @@ datasource db {
 }
 model Categories {
   id           Int           @id @default(autoincrement())
-  name         String
+  name         String @unique
   gender String
   image String
   subcategories SubCategory[]
@@ -21,6 +21,7 @@ model Categories {
 model SubCategory {
   id          Int         @id @default(autoincrement())
   name        String
+  image String
   category_id Int
 
   products Products[]

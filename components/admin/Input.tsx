@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { UseFormRegister, FieldValues } from "react-hook-form";
 
 interface InputProps {
@@ -7,6 +7,7 @@ interface InputProps {
   type?: string;
   disabled?: boolean;
   required?: boolean;
+  data?: any;
   register: UseFormRegister<FieldValues>;
 }
 
@@ -15,9 +16,24 @@ const Input: React.FC<InputProps> = ({
   type,
   label,
   disabled,
+  data,
   register,
   required,
 }) => {
+  const [value, setValue] = useState<string>();
+  useEffect(() => {
+    let isMounted = true;
+
+    if (data && isMounted) {
+      setValue(data);
+      console.log(data);
+    }
+
+    return () => {
+      isMounted = false;
+    };
+  }, [data]);
+
   return (
     <div className=" flex w-[100%] items-center">
       <p className=" w-[30%] mr-3">{label}</p>
@@ -26,6 +42,8 @@ const Input: React.FC<InputProps> = ({
         type={type}
         {...register(id)}
         required={required}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
       />
     </div>
   );

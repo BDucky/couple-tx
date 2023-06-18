@@ -1,14 +1,16 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import ImageUpload from "./ImageUpload";
 import Image from "next/image";
 import { FieldValues, UseFormRegister } from "react-hook-form";
 
 interface IImageUploadWrapperProps {
   register: UseFormRegister<FieldValues>;
+  data?: any;
 }
 
 const ImageUploadWrapper: React.FC<IImageUploadWrapperProps> = ({
   register,
+  data,
 }) => {
   const [state, setState] = useState<string[]>([]);
 
@@ -18,6 +20,18 @@ const ImageUploadWrapper: React.FC<IImageUploadWrapperProps> = ({
   const handleConfirm = useCallback(() => {
     register("images", { value: state });
   }, [state, register]);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    if (data) {
+      setState((pre) => [...pre, data]);
+      // console.log(data);
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, [data]);
 
   return (
     <div>

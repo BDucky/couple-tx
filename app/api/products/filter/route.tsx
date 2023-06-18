@@ -9,10 +9,14 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
     const searchParams = new URLSearchParams(search || "");
     const key = searchParams.get("key") as string;
     const value = searchParams.get("value") as string;
-    if (!key || !value) {
+    if (!key) {
       const products = await prisma.products.findMany({
         include: {
-          productVariants: true,
+          productVariants: {
+            include: {
+              images: true,
+            },
+          },
         },
       });
       return NextResponse.json(products);
@@ -30,24 +34,62 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
       return NextResponse.json(category);
     }
     if (key === "sub_category") {
-      const category = await prisma.categories.findMany({
+      const category = await prisma.subCategory.findMany({
         where: {
           name: value,
         },
         include: {
-          products: true,
+          products: {
+            include: {
+              productVariants: {
+                include: {
+                  images: true,
+                },
+              },
+            },
+          },
         },
       });
       return NextResponse.json(category);
     }
 
     let products;
+    if (key === "new") {
+      const currentDate = new Date();
+      const twoDaysAgo = new Date(
+        currentDate.getTime() - 2 * 24 * 60 * 60 * 1000
+      );
+
+      const products = await prisma.products.findMany({
+        where: {
+          created_at: {
+            gte: twoDaysAgo,
+            lte: currentDate,
+          },
+        },
+        include: {
+          productVariants: {
+            include: {
+              images: true,
+            },
+          },
+        },
+      });
+      return NextResponse.json(products);
+    }
     if (key === "color") {
       products = await prisma.products.findMany({
         where: {
           productVariants: {
             some: {
               color: value,
+            },
+          },
+        },
+        include: {
+          productVariants: {
+            include: {
+              images: true,
             },
           },
         },
@@ -65,12 +107,26 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
             },
           },
         },
+        include: {
+          productVariants: {
+            include: {
+              images: true,
+            },
+          },
+        },
       });
     } else if (key === "gender") {
       products = await prisma.products.findMany({
         where: {
           genders: {
             name: value,
+          },
+        },
+        include: {
+          productVariants: {
+            include: {
+              images: true,
+            },
           },
         },
       });
@@ -91,6 +147,13 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
           productVariants: {
             some: {
               price: priceCondition,
+            },
+          },
+        },
+        include: {
+          productVariants: {
+            include: {
+              images: true,
             },
           },
         },

@@ -5,10 +5,11 @@ import { LoadingOutlined } from "@ant-design/icons";
 import { Table } from "antd";
 import axios from "axios";
 
-interface TableCategoryProps {
+interface TableSubCategoryProps {
   reload: boolean;
 }
-const TableCategory: React.FC<TableCategoryProps> = ({ reload }) => {
+
+const TableSubCategory: React.FC<TableSubCategoryProps> = ({ reload }) => {
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<any>(true);
@@ -22,27 +23,17 @@ const TableCategory: React.FC<TableCategoryProps> = ({ reload }) => {
         width: 50,
       },
       {
-        title: "Name",
+        title: "Sub category name",
         key: "name",
         dataIndex: "name",
         width: 500,
       },
-      {
-        title: "Gender",
-        key: "gender",
-        dataIndex: "gender",
-      },
+
       {
         title: "Action",
         key: "action",
         render: (_: any, record: any) => (
           <div className=" cursor-pointer flex gap-3">
-            <div
-              onClick={() => router.push(`/admin/category/edit/${record.id}`)}
-              className=" w-20 flex transition hover:bg-blue-500 hover:text-white justify-center border p-1 border-[blue]"
-            >
-              Edit
-            </div>
             <div className=" cursor-pointer transition hover:bg-red-500 hover:text-white w-20 flex justify-center border p-1 border-[red]">
               {loading ? <LoadingOutlined /> : "Delete"}
             </div>
@@ -50,13 +41,13 @@ const TableCategory: React.FC<TableCategoryProps> = ({ reload }) => {
         ),
       },
     ],
-    [loading, router]
+    [loading]
   );
 
   const getData = useCallback(async () => {
     setLoading(true);
     await axios
-      .get("/api/category")
+      .get("/api/category?key=sub_category")
       .then((response) => {
         setData(response.data);
       })
@@ -89,4 +80,4 @@ const TableCategory: React.FC<TableCategoryProps> = ({ reload }) => {
   );
 };
 
-export default TableCategory;
+export default TableSubCategory;
