@@ -11,7 +11,9 @@ datasource db {
 }
 model Categories {
   id           Int           @id @default(autoincrement())
-  name         String
+  name         String @unique
+  gender String
+  image String
   subcategories SubCategory[]
   products Products[]
 }
@@ -19,6 +21,7 @@ model Categories {
 model SubCategory {
   id          Int         @id @default(autoincrement())
   name        String
+  image String
   category_id Int
 
   products Products[]
@@ -53,6 +56,8 @@ model ProductsVariant{
 
   size Size[]
   images ProductsVariantImage[]
+  order_item OrderItem[]
+  cart_item CartItem[]
   product Products @relation(fields: [product_id],references: [id],onDelete: Cascade)
 }
 model Size{
@@ -106,4 +111,82 @@ model Sale{
   sale_end_date DateTime?
 
   product Products[]
+}
+
+model User{
+  id      Int      @id @default(autoincrement())
+  phone String
+  first_name String?
+  last_name String?
+  gender String
+  date_of_birth DateTime? @default(now())
+
+  order Order[]
+  cart Cart[]
+  blog Blogs[]
+  post Posts[]
+}
+model Order{
+  id      Int      @id @default(autoincrement())
+  user_id Int
+  total_price Float
+  address String
+  payment_method String
+
+
+  order_item OrderItem[]
+
+  user User @relation(fields: [user_id],references: [id],onDelete: Cascade)
+}
+model OrderItem{
+  id      Int      @id @default(autoincrement())
+  order_id Int
+  product_variant_id Int
+  quantity Int
+  total_price Float
+
+  
+  product_variant ProductsVariant @relation(fields: [product_variant_id],references: [id],onDelete: Cascade)
+  order Order @relation(fields: [order_id],references: [id],onDelete: Cascade)
+  
+}
+model Cart{
+  id      Int      @id @default(autoincrement())
+  user_id Int
+  total_price Float
+
+  cart_item CartItem[]
+  user User @relation(fields: [user_id],references: [id],onDelete: Cascade)
+}
+model CartItem{
+  id      Int      @id @default(autoincrement())
+  product_variant_id Int
+  total_price Float
+  cart_id Int
+
+  product_variant ProductsVariant @relation(fields: [product_variant_id],references: [id],onDelete:Cascade)
+  cart Cart @relation(fields: [cart_id],references: [id],onDelete:Cascade)
+}
+
+model Blogs{
+  id      Int      @id @default(autoincrement())
+  title String
+  user_id Int
+  created_at DateTime @default(now())
+
+  post Posts[]
+  user User @relation(fields: [user_id],references: [id],onDelete: Cascade)
+}
+
+model Posts{
+  id      Int      @id @default(autoincrement())
+  title String
+  author_id Int
+  created_at DateTime @default(now())
+  body String
+  blog_id Int
+  image String
+
+  user User @relation(fields: [author_id],references: [id],onDelete: Cascade)
+  blog Blogs @relation(fields: [blog_id],references: [id],onDelete: Cascade)
 }

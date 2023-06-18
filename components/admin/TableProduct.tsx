@@ -29,6 +29,7 @@ const TableProduct = () => {
       });
     setLoading(false);
   }, []);
+
   const handelDelete = useCallback(
     (record: any) => {
       const deleteData = async () => {

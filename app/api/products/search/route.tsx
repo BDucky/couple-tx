@@ -2,10 +2,13 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 import prisma from "@/libs/prismadb";
 import { NextResponse } from "next/server";
+import { parse } from "url";
 
 export async function GET(req: NextApiRequest) {
   if (req.method === "GET") {
-    const { keyword } = req.body;
+    const { search } = parse(req.url || "", true);
+    const searchParams = new URLSearchParams(search || "");
+    const keyword = searchParams.get("keyword") as string;
     if (!keyword) {
       return NextResponse.json({ error: "Empty keyword" });
     }
@@ -14,6 +17,13 @@ export async function GET(req: NextApiRequest) {
       const products = await prisma.products.findMany({
         where: {
           OR: [{ product_name: { contains: keyword } }],
+        },
+        include: {
+          productVariants: {
+            include: {
+              images: true,
+            },
+          },
         },
       });
 
