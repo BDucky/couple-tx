@@ -24,7 +24,7 @@ const MixAndMatch = () => {
         Thoả sức sáng tạo với vô số sự kết hợp từ món đồ bạn thích.
       </p>
       <HomeButton title="SHOP NOW"></HomeButton>
-      <div className="grid grid-cols-4 mt-8">
+      <div className="grid grid-cols-4 mt-8 mb-[34px]">
         {images &&
           images.map((item) => {
             console.log("item", item);
