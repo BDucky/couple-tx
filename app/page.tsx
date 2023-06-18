@@ -1,10 +1,10 @@
-import { FlashSale, MixandMatch } from "@/module/Home";
+import { FlashSale, MixAndMatch } from "@/module/Home";
 
 export default function Home() {
   return (
     <div>
       {/* MIX & MATCH */}
-      <MixandMatch></MixandMatch>
+      <MixAndMatch></MixAndMatch>
       {/* Flash Sale */}
       <FlashSale></FlashSale>
     </div>

@@ -1,4 +1,4 @@
-const MixandMatch = () => {
+const MixAndMatch = () => {
   return (
     <div className="container py-[45px] px-[30px] text-left bg-grayE">
       <h1 className="mb-4 text-4xl font-bold">MIX & MATCH</h1>
@@ -13,4 +13,4 @@ const MixandMatch = () => {
   );
 };
 
-export default MixandMatch;
+export default MixAndMatch;

@@ -1,4 +1,4 @@
-import MixandMatch from "./MixAndMatch";
+import MixAndMatch from "./MixAndMatch";
 import FlashSale from "./FlashSale";
 
-export { MixandMatch, FlashSale };
+export { MixAndMatch, FlashSale };
