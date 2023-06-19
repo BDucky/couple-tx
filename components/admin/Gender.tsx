@@ -5,7 +5,7 @@ import { UseFormRegister, FieldValues } from "react-hook-form";
 interface GenderProps {
   register: UseFormRegister<FieldValues>;
   data?: any;
-  setGenderValue?: any;
+  setGenderValue?: (value: any) => void;
 }
 
 const Gender: React.FC<GenderProps> = ({ register, data, setGenderValue }) => {
@@ -21,19 +21,23 @@ const Gender: React.FC<GenderProps> = ({ register, data, setGenderValue }) => {
     if (data) {
       const value = options.find((option) => option.label === data);
       setGender(value);
-      setGenderValue(value);
+      if (setGenderValue) {
+        setGenderValue(value);
+      }
     }
     return () => {
       isMounted = false;
     };
-  }, [data, options, setGenderValue]);
+  }, [data, setGenderValue]);
   return (
     <div className=" mt-2 flex  items-center">
       <p className=" w-[200px] mr-3">Gender</p>
       <Select
         id="category"
         onChange={(e) => {
-          setGenderValue(e);
+          if (setGenderValue) {
+            setGenderValue(e);
+          }
           setGender(e);
           register("gender", { value: e });
         }}
