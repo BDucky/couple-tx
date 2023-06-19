@@ -1,5 +1,5 @@
 import Footer from "@/components/user/footer/page";
-import { FlashSale, MixAndMatch } from "@/module/Home";
+import { FlashSale, MixAndMatch, NewArrival } from "@/module/Home";
 
 export default function Home() {
   return (
@@ -8,6 +8,9 @@ export default function Home() {
       <MixAndMatch></MixAndMatch>
       {/* Flash Sale */}
       <FlashSale></FlashSale>
+      {/* New Arrival */}
+      <NewArrival></NewArrival>
+      {/* Footer */}
       <Footer></Footer>
     </div>
   );
