@@ -121,7 +121,7 @@ const Edit = () => {
           >
             Add sub category
           </div>
-          <TableSubCategory reload={reload} />
+          <TableSubCategory id={parseInt(id)} reload={reload} />
         </div>
       </div>
     </Layout>

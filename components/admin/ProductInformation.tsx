@@ -25,8 +25,8 @@ const ProductInformation: React.FC<ProductInformationProps> = ({
     setProductPreference(text);
   }
   return (
-    <div>
-      <p>{label}</p>
+    <div className="mt-3">
+      <p className="mb-2">{label}</p>
       <MdEditor
         style={{ height: "200px" }}
         renderHTML={(text) => mdParser.render(text)}
@@ -37,7 +37,10 @@ const ProductInformation: React.FC<ProductInformationProps> = ({
 
       <div
         className=" hover:opacity-70 cursor-pointer transition p-1 text-white bg-green-500 w-28 flex items-center justify-center mt-1"
-        onClick={() => register(id, { value: productPreference })}
+        onClick={() => {
+          register(id, { value: productPreference });
+          alert("Đã lưu");
+        }}
       >
         Lưu
       </div>

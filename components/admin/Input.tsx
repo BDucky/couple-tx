@@ -36,9 +36,9 @@ const Input: React.FC<InputProps> = ({
 
   return (
     <div className=" flex w-[100%] items-center">
-      <p className=" w-[30%] mr-3">{label}</p>
+      <p className=" w-[200px] mr-3">{label}</p>
       <input
-        className=" w-[100%] border p-1 rounded-md border-[#ccc] focus:outline-none"
+        className=" mt-2 w-[60%] border pl-2 p-1 rounded-md border-[#ccc] focus:outline-none"
         type={type}
         {...register(id)}
         required={required}
