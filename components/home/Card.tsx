@@ -1,16 +1,43 @@
+"use client";
+import axios from "axios";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-const Card = ({ isNew = true }) => {
+const Card = ({ isNew = true, productId = 12 }) => {
+  const [product, setProduct] = useState();
+  const [imageVariant, setImageVariant] = useState("");
+  const [colorVariant, setColorVariant] = useState([]);
+  const handleMouseEnter = () => {
+    const image = product?.productVariants[1].images[0].imageUrl;
+    setImageVariant(image);
+  };
+
+  const handleMouseLeave = () => {
+    const image = product?.productVariants[0].images[0].imageUrl;
+    setImageVariant(image);
+  };
+  useEffect(() => {
+    async function getData() {
+      const res = await axios.get(
+        `http://localhost:3000/api/products/findById?id=${productId}`
+      );
+      const data = res.data;
+      setProduct(data);
+      setColorVariant(data.productVariants.map((item) => item.color));
+      const image = data.productVariants[0].images[0].imageUrl;
+      setImageVariant(image);
+    }
+    getData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <div className="flex flex-col items-start gap-y-2">
-      <div className="relative cursor-pointer group">
-        <Image
-          src="https://product.hstatic.net/1000184601/product/men_den__5__98f703b761a84b51a648321006455283_1024x1024.jpg"
-          alt="product"
-          width={330}
-          height={440}
-        />
+      <div
+        className="relative cursor-pointer group"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <Image src={imageVariant} alt="product" width={330} height={440} />
         {isNew && (
           <span className="absolute p-1 italic bg-white text-xs text-gray-500 top-[10px] left-[10px]">
             New
@@ -37,9 +64,7 @@ const Card = ({ isNew = true }) => {
         </span>
       </div>
       <div>
-        <h1 className="text-base w-[330px]">
-          Áo Khoác Nam Dù Basic Regular Fit MOP 1040
-        </h1>
+        <h1 className="text-base w-[330px]">{product?.product_name}</h1>
         <div className="flex flex-wrap items-center gap-x-2">
           <span className="flex text-yellow-300">
             {new Array(5).fill(null).map((item, index) => (
@@ -60,9 +85,18 @@ const Card = ({ isNew = true }) => {
               </svg>
             ))}
           </span>
-          <span>20 [Yêu thích 503]</span>
+          <span>[Yêu thích 503]</span>
         </div>
-        <div>599,000 VND</div>
+        <div className="mb-2">{product?.productVariants[0].price} VND</div>
+        <div className="flex gap-x-2">
+          {colorVariant &&
+            colorVariant.map((item) => (
+              <span
+                key={item}
+                className={`w-4 h-4 border border-black rounded-full bg-[${item}]`}
+              ></span>
+            ))}
+        </div>
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import React from "react";
 const LayoutCard = ({ children }: LayoutCardProps) => {
   return (
     <div
-      className="grid !gap-x-6"
+      className="grid"
       style={{
         rowGap: "50px",
         columnGap: "24px",
