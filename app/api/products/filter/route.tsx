@@ -17,6 +17,11 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
     if (!key) {
       const products = await prisma.products.findMany({
         include: {
+          rates: {
+            include: {
+              images: true,
+            },
+          },
           productVariants: {
             include: {
               images: true,
@@ -35,6 +40,11 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
         include: {
           products: {
             include: {
+              rates: {
+                include: {
+                  images: true,
+                },
+              },
               productVariants: true,
             },
           },
@@ -50,6 +60,11 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
         include: {
           products: {
             include: {
+              rates: {
+                include: {
+                  images: true,
+                },
+              },
               productVariants: {
                 include: {
                   images: true,
@@ -75,6 +90,11 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
               ],
             },
             include: {
+              rates: {
+                include: {
+                  images: true,
+                },
+              },
               productVariants: {
                 include: {
                   images: true,
@@ -103,6 +123,11 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
               ],
             },
             include: {
+              rates: {
+                include: {
+                  images: true,
+                },
+              },
               productVariants: {
                 include: {
                   images: true,
@@ -141,6 +166,11 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
               },
             },
             include: {
+              rates: {
+                include: {
+                  images: true,
+                },
+              },
               productVariants: {
                 include: {
                   images: true,
@@ -168,8 +198,38 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
             gte: twoDaysAgo,
             lte: currentDate,
           },
+          AND: [
+            {
+              productVariants: {
+                some: {
+                  color: color ? color : undefined,
+                },
+              },
+            },
+            {
+              productVariants: {
+                some: {
+                  size: {
+                    some: {
+                      name_size: size ? size : undefined,
+                    },
+                  },
+                },
+              },
+            },
+            {
+              genders: {
+                name: gender ? gender : undefined,
+              },
+            },
+          ],
         },
         include: {
+          rates: {
+            include: {
+              images: true,
+            },
+          },
           productVariants: {
             include: {
               images: true,
@@ -177,6 +237,26 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
           },
         },
       });
+      if (price) {
+        let product = products;
+        let res;
+        if (parseInt(price) === 1) {
+          res = product.filter((product) =>
+            product.productVariants.some((item) => item.price < 300000)
+          );
+        }
+        if (parseInt(price) === 2) {
+          res = product.filter((product) =>
+            product.productVariants.some((item) => item.price < 500000)
+          );
+        }
+        if (parseInt(price) === 3) {
+          res = product.filter((product) =>
+            product.productVariants.some((item) => item.price > 500000)
+          );
+        }
+        return NextResponse.json(res);
+      }
       return NextResponse.json(products);
     }
     if (key === "color") {
@@ -189,6 +269,11 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
           },
         },
         include: {
+          rates: {
+            include: {
+              images: true,
+            },
+          },
           productVariants: {
             include: {
               images: true,
@@ -223,6 +308,26 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
           genders: {
             name: value,
           },
+          AND: [
+            {
+              productVariants: {
+                some: {
+                  color: color ? color : undefined,
+                },
+              },
+            },
+            {
+              productVariants: {
+                some: {
+                  size: {
+                    some: {
+                      name_size: size ? size : undefined,
+                    },
+                  },
+                },
+              },
+            },
+          ],
         },
         include: {
           productVariants: {
@@ -232,6 +337,26 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
           },
         },
       });
+      if (price) {
+        let product = products;
+        let res;
+        if (parseInt(price) === 1) {
+          res = product.filter((product) =>
+            product.productVariants.filter((item) => item.price < 300000)
+          );
+        }
+        if (parseInt(price) === 2) {
+          res = product.filter((product) =>
+            product.productVariants.filter((item) => item.price < 500000)
+          );
+        }
+        if (parseInt(price) === 3) {
+          res = product.filter((product) =>
+            product.productVariants.filter((item) => item.price > 500000)
+          );
+        }
+        return NextResponse.json(res);
+      }
     } else if (key === "price") {
       let priceCondition;
       if (parseInt(value) === 1) {
@@ -263,7 +388,6 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
     } else {
       return NextResponse.json({ error: "Invalid key" });
     }
-
     return NextResponse.json(products);
   }
 }
