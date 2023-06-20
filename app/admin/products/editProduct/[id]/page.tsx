@@ -6,7 +6,6 @@ import ListVariants from "@/components/admin/ListVariants";
 import ProductInformation from "@/components/admin/ProductInformation";
 import SelectCategory_SubCategory from "@/components/admin/SelectCategory_SubCategory";
 import Layout from "@/components/admin/layout";
-import { Select } from "antd";
 import axios from "axios";
 import { useParams } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";
