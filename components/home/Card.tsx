@@ -24,7 +24,7 @@ const Card = ({ isNew = true, productId = 12 }) => {
       );
       const data = res.data;
       setProduct(data);
-      setColorVariant(data.productVariants.map((item) => item.color));
+      setColorVariant(data.productVariants.map((item: any) => item.color));
       const image = data.productVariants[0].images[0].imageUrl;
       setImageVariant(image);
     }
@@ -93,7 +93,7 @@ const Card = ({ isNew = true, productId = 12 }) => {
           </span>
           <span>[Yêu thích 503]</span>
         </div>
-        <div className="mb-2">{product?.productVariants[0].price} VND</div>
+        <div className="mb-2">{product?.productVariants[0]?.price} VND</div>
         <div className="flex gap-x-2">
           {colorVariant &&
             colorVariant.map((item) => (

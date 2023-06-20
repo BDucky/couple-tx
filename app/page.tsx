@@ -1,6 +1,6 @@
 import { Card } from "@/components/home";
 import LayoutCard from "@/layout/LayoutCard";
-import { FlashSale, MixAndMatch } from "@/module/Home";
+import { FlashSale, MixAndMatch, NewArrival } from "@/module/Home";
 
 export default function Home() {
   return (
@@ -15,6 +15,8 @@ export default function Home() {
           <Card key={index}></Card>
         ))}
       </LayoutCard>
+      {/* New Arrival */}
+      <NewArrival></NewArrival>
     </div>
   );
 }
