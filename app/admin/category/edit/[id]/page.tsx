@@ -4,7 +4,6 @@ import ImageUpload from "@/components/Image/ImageUpload";
 import ImageUploadWrapper from "@/components/Image/ImageUploadWrapper";
 import Gender from "@/components/admin/Gender";
 import Input from "@/components/admin/Input";
-import ModalAddSubCategory from "@/components/admin/category/ModalAddSubCategory";
 import TableSubCategory from "@/components/admin/category/TableSubCategory";
 import Layout from "@/components/admin/layout";
 import axios from "axios";
@@ -121,7 +120,7 @@ const Edit = () => {
           >
             Add sub category
           </div>
-          <TableSubCategory reload={reload} />
+          <TableSubCategory id={parseInt(id)} reload={reload} />
         </div>
       </div>
     </Layout>

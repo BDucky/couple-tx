@@ -7,9 +7,11 @@ import TableCategory from "@/components/admin/category/TableCategory";
 import Layout from "@/components/admin/layout";
 import axios from "axios";
 import React, { useState } from "react";
+import { LoadingOutlined } from "@ant-design/icons";
 import { useForm, FieldValues } from "react-hook-form";
 
 const Category = () => {
+  const [loading, setLoading] = useState<boolean>(false);
   const [reloadTable, setReloadTable] = useState(false);
   const {
     register,
@@ -17,6 +19,7 @@ const Category = () => {
     formState: { errors },
   } = useForm<FieldValues>();
   const onHandleSubmit = async (data: any) => {
+    setLoading(true);
     const name = data.name;
     const image = data.images[0];
     const gender = data.gender.label;
@@ -30,6 +33,7 @@ const Category = () => {
       .catch((errors) => {
         console.log(errors);
       });
+    setLoading(false);
     setReloadTable(!reloadTable);
   };
   return (
@@ -39,7 +43,15 @@ const Category = () => {
           <ImageUploadWrapper register={register} />
           <Input id="name" register={register} label="Category Name" />
           <Gender register={register} />
-          <input type="submit" value="Create" />
+          {loading ? (
+            <LoadingOutlined size={28} />
+          ) : (
+            <input
+              className="p-2 mt-2 text-white bg-green-500 w-56 hover:opacity-70"
+              type="submit"
+              value="Create"
+            />
+          )}
         </form>
         <div>
           <TableCategory reload={reloadTable} />

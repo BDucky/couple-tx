@@ -5,9 +5,10 @@ import { UseFormRegister, FieldValues } from "react-hook-form";
 interface GenderProps {
   register: UseFormRegister<FieldValues>;
   data?: any;
+  setGenderValue?: (value: any) => void;
 }
 
-const Gender: React.FC<GenderProps> = ({ register, data }) => {
+const Gender: React.FC<GenderProps> = ({ register, data, setGenderValue }) => {
   const [gender, setGender] = useState<any>(null);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const options = [
@@ -20,17 +21,23 @@ const Gender: React.FC<GenderProps> = ({ register, data }) => {
     if (data) {
       const value = options.find((option) => option.label === data);
       setGender(value);
+      if (setGenderValue) {
+        setGenderValue(value);
+      }
     }
     return () => {
       isMounted = false;
     };
-  }, [data]);
+  }, [data, setGenderValue]);
   return (
-    <div className="flex  items-center">
-      <p className=" mr-2">Gender</p>
+    <div className=" mt-2 flex  items-center">
+      <p className=" w-[200px] mr-3">Gender</p>
       <Select
         id="category"
         onChange={(e) => {
+          if (setGenderValue) {
+            setGenderValue(e);
+          }
           setGender(e);
           register("gender", { value: e });
         }}
