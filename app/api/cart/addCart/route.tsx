@@ -15,10 +15,27 @@ export async function POST(req: Request, res: NextApiResponse) {
   if (cart) {
     const cartItem = await prisma.cartItem.findFirst({
       where: {
-        product_variant_id: product_variant_id,
+        product_variant_id: parseInt(product_variant_id),
       },
     });
 
+    if (!cartItem) {
+      const variant = await prisma.productsVariant.findFirst({
+        where: {
+          id: parseInt(product_variant_id),
+        },
+      });
+      if (variant) {
+        await prisma.cartItem.create({
+          data: {
+            product_variant_id: product_variant_id,
+            quantity: quantity,
+            cart_id: cart.id,
+            total_price: variant.price * parseInt(quantity, 10),
+          },
+        });
+      }
+    }
     if (cartItem) {
       await prisma.cartItem.update({
         where: {

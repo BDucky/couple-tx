@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MarkdownIt from "markdown-it";
 import MdEditor from "react-markdown-editor-lite";
 import { UseFormRegister, FieldValues } from "react-hook-form";
@@ -9,6 +9,7 @@ import "react-markdown-editor-lite/lib/index.css";
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
 interface ProductInformationProps {
+  data?: string;
   id: string;
   label: string;
   register: UseFormRegister<FieldValues>;
@@ -18,17 +19,24 @@ const ProductInformation: React.FC<ProductInformationProps> = ({
   id,
   label,
   register,
+  data,
 }) => {
   const [productPreference, setProductPreference] = useState("");
   function handleEditorChange({ html, text }: { html: string; text: string }) {
     console.log("handleEditorChange", html, text);
     setProductPreference(text);
   }
+  useEffect(() => {
+    if (data) {
+      setProductPreference(data);
+    }
+  }, [data]);
   return (
     <div className="mt-3">
       <p className="mb-2">{label}</p>
       <MdEditor
         style={{ height: "200px" }}
+        value={productPreference}
         renderHTML={(text) => mdParser.render(text)}
         onChange={(e) => {
           handleEditorChange(e);

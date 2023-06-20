@@ -32,7 +32,7 @@ const Input: React.FC<InputProps> = ({
     return () => {
       isMounted = false;
     };
-  }, [data]);
+  }, [data, id, register]);
 
   return (
     <div className=" flex w-[100%] items-center">
