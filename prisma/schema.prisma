@@ -11,7 +11,7 @@ datasource db {
 }
 model Categories {
   id           Int           @id @default(autoincrement())
-  name         String @unique
+  name         String 
   gender String
   image String
   subcategories SubCategory[]
@@ -132,6 +132,7 @@ model Order{
   total_price Float
   address String
   payment_method String
+  created_at DateTime @default(now())
 
 
   order_item OrderItem[]
@@ -153,7 +154,6 @@ model OrderItem{
 model Cart{
   id      Int      @id @default(autoincrement())
   user_id Int
-  total_price Float
 
   cart_item CartItem[]
   user User @relation(fields: [user_id],references: [id],onDelete: Cascade)
@@ -163,6 +163,7 @@ model CartItem{
   product_variant_id Int
   total_price Float
   cart_id Int
+  quantity Int
 
   product_variant ProductsVariant @relation(fields: [product_variant_id],references: [id],onDelete:Cascade)
   cart Cart @relation(fields: [cart_id],references: [id],onDelete:Cascade)

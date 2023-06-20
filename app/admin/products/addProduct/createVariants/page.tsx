@@ -6,7 +6,7 @@ const page = () => {
   return (
     <Layout>
       <div className="p-10 w-[100%]">
-        <h2>Create Variant</h2>
+        <h2 className="mb-2 font-bold text-lg">Create Variant</h2>
         <div className="bg-[#fff] w-[100%] h-auto shadow-md p-4">
           <CreateVariantModal />
         </div>

@@ -19,6 +19,7 @@ const ImageUploadWrapper: React.FC<IImageUploadWrapperProps> = ({
   }, []);
   const handleConfirm = useCallback(() => {
     register("images", { value: state });
+    alert("Đã lưu");
   }, [state, register]);
 
   useEffect(() => {
@@ -45,7 +46,7 @@ const ImageUploadWrapper: React.FC<IImageUploadWrapperProps> = ({
       </div>
       <p
         onClick={handleConfirm}
-        className=" mt-2 mb-2 text-white bg-green-500 hover:opacity-60 p-2 inline-block"
+        className=" cursor-pointer mt-2 mb-2 text-white bg-green-500 hover:opacity-60 p-2 inline-block"
       >
         Confirm Image
       </p>

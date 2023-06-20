@@ -34,7 +34,7 @@ const SizeVariant: React.FC<SizeVariantProps> = ({ register }) => {
         <SizeVariantItem sizes={sizes} setSizes={setSizes} key={index} />
       ))}
       <p
-        className=" p-2 bg-blue-500 inline-block text-white cursor-pointer hover:bg-blue-300"
+        className=" mt-2 p-2 bg-blue-500 inline-block text-white cursor-pointer hover:bg-blue-300"
         onClick={handleSubmit}
       >
         Submit
