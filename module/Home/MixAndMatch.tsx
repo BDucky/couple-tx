@@ -5,15 +5,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const MixAndMatch = () => {
-  const [images, setImages] = useState([]);
+  const [products, setProducts] = useState([]);
   useEffect(() => {
     async function getData() {
       const res = await axios.get("http://localhost:3000/api/products/filter");
-      const data = res.data;
-      const dataImages = data.find(
-        (item: any) => item.product_name == "mixandmatch"
-      ).productVariants[0].images;
-      setImages(dataImages);
+      setProducts(res.data.slice(0, 4));
     }
     getData();
   }, []);
@@ -24,20 +20,19 @@ const MixAndMatch = () => {
         Thoả sức sáng tạo với vô số sự kết hợp từ món đồ bạn thích.
       </p>
       <HomeButton title="SHOP NOW"></HomeButton>
-      <div className="grid grid-cols-4 gap-x-3 mt-8 mb-[34px]">
-        {images &&
-          images.map((item) => {
-            return (
-              <div key={item.id} className="cursor-pointer">
-                <Image
-                  width={318}
-                  height={398}
-                  src={item.imageUrl}
-                  alt="mixandmatch"
-                />
-              </div>
-            );
-          })}
+      <div className="grid grid-cols-4 gap-x-12 mt-8 mb-[34px]">
+        {products &&
+          products.map((item) => (
+            <div key={item} className="max-h-[409px]">
+              <Image
+                src={item?.productVariants[0].images[0].imageUrl}
+                alt="mixandmatch"
+                width={330}
+                height={440}
+                className="object-contain w-full h-full"
+              />
+            </div>
+          ))}
       </div>
     </div>
   );

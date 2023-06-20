@@ -1,4 +1,5 @@
 "use client";
+import { image } from "@/constant/Image";
 import axios from "axios";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
@@ -37,7 +38,12 @@ const Card = ({ isNew = true, productId = 12 }) => {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <Image src={imageVariant} alt="product" width={330} height={440} />
+        <Image
+          src={imageVariant || image.DEFAULT}
+          alt="product"
+          width={330}
+          height={440}
+        />
         {isNew && (
           <span className="absolute p-1 italic bg-white text-xs text-gray-500 top-[10px] left-[10px]">
             New
