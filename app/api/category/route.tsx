@@ -9,7 +9,11 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
   const key = searchParams.get("key") as string;
 
   if (!key) {
-    const categories = await prisma.categories.findMany();
+    const categories = await prisma.categories.findMany({
+      include: {
+        subcategories: true,
+      },
+    });
     return NextResponse.json(categories);
   }
   if (key === "id") {

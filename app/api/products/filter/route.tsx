@@ -9,6 +9,11 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
     const searchParams = new URLSearchParams(search || "");
     const key = searchParams.get("key") as string;
     const value = searchParams.get("value") as string;
+    const color = searchParams.get("color") as string;
+    const size = searchParams.get("size") as string;
+    const gender = searchParams.get("gender") as string;
+    const price = searchParams.get("price") as string;
+
     if (!key) {
       const products = await prisma.products.findMany({
         include: {
@@ -28,13 +33,17 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
           name: value,
         },
         include: {
-          products: true,
+          products: {
+            include: {
+              productVariants: true,
+            },
+          },
         },
       });
       return NextResponse.json(category);
     }
     if (key === "sub_category") {
-      const category = await prisma.subCategory.findMany({
+      const category = await prisma.subCategory.findFirst({
         where: {
           name: value,
         },
@@ -50,7 +59,100 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
           },
         },
       });
-      return NextResponse.json(category);
+      if (category) {
+        if (color) {
+          const products = await prisma.products.findMany({
+            where: {
+              category_id: category.id,
+              AND: [
+                {
+                  productVariants: {
+                    some: {
+                      color: color,
+                    },
+                  },
+                },
+              ],
+            },
+            include: {
+              productVariants: {
+                include: {
+                  images: true,
+                },
+              },
+            },
+          });
+          return NextResponse.json(products);
+        }
+        if (size) {
+          const products = await prisma.products.findMany({
+            where: {
+              category_id: category.id,
+              AND: [
+                {
+                  productVariants: {
+                    some: {
+                      size: {
+                        some: {
+                          name_size: size,
+                        },
+                      },
+                    },
+                  },
+                },
+              ],
+            },
+            include: {
+              productVariants: {
+                include: {
+                  images: true,
+                },
+              },
+            },
+          });
+          return NextResponse.json(products);
+        }
+        if (price) {
+          let products = category.products;
+          let res;
+          if (parseInt(price) === 1) {
+            res = products.filter((product) =>
+              product.productVariants.filter((item) => item.price < 300000)
+            );
+          }
+          if (parseInt(price) === 2) {
+            res = products.filter((product) =>
+              product.productVariants.filter((item) => item.price < 500000)
+            );
+          }
+          if (parseInt(price) === 3) {
+            res = products.filter((product) =>
+              product.productVariants.filter((item) => item.price > 500000)
+            );
+          }
+          return NextResponse.json(res);
+        }
+        if (gender) {
+          const products = await prisma.products.findMany({
+            where: {
+              category_id: category.id,
+              genders: {
+                name: gender,
+              },
+            },
+            include: {
+              productVariants: {
+                include: {
+                  images: true,
+                },
+              },
+            },
+          });
+
+          return NextResponse.json(products);
+        }
+      }
+      return NextResponse.json(category?.products);
     }
 
     let products;

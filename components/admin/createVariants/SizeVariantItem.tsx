@@ -44,11 +44,11 @@ const SizeVariantItem: React.FC<SizeVariantItemProps> = ({
 
   return (
     <div className="ml-3 border border-[#ccc] p-3 mb-2">
-      <div className="flex">
+      <div className="flex items-center">
         <p className="mr-3">Size name</p>
         <input
           onChange={(e) => setNameSize(e.target.value)}
-          className="border border-[#ccc] focus:outline-none"
+          className="border text-center w-[100px] p-1 border-[#ccc] focus:outline-none"
           type="text"
           value={nameSize}
         />
@@ -63,13 +63,13 @@ const SizeVariantItem: React.FC<SizeVariantItemProps> = ({
         {Array.from({ length: listSize }, (_, index) => (
           <div className="flex gap-2 w-[100%] justify-center mb-2" key={index}>
             <input
-              className="border focus:outline-none"
+              className="border p-1 text-center focus:outline-none"
               type="text"
               value={inputValues[index]?.key || ""}
               onChange={(e) => handleInputChange(index, e.target.value)}
             />
             <input
-              className="border focus:outline-none"
+              className="border p-1 text-center focus:outline-none"
               type="number"
               value={inputValues[index]?.value || ""}
               onChange={(e) =>
