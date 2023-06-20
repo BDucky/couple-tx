@@ -4,7 +4,7 @@ import axios from "axios";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
-const Card = ({ isNew = true, productId = 12 }) => {
+const Card = ({ isNew = true, productId = 14 }) => {
   const [product, setProduct] = useState();
   const [imageVariant, setImageVariant] = useState("");
   const [colorVariant, setColorVariant] = useState([]);
@@ -23,9 +23,10 @@ const Card = ({ isNew = true, productId = 12 }) => {
         `http://localhost:3000/api/products/findById?id=${productId}`
       );
       const data = res.data;
+      console.log("data", data);
       setProduct(data);
-      setColorVariant(data.productVariants.map((item: any) => item.color));
-      const image = data.productVariants[0].images[0].imageUrl;
+      setColorVariant(data?.productVariants.map((item: any) => item.color));
+      const image = data?.productVariants[0].images[0].imageUrl;
       setImageVariant(image);
     }
     getData();

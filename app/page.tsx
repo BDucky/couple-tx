@@ -9,12 +9,7 @@ export default function Home() {
       <MixAndMatch></MixAndMatch>
       {/* Flash Sale */}
       <FlashSale></FlashSale>
-      {/* Demo cách sử dụng Card và Layout Card, có gì mn có thể custom lại nha ('cái này chưa xong nha') */}
-      <LayoutCard>
-        {new Array(7).fill(null).map((item, index) => (
-          <Card key={index}></Card>
-        ))}
-      </LayoutCard>
+
       {/* New Arrival */}
       <NewArrival></NewArrival>
     </div>
