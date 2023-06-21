@@ -20,7 +20,7 @@ const Card = ({ isNew = true, productId = 17 }) => {
     setImageVariant(image);
   };
   const handleChangeVariant = (index: number) => {
-    const image = product?.productVariants[index]?.images[0]?.imageUrl;
+    const image = product?.productVariants[index].images[0].imageUrl;
     setImageVariant(image);
   };
   const handleFavorite = () => {
