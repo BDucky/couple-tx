@@ -1,4 +1,4 @@
-import { FlashSale, MixAndMatch, MostPopular, NewArrival } from "@/module/Home";
+import { FlashSale, Login, MixAndMatch, MostPopular, NewArrival } from "@/module/Home";
 
 export default function Home() {
   return (
@@ -11,6 +11,8 @@ export default function Home() {
       <NewArrival></NewArrival>
       {/* Most Popular */}
       <MostPopular></MostPopular>
+      {/* Login */}
+      <Login></Login>
     </div>
   );
 }
