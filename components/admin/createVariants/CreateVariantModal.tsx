@@ -67,7 +67,7 @@ const CreateVariantModal = () => {
 
       <input
         type="submit"
-        className="p-2 text-white bg-blue-500 cursor-pointer hover:bg-blue-300"
+        className="mt-2 w-32 p-2 text-white bg-blue-500 cursor-pointer hover:bg-blue-300"
       />
     </form>
   );

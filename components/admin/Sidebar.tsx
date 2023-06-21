@@ -20,9 +20,9 @@ const Sidebar = () => {
       {
         icon: HiShoppingCart,
         label: "Orders",
-        href: "/admin/addProduct",
+        href: "/admin/order",
         onClick: undefined,
-        selected: pathname === "/admin/orders",
+        selected: pathname.includes("/admin/order"),
       },
       {
         icon: HiUser,

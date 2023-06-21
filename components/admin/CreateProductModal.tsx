@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useForm, FieldValues } from "react-hook-form";
 import Input from "./Input";
+import { LoadingOutlined } from "@ant-design/icons";
 import SelectCategory_SubCategory from "./SelectCategory_SubCategory";
 import ProductInformation from "./ProductInformation";
 import Gender from "./Gender";
@@ -10,12 +11,14 @@ import ListVariants from "./ListVariants";
 import axios from "axios";
 
 const CreateProductModal = () => {
+  const [loading, setLoading] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FieldValues>();
   const [productVariants, setProductVariants] = useState<any[]>([]);
+  const [gender, setGenderValue] = useState<any>(null);
 
   useEffect(() => {
     const data = localStorage.getItem("product_variants");
@@ -24,15 +27,18 @@ const CreateProductModal = () => {
     } else return;
   }, []);
   const onSubmitHandler = async (data: any) => {
-    console.log({ ...data, productVariants });
+    setLoading(true);
     await axios
       .post("/api/products/createProduct", { ...data, productVariants })
       .then((response) => {
+        localStorage.removeItem("product_variants");
         alert("Tạo thành công !");
+        window.location.reload();
       })
       .catch((error) => {
         alert("Tạo thất bại !");
       });
+    setLoading(false);
   };
   return (
     <form onSubmit={handleSubmit((data) => onSubmitHandler(data))}>
@@ -47,8 +53,8 @@ const CreateProductModal = () => {
         register={register}
         label="Product Name"
       />
-      <Gender register={register} />
-      <SelectCategory_SubCategory register={register} />
+      <Gender setGenderValue={setGenderValue} register={register} />
+      <SelectCategory_SubCategory gender={gender?.label} register={register} />
       <ProductInformation
         id="product_preference"
         register={register}
@@ -60,7 +66,14 @@ const CreateProductModal = () => {
         label="Product information"
       />
       <ListVariants />
-      <input type="submit" />
+      {loading ? (
+        <LoadingOutlined />
+      ) : (
+        <input
+          className="p-2 hover:opacity-70 cursor-pointer bg-green-500 text-white mt-4 w-32"
+          type="submit"
+        />
+      )}
     </form>
   );
 };

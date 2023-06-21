@@ -1,6 +1,7 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Select from "react-select";
 import { UseFormRegister, FieldValues } from "react-hook-form";
+import axios from "axios";
 
 interface OptionType {
   value: string;
@@ -9,45 +10,52 @@ interface OptionType {
 
 interface SelectCategory_SubCategoryProps {
   register: UseFormRegister<FieldValues>;
+  gender: string;
 }
 
 const SelectCategory_SubCategory: React.FC<SelectCategory_SubCategoryProps> = ({
   register,
+  gender,
 }) => {
+  const [dataAll, setDataAll] = useState<any>();
   const [category, setCategory] = useState<OptionType | null>(null);
+  const [options, setOptions] = useState<OptionType[]>([]);
   const [subCategory, setSubCategory] = useState<OptionType | null>(null);
 
-  const options = [
-    { value: "1", label: "Áo" },
-    { value: "2", label: "Quần" },
-    { label: "Phụ kiện", value: "3" },
-  ];
+  const getData = useCallback(async () => {
+    console.log(gender);
+    await axios
+      .get(`/api/category/?key=gender&value=${gender}`)
+      .then((response) => {
+        console.log(response.data);
+        const data = response.data;
+        setDataAll(data);
+        setOptions(data.map((i: any) => ({ value: i.name, label: i.name })));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [gender]);
 
   const sub_category = useMemo(() => {
     setSubCategory(null);
-    if (category?.value === "1") {
-      return [
-        { label: "Áo Khoác", value: "1" },
-        { label: "Áo Thun", value: "2" },
-        { label: "Áo Sơ-mi", value: "3" },
-        { label: "Áo Polo", value: "4" },
-        { label: "Áo Sweater", value: "5" },
-      ];
-    } else if (category?.value === "2") {
-      return [
-        { label: "Quần Ngắn", value: "6" },
-        { label: "Quần Dài", value: "7" },
-        { label: "Quần Jean", value: "8" },
-      ];
-    } else if (category?.value === "3") {
-      return [
-        { label: "Tất-Vớ", value: "9" },
-        { label: "Balo-Túi xách", value: "10" },
-        { label: "Mũ-Nón", value: "11" },
-      ];
+    if (category?.value) {
+      const selectedCategory = dataAll.find(
+        (item: any) => item.name === category.value
+      );
+      if (selectedCategory) {
+        return selectedCategory.subcategories.map((item: any) => ({
+          label: item.name,
+          value: item.name,
+        }));
+      }
     }
     return [];
-  }, [category]);
+  }, [category, dataAll]);
+
+  useEffect(() => {
+    getData();
+  }, [gender, getData]);
 
   return (
     <div className="flex gap-2 w-[100%]">
