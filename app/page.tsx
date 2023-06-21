@@ -1,3 +1,4 @@
+import Footer from "@/components/user/footer/page";
 import { FlashSale, MixAndMatch, NewArrival } from "@/module/Home";
 
 export default function Home() {
@@ -9,6 +10,8 @@ export default function Home() {
       <FlashSale></FlashSale>
       {/* New Arrival */}
       <NewArrival></NewArrival>
+      {/* Footer */}
+      <Footer></Footer>
     </div>
   );
 }
