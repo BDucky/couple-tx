@@ -2,12 +2,14 @@
 import { image } from "@/constant/Image";
 import axios from "axios";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
-const Card = ({ isNew = true, productId = 14 }) => {
+const Card = ({ isNew = true, productId = 17 }) => {
   const [product, setProduct] = useState();
   const [imageVariant, setImageVariant] = useState("");
   const [colorVariant, setColorVariant] = useState([]);
+  const [fillColor, setFillColor] = useState("none");
   const handleMouseEnter = () => {
     const image = product?.productVariants[1].images[0].imageUrl;
     setImageVariant(image);
@@ -17,13 +19,23 @@ const Card = ({ isNew = true, productId = 14 }) => {
     const image = product?.productVariants[0].images[0].imageUrl;
     setImageVariant(image);
   };
+  const handleChangeVariant = (index: number) => {
+    const image = product?.productVariants[index]?.images[0]?.imageUrl;
+    setImageVariant(image);
+  };
+  const handleFavorite = () => {
+    if (fillColor === "none") {
+      setFillColor("black");
+    } else {
+      setFillColor("none");
+    }
+  };
   useEffect(() => {
     async function getData() {
       const res = await axios.get(
         `http://localhost:3000/api/products/findById?id=${productId}`
       );
       const data = res.data;
-      console.log("data", data);
       setProduct(data);
       setColorVariant(data?.productVariants.map((item: any) => item.color));
       const image = data?.productVariants[0].images[0].imageUrl;
@@ -50,13 +62,18 @@ const Card = ({ isNew = true, productId = 14 }) => {
             New
           </span>
         )}
-        <button className="opacity-0 invisible group-hover:opacity-100 group-hover:visible absolute bottom-[10px] hover:bg-[#343a40] hover:text-white transition-all duration-300 ease-in hover:ease-out left-2/4 -translate-x-2/4 w-[300px] bg-white text-black border border-black p-2 text-sm font-semibold">
-          MUA NHANH
-        </button>
-        <span className="absolute opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 ease-in hover:ease-out top-[40px] right-[20px] p-2 bg-white rounded-full">
+        <Link href={`/products/${product?.id}`}>
+          <button className="opacity-0 invisible group-hover:opacity-100 group-hover:visible absolute bottom-[10px] hover:bg-[#343a40] hover:text-white transition-all duration-300 ease-in hover:ease-out left-2/4 -translate-x-2/4 w-[300px] bg-white text-black border border-black p-2 text-sm font-semibold">
+            MUA NHANH
+          </button>
+        </Link>
+        <span
+          onClick={handleFavorite}
+          className="absolute opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 ease-in hover:ease-out top-[40px] right-[20px] p-2 bg-white rounded-full"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            fill="none"
+            fill={fillColor}
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
@@ -92,15 +109,19 @@ const Card = ({ isNew = true, productId = 14 }) => {
               </svg>
             ))}
           </span>
-          <span>[Yêu thích 503]</span>
+          <span>[Yêu thích {product?.favorite_counters}]</span>
         </div>
         <div className="mb-2">{product?.productVariants[0]?.price} VND</div>
         <div className="flex gap-x-2">
           {colorVariant &&
-            colorVariant.map((item) => (
+            colorVariant.map((item, index) => (
               <span
                 key={item}
-                className={`w-4 h-4 border border-black rounded-full bg-[${item}]`}
+                className={`w-4 h-4 border border-black rounded-full cursor-pointer`}
+                style={{
+                  backgroundColor: item,
+                }}
+                onClick={() => handleChangeVariant(index)}
               ></span>
             ))}
         </div>

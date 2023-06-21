@@ -10,7 +10,6 @@ const LayoutCard = ({ children }: LayoutCardProps) => {
         columnGap: "24px",
         gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
         maxWidth: "1000px",
-        marginLeft: "auto",
       }}
     >
       {children}
