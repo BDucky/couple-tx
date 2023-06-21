@@ -45,10 +45,82 @@ const Footer = () => {
                             </div>
                             <div>
                                 <h3 className="border-0 p-0 mt-[30px] text-[0.8125rem] uppercase text-[#fff]">Tải app</h3>
-                                <div className="flex justify-center items-center"></div>
+                                <div className="flex justify-center items-center">
+                                    <a href="https://apps.apple.com/vn/app/coupletx/id1472013832" className="mr-[10px] text-[#fff]">
+                                        <img src="https://theme.hstatic.net/1000184601/1000882765/14/app-store.svg?v=5116" alt="" className="mw-100" />
+                                    </a>
+                                    <a href="https://apps.apple.com/vn/app/coupletx/id1472013832" className="mr-[10px] text-[#fff]">
+                                        <img src="https://theme.hstatic.net/1000184601/1000882765/14/google-play.svg?v=5116" alt="" className="mw-100" />
+                                    </a>
+                                    <a href="https://apps.apple.com/vn/app/coupletx/id1472013832" className="mr-[10px] text-[#fff] max-w-[120px]">
+                                        <img src="https://file.hstatic.net/1000300454/file/logo_bct_019590229b4c4dfda690236b67f7aff4.png" alt="" className="mw-100" />
+                                    </a>
+                                </div>
                             </div>
                         </div>
+                        <div className="table-cell w-[15%] p-[1.125rem] tracking-[0.2em]">
+                            <h3 className="p-0 mt-0 border-0 text-[0.8125rem] text-[#fff] uppercase">
+                                Khám phá
+                                <span className="text-[#fff]"></span>
+                            </h3>
+                            <ul className="block w-[100%] mt-[1em] mb-[1em] list-none">
+                                <li>
+                                    <a href="" className="block text-[15px] pt-[3px] pb-[3px] m-0 tracking-[0.3em] text-[#fff] font-400 capitalize">Áo khoác</a>
+                                </li>
+                                <li>
+                                    <a href="" className="block text-[15px] pt-[3px] pb-[3px] m-0 tracking-[0.3em] text-[#fff] font-400 capitalize">Áo thun</a>
+                                </li>
+                                <li>
+                                    <a href="" className="block text-[15px] pt-[3px] pb-[3px] m-0 tracking-[0.3em] text-[#fff] font-400 capitalize">Áo Polo</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div className="table-cell w-[15%] p-[1.125rem] tracking-[0.2em]">
+                            <h3 className="p-0 mt-0 border-0 text-[0.8125rem] text-[#fff] uppercase">
+                                Về Couple TX
+                                <span className="text-[#fff]"></span>
+                            </h3>
+                            <ul className="block w-[100%] mt-[1em] mb-[1em] list-none">
+                                <li>
+                                    <a href="" className="block text-[15px] pt-[3px] pb-[3px] m-0 tracking-[0.3em] text-[#fff] font-400 capitalize">Giới thiệu</a>
+                                </li>
+                                <li>
+                                    <a href="" className="block text-[15px] pt-[3px] pb-[3px] m-0 tracking-[0.3em] text-[#fff] font-400 capitalize">Blog</a>
+                                </li>
+                                <li>
+                                    <a href="" className="block text-[15px] pt-[3px] pb-[3px] m-0 tracking-[0.3em] text-[#fff] font-400 capitalize">Điều khoản sử dụng</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div className="table-cell w-[15%] p-[1.125rem] tracking-[0.2em]">
+                            <h3 className="p-0 mt-0 border-0 text-[0.8125rem] text-[#fff] uppercase">
+                                Tài khoản
+                                <span className="text-[#fff]"></span>
+                            </h3>
+                            <ul className="block w-[100%] mt-[1em] mb-[1em] list-none">
+                                <li>
+                                    <a href="" className="block text-[15px] pt-[3px] pb-[3px] m-0 tracking-[0.3em] text-[#fff] font-400 capitalize">Đăng nhập/Đăng ký</a>
+                                </li>
+                                <li>
+                                    <a href="" className="block text-[15px] pt-[3px] pb-[3px] m-0 tracking-[0.3em] text-[#fff] font-400 capitalize">Lịch sử mua hàng</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div className="table-cell w-[15%] p-[1.125rem] tracking-[0.2em]">
+                            <h3 className="p-0 mt-0 border-0 text-[0.8125rem] text-[#fff] uppercase">
+                                Hỗ trợ khách hàng
+                                <span className="text-[#fff]"></span>
+                            </h3>
+                            <ul className="block w-[100%] mt-[1em] mb-[1em] list-none">
+                                <li>
+                                    <a href="" className="block text-[15px] pt-[3px] pb-[3px] m-0 tracking-[0.3em] text-[#fff] font-400 capitalize">Chính sách đổi trả</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
+                </div>
+                <div>
+                    <div className="text-center pt-[16px] pb-[14px]"></div>
                 </div>
             </div>
         </footer>
