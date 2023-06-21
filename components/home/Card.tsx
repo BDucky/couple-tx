@@ -46,47 +46,50 @@ const Card = ({ isNew = true, productId = 17 }) => {
   }, []);
   return (
     <div className="flex flex-col items-start gap-y-2">
-      <Link href={`/products/${product?.id}`}>
-        <div
-          className="relative cursor-pointer group"
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
-          <Image
-            src={imageVariant || image.DEFAULT}
-            alt="product"
-            width={330}
-            height={440}
-          />
-          {isNew && (
-            <span className="absolute p-1 italic bg-white text-xs text-gray-500 top-[10px] left-[10px]">
-              New
-            </span>
-          )}
-          <button className="opacity-0 invisible group-hover:opacity-100 group-hover:visible absolute bottom-[10px] hover:bg-[#343a40] hover:text-white transition-all duration-300 ease-in hover:ease-out left-2/4 -translate-x-2/4 w-[300px] bg-white text-black border border-black p-2 text-sm font-semibold">
-            MUA NHANH
-          </button>
-          <span
-            onClick={handleFavorite}
-            className="absolute opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 ease-in hover:ease-out top-[40px] right-[20px] p-2 bg-white rounded-full"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill={fillColor}
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
-              />
-            </svg>
+      <div
+        className="relative cursor-pointer group"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <Link href={`/products/${product?.id}`}>
+          <div className="max-w-[330px]">
+            <Image
+              src={imageVariant || image.DEFAULT}
+              alt="product"
+              width={330}
+              height={440}
+              className="object-contain w-full h-full"
+            />
+          </div>
+        </Link>
+        {isNew && (
+          <span className="absolute p-1 italic bg-white text-xs text-gray-500 top-[10px] left-[10px]">
+            New
           </span>
-        </div>
-      </Link>
+        )}
+        <button className="opacity-0 invisible group-hover:opacity-100 group-hover:visible absolute bottom-[10px] hover:bg-[#343a40] hover:text-white transition-all duration-300 ease-in hover:ease-out left-2/4 -translate-x-2/4 w-[300px] bg-white text-black border border-black p-2 text-sm font-semibold">
+          MUA NHANH
+        </button>
+        <span
+          onClick={handleFavorite}
+          className="absolute opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 ease-in hover:ease-out top-[40px] right-[20px] p-2 bg-white rounded-full"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill={fillColor}
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+            />
+          </svg>
+        </span>
+      </div>
       <div>
         <Link href={`/products/${product?.id}`}>
           <h1 className="text-base w-[330px]">{product?.product_name}</h1>
