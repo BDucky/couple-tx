@@ -1,3 +1,5 @@
+import { Card } from "@/components/home";
+import LayoutCard from "@/layout/LayoutCard";
 import Footer from "@/components/user/footer/page";
 import { FlashSale, MixAndMatch, NewArrival } from "@/module/Home";
 
