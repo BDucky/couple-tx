@@ -5,6 +5,7 @@ import { CardLoadingSkeleton } from "@/components/home/Card";
 import LayoutCard from "@/layout/LayoutCard";
 import axios from "axios";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useState, useEffect } from "react";
 
 const NewArrival = () => {
