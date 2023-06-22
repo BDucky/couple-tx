@@ -66,7 +66,7 @@ const Card = ({ isNew = true, productId = 17 }) => {
         onMouseLeave={handleMouseLeave}
       >
         <Link href={`/products/${productId}`}>
-          <div className="w-[330px] h-[440px] ">
+          <div className="w-[330px] h-[440px]">
             <Image
               src={imageVariant || image.DEFAULT}
               alt="product"
