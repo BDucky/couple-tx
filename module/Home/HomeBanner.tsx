@@ -4,7 +4,7 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 const HomeBanner = () => {
     return (
-        <div className="mb-[120px] p-0 mt-0 m-auto">
+        <div className="mb-[120px] p-0 mt-0 m-auto max-w-[90rem] h-[100%]">
             <div className="relative touch-pan-y select-none">
                 <Carousel
                     showThumbs={false}
