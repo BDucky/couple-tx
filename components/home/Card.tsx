@@ -65,15 +65,18 @@ const Card = ({ isNew = true, productId = 17 }) => {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <div className="w-[330px] h-[440px]">
-          <Image
-            src={imageVariant || image.DEFAULT}
-            alt="product"
-            width={330}
-            height={440}
-            className="object-cover w-full h-full"
-          />
-        </div>
+        <Link href={`/products/${productId}`}>
+          <div className="w-[330px] h-[440px]">
+            <Image
+              src={imageVariant || image.DEFAULT}
+              alt="product"
+              width={330}
+              height={440}
+              className="object-cover w-full h-full"
+            />
+          </div>
+        </Link>
+
         {isNew && (
           <span className="absolute p-1 italic bg-white text-xs text-gray-500 top-[10px] left-[10px]">
             New
@@ -104,7 +107,7 @@ const Card = ({ isNew = true, productId = 17 }) => {
         </span>
       </div>
       <div>
-        <Link href={`/products/${product?.id}`}>
+        <Link href={`/products/${productId}`}>
           <h1 className="text-base w-[330px]">{product?.product_name}</h1>
         </Link>
         <div className="flex flex-wrap items-center gap-x-2">
