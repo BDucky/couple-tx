@@ -16,10 +16,6 @@ const Card = ({ isNew = true, productId = 17 }) => {
     const image = product?.productVariants[1]?.images[0]?.imageUrl;
     setImageVariant(image);
   };
-  const handleChangeVariant = (index: number) => {
-    const image = product?.productVariants[index]?.images[0]?.imageUrl;
-    setImageVariant(image);
-  };
   const handleFavorite = async () => {
     if (fillColor === "none") {
       setFillColor("black");
@@ -44,6 +40,10 @@ const Card = ({ isNew = true, productId = 17 }) => {
     const image = product?.productVariants[0].images[0].imageUrl;
     setImageVariant(image);
   };
+  const handleChangeVariant = (index: number) => {
+    const image = product?.productVariants[index].images[0].imageUrl;
+    setImageVariant(image);
+  };
   useEffect(() => {
     async function getData() {
       const res = await axios.get(
@@ -51,7 +51,6 @@ const Card = ({ isNew = true, productId = 17 }) => {
       );
       const data = res.data;
       setProduct(data);
-      setFavorite(data.favorite_counters);
       setColorVariant(data.productVariants.map((item: any) => item.color));
       const image = data.productVariants[0].images[0].imageUrl;
       setImageVariant(image);
@@ -66,17 +65,15 @@ const Card = ({ isNew = true, productId = 17 }) => {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <Link href={`/products/${product?.id}`}>
-          <div className="w-[330px] h-[440px]">
-            <Image
-              src={imageVariant || image.DEFAULT}
-              alt="product"
-              width={330}
-              height={440}
-              className="object-cover w-full h-full"
-            />
-          </div>
-        </Link>
+        <div className="w-[330px] h-[440px]">
+          <Image
+            src={imageVariant || image.DEFAULT}
+            alt="product"
+            width={330}
+            height={440}
+            className="object-cover w-full h-full"
+          />
+        </div>
         {isNew && (
           <span className="absolute p-1 italic bg-white text-xs text-gray-500 top-[10px] left-[10px]">
             New
@@ -130,7 +127,7 @@ const Card = ({ isNew = true, productId = 17 }) => {
               </svg>
             ))}
           </span>
-          <span>[Yêu thích {favorite}]</span>
+          <span>[Yêu thích 503]</span>
         </div>
         <div className="mb-2">{product?.productVariants[0]?.price} VND</div>
         <div className="flex gap-x-2">

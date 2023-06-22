@@ -10,7 +10,6 @@ export default function Home() {
       <MixAndMatch></MixAndMatch>
       {/* Flash Sale */}
       <FlashSale></FlashSale>
-
       {/* New Arrival */}
       <NewArrival></NewArrival>
       {/* Footer */}
