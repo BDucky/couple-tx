@@ -1,10 +1,11 @@
 "use client";
 import { Carousel } from "react-responsive-carousel";
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import CategoryBanner from "./CategoryBanner";
 
 const HomeBanner = () => {
     return (
-        <div className="mb-[120px] p-0 mt-0 m-auto max-w-[90rem] h-[100%]">
+        <div className="p-0 mt-0 m-auto max-w-[90rem] h-[100%]">
             <div className="relative touch-pan-y select-none">
                 <Carousel
                     showThumbs={false}
@@ -27,6 +28,26 @@ const HomeBanner = () => {
                         <img src="/image/banner_4.webp" alt="banner_4" />
                     </div>
                 </Carousel>
+            </div>
+            <div className="flex">
+                <div className="w-[33%] pr-[0.75rem]">
+                    <CategoryBanner
+                        img="/image/cate_1.webp"
+                        descriptions="Thể hiện phong cách năng động và phóng khoáng trong BST mới nhất."
+                        category="Men"></CategoryBanner>
+                </div>
+                <div className="w-[33%] pr-[0.75rem]">
+                    <CategoryBanner
+                        img="/image/cate_2.jpg"
+                        descriptions="Thể hiện phong cách năng động và phóng khoáng trong BST mới nhất."
+                        category="Men"></CategoryBanner>
+                </div>
+                <div className="w-[33%] pr-[0.75rem]">
+                    <CategoryBanner
+                        img="/image/cate_3.webp"
+                        descriptions="Thể hiện phong cách năng động và phóng khoáng trong BST mới nhất."
+                        category="Men"></CategoryBanner>
+                </div>
             </div>
         </div>
     )
