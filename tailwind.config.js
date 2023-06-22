@@ -19,6 +19,9 @@ module.exports = {
         Be: "#dccab1",
         greenR: "#41855b",
       },
+      backgroundColor: {
+        black: "#111"
+      }
     },
   },
   plugins: [],

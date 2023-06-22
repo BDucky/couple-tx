@@ -2,9 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-li {
+/* li {
   list-style: disc !important;
-}
+} */
 
 .container {
   max-width: 1440px;
