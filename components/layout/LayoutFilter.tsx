@@ -1,14 +1,11 @@
 import React from "react";
 import Filter from "../Filter";
 import LayoutCard from "./LayoutCard";
-import Card from "../home/Card";
-import dynamic from "next/dynamic";
 import Providers from "../Provider";
+import ColorItem from "../ColorItem";
+import { Card } from "../home";
 
 const LayoutFilter = async () => {
-  const ColorItem = dynamic(() => import("../ColorItem"), {
-    ssr: false,
-  });
   const products = await getProduct();
   return (
     <div className="flex items-start !mb-10 gap-x-3">

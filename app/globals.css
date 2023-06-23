@@ -31,3 +31,13 @@
   content: "";
   @apply absolute w-8 h-8 p-4 bg-transparent border border-black rounded-full;
 }
+
+.scrollBar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollBar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
