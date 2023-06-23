@@ -2,6 +2,7 @@
 import { Carousel } from "react-responsive-carousel";
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import CategoryBanner from "./CategoryBanner";
+import SortBtn from "./Sort";
 
 const HomeBanner = () => {
     return (
@@ -49,6 +50,7 @@ const HomeBanner = () => {
                         category="Men"></CategoryBanner>
                 </div>
             </div>
+            <SortBtn></SortBtn>
         </div>
     )
 }
