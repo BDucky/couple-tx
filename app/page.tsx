@@ -1,7 +1,8 @@
 
+
 import Footer from "@/components/user/footer/page";
-import { FlashSale, MixAndMatch, NewArrival, MostPopular, HidenGame, Login } from "@/module/Home";
-import HidenGem from "@/module/Home/HidenGem";
+import { FlashSale, MixAndMatch, NewArrival, MostPopular, Login } from "@/module/Home";
+import HiddenGem from "@/module/Home/HidenGem";
 import HomeBanner from "@/module/Home/HomeBanner";
 
 export default function Home() {
@@ -18,7 +19,7 @@ export default function Home() {
       {/* Most Popular */}
       <MostPopular></MostPopular>
       {/* Hiden Gem */}
-      <HidenGem></HidenGem>
+      <HiddenGem></HiddenGem>
       {/* Login */}
       <Login></Login>
       {/* Footer */}

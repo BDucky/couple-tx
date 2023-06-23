@@ -32,7 +32,6 @@ const NewArrival = () => {
           >
             Shop Now
           </button>
-
         </div>
       </div>
     </div>
