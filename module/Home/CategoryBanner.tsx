@@ -11,7 +11,7 @@ const CategoryBanner = ({ img, category, descriptions }: CategoryBannerProps) =>
                 <p className="mb-[0.5rem] font-normal text-[1rem] tracking-[0.03em] leading-[1.4]">{descriptions}</p>
                 <div className="flex text-[1.25rem] tracking-[0.04em] font-bold items-center uppercase">
                     {category}
-                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="100%" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M192 128l128 128-128 128z"></path></svg>
+                    <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" height="100%" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M192 128l128 128-128 128z"></path></svg>
                 </div>
             </a>
         </div>
