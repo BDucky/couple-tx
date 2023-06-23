@@ -8,7 +8,7 @@ const Filter = () => {
   const dispatch = useAppDispatch();
   const colors = useAppSelector((state: any) => state.filterReducer.colors);
   const userColors = filterColors.map((item) => item.vnColor);
-  const handleChangeColor = (color: string) => {
+  const handleActiveColor = (color: string) => {
     if (colors.length < userColors.length && !colors.includes(color)) {
       dispatch(filterColor(color));
     }
@@ -23,9 +23,9 @@ const Filter = () => {
             {filterColors &&
               filterColors.map((item) => (
                 <div
-                  onClick={() => handleChangeColor(item.enColor)}
+                  onClick={() => handleActiveColor(item.enColor)}
                   key={item.enColor}
-                  className="mb-2 border border-black rounded-full cursor-pointer w-7 h-7"
+                  className="mb-2 border border-black rounded-full cursor-pointer w-7 h-7 "
                   style={{
                     backgroundColor: item.enColor,
                   }}
