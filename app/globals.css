@@ -22,3 +22,12 @@
   background-size: 200% 100%;
   animation: 1.5s shine linear infinite;
 }
+
+.color-outline {
+  @apply relative flex items-center justify-center;
+}
+
+.color-outline::after {
+  content: "";
+  @apply absolute w-8 h-8 p-4 bg-transparent border border-black rounded-full;
+}

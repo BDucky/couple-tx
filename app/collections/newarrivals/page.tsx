@@ -1,9 +1,8 @@
 import Providers from "@/components/Provider";
 import LayoutFilter from "@/components/layout/LayoutFilter";
 import Image from "next/image";
-import React from "react";
 
-const NewArrival = () => {
+const Page = () => {
   return (
     <div className="container px-[24px]">
       <div className="flex items-center !mb-10 gap-x-12">
@@ -33,4 +32,4 @@ const NewArrival = () => {
   );
 };
 
-export default NewArrival;
+export default Page;

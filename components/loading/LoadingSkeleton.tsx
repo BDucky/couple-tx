@@ -1,4 +1,4 @@
-const LoadingSkeleton = ({ className }) => {
+const LoadingSkeleton = ({ className }: { className: string }) => {
   return <div className={`skeleton ${className}`}></div>;
 };
 

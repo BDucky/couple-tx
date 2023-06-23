@@ -16,10 +16,13 @@ export const filterSlice = createSlice({
     filterColor: (state, action: PayloadAction<string>) => {
       state.colors = [...state.colors, action.payload];
     },
+    deleteFilterColor: (state, action: PayloadAction<string>) => {
+      state.colors = state.colors.filter((color) => color !== action.payload);
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { filterColor } = filterSlice.actions;
+export const { filterColor, deleteFilterColor } = filterSlice.actions;
 
 export default filterSlice.reducer;
