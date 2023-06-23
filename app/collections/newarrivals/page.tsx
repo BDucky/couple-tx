@@ -1,24 +1,8 @@
-"use client";
-import Filter from "@/components/Filter";
-import { Card } from "@/components/home";
-import { CardLoadingSkeleton } from "@/components/home/Card";
-import LayoutCard from "@/layout/LayoutCard";
-import axios from "axios";
+import Providers from "@/components/Provider";
+import LayoutFilter from "@/components/layout/LayoutFilter";
 import Image from "next/image";
-import Link from "next/link";
-import React, { useState, useEffect } from "react";
 
-const NewArrival = () => {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    async function getData() {
-      const res = await axios.get("http://localhost:3000/api/products/filter");
-      setProducts(res?.data);
-      setLoading(false);
-    }
-    getData();
-  }, []);
+const Page = () => {
   return (
     <div className="container px-[24px]">
       <div className="flex items-center !mb-10 gap-x-12">
@@ -41,29 +25,11 @@ const NewArrival = () => {
           </p>
         </div>
       </div>
-      <div className="flex items-start !mb-10 gap-x-3">
-        <div>
-          <Filter></Filter>
-        </div>
-        {loading && (
-          <LayoutCard>
-            {new Array(6).fill(null).map((item, index) => (
-              <CardLoadingSkeleton key={index}></CardLoadingSkeleton>
-            ))}
-          </LayoutCard>
-        )}
-        {!loading && (
-          <LayoutCard>
-            {products &&
-              products.length > 0 &&
-              products.map((product) => (
-                <Card key={product.product_name} productId={product.id}></Card>
-              ))}
-          </LayoutCard>
-        )}
-      </div>
+      <Providers>
+        <LayoutFilter></LayoutFilter>
+      </Providers>
     </div>
   );
 };
 
-export default NewArrival;
+export default Page;
