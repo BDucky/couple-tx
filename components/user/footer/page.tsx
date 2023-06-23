@@ -3,7 +3,7 @@
 const Footer = () => {
     return (
         <footer>
-            <div className="bg-[#111] tracking-[1px] mx-auto my-0 p-0 w-100">
+            <div className="bg-[#111] tracking-[1px] mx-auto my-0 p-0 w-100 max-w-[90rem]">
                 <div className="table m-auto w-[calc(100%-40px)] max-w-[1280px] border-b-[1px] border-solid border-[#fff]">
                     <div className="flex justify-around my-[23px] mx-auto max-w-[950px] items-center">
                         <div>
