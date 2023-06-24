@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useCallback, useEffect, useState } from "react";
 import ImageUpload from "./ImageUpload";
 import Image from "next/image";
@@ -41,7 +43,8 @@ const ImageUploadWrapper: React.FC<IImageUploadWrapperProps> = ({
         <ImageUpload onChange={handleChange} />
         {state.length > 0 &&
           state.map((link: any, index) => (
-            <Image width={200} height={200} key={index} src={link} alt="" />
+            // eslint-disable-next-line @next/next/no-img-element
+            <img width={200} height={200} key={index} src={link} alt="" />
           ))}
       </div>
       <p

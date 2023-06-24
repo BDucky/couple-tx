@@ -9,13 +9,53 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
     const searchParams = new URLSearchParams(search || "");
     const key = searchParams.get("key") as string;
     const value = searchParams.get("value") as string;
-    const color = searchParams.get("color") as string;
-    const size = searchParams.get("size") as string;
-    const gender = searchParams.get("gender") as string;
+    const color = searchParams.getAll("color") as string[];
+    const size = searchParams.getAll("size") as string[];
+    const gender = searchParams.getAll("gender") as string[];
     const price = searchParams.get("price") as string;
 
     if (!key) {
       const products = await prisma.products.findMany({
+        where: {
+          AND: [
+            color.length > 0
+              ? {
+                  productVariants: {
+                    some: {
+                      color: {
+                        in: color,
+                      },
+                    },
+                  },
+                }
+              : {},
+            size.length > 0
+              ? {
+                  productVariants: {
+                    some: {
+                      size: {
+                        some: {
+                          name_size: {
+                            in: size,
+                          },
+                        },
+                      },
+                    },
+                  },
+                }
+              : {},
+
+            gender.length > 0
+              ? {
+                  genders: {
+                    name: {
+                      in: gender,
+                    },
+                  },
+                }
+              : {},
+          ],
+        },
         include: {
           rates: {
             include: {
@@ -29,6 +69,25 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
           },
         },
       });
+      if (price) {
+        console.log("price");
+
+        let res;
+        if (parseInt(price) === 1) {
+          res = products.filter((product) =>
+            product.productVariants.some((item) => item.price < 300000)
+          );
+        } else if (parseInt(price) === 2) {
+          res = products.filter((product) =>
+            product.productVariants.some((item) => item.price < 500000)
+          );
+        } else if (parseInt(price) === 3) {
+          res = products.filter((product) =>
+            product.productVariants.some((item) => item.price > 500000)
+          );
+        }
+        return NextResponse.json(res);
+      }
       return NextResponse.json(products);
     }
 
@@ -45,7 +104,11 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
                   images: true,
                 },
               },
-              productVariants: true,
+              productVariants: {
+                include: {
+                  images: true,
+                },
+              },
             },
           },
         },
@@ -74,115 +137,86 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
           },
         },
       });
+
       if (category) {
-        if (color) {
-          const products = await prisma.products.findMany({
-            where: {
-              category_id: category.id,
-              AND: [
-                {
-                  productVariants: {
-                    some: {
-                      color: color,
-                    },
-                  },
-                },
-              ],
-            },
-            include: {
-              rates: {
-                include: {
-                  images: true,
-                },
-              },
-              productVariants: {
-                include: {
-                  images: true,
-                },
-              },
-            },
-          });
-          return NextResponse.json(products);
-        }
-        if (size) {
-          const products = await prisma.products.findMany({
-            where: {
-              category_id: category.id,
-              AND: [
-                {
-                  productVariants: {
-                    some: {
-                      size: {
-                        some: {
-                          name_size: size,
+        const products = await prisma.products.findMany({
+          where: {
+            subcategory_id: category.id,
+            AND: [
+              color.length > 0
+                ? {
+                    productVariants: {
+                      some: {
+                        color: {
+                          in: color,
                         },
                       },
                     },
-                  },
-                },
-              ],
-            },
-            include: {
-              rates: {
-                include: {
-                  images: true,
-                },
+                  }
+                : {},
+              size.length > 0
+                ? {
+                    productVariants: {
+                      some: {
+                        size: {
+                          some: {
+                            name_size: {
+                              in: size,
+                            },
+                          },
+                        },
+                      },
+                    },
+                  }
+                : {},
+              gender.length > 0
+                ? {
+                    genders: {
+                      name: {
+                        in: gender,
+                      },
+                    },
+                  }
+                : {},
+            ],
+          },
+          include: {
+            rates: {
+              include: {
+                images: true,
               },
-              productVariants: {
-                include: {
-                  images: true,
-                },
+            },
+            productVariants: {
+              include: {
+                images: true,
               },
             },
-          });
-          return NextResponse.json(products);
-        }
+          },
+        });
+
         if (price) {
-          let products = category.products;
+          console.log("price");
+
           let res;
           if (parseInt(price) === 1) {
             res = products.filter((product) =>
-              product.productVariants.filter((item) => item.price < 300000)
+              product.productVariants.some((item) => item.price < 300000)
             );
-          }
-          if (parseInt(price) === 2) {
+          } else if (parseInt(price) === 2) {
             res = products.filter((product) =>
-              product.productVariants.filter((item) => item.price < 500000)
+              product.productVariants.some((item) => item.price < 500000)
             );
-          }
-          if (parseInt(price) === 3) {
+          } else if (parseInt(price) === 3) {
             res = products.filter((product) =>
-              product.productVariants.filter((item) => item.price > 500000)
+              product.productVariants.some((item) => item.price > 500000)
             );
           }
           return NextResponse.json(res);
         }
-        if (gender) {
-          const products = await prisma.products.findMany({
-            where: {
-              category_id: category.id,
-              genders: {
-                name: gender,
-              },
-            },
-            include: {
-              rates: {
-                include: {
-                  images: true,
-                },
-              },
-              productVariants: {
-                include: {
-                  images: true,
-                },
-              },
-            },
-          });
 
-          return NextResponse.json(products);
-        }
+        return NextResponse.json(products);
       }
-      return NextResponse.json(category?.products);
+      return NextResponse.json(category);
     }
 
     let products;
@@ -199,29 +233,42 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
             lte: currentDate,
           },
           AND: [
-            {
-              productVariants: {
-                some: {
-                  color: color ? color : undefined,
-                },
-              },
-            },
-            {
-              productVariants: {
-                some: {
-                  size: {
+            color.length > 0
+              ? {
+                  productVariants: {
                     some: {
-                      name_size: size ? size : undefined,
+                      color: {
+                        in: color,
+                      },
                     },
                   },
-                },
-              },
-            },
-            {
-              genders: {
-                name: gender ? gender : undefined,
-              },
-            },
+                }
+              : {},
+            size.length > 0
+              ? {
+                  productVariants: {
+                    some: {
+                      size: {
+                        some: {
+                          name_size: {
+                            in: size,
+                          },
+                        },
+                      },
+                    },
+                  },
+                }
+              : {},
+
+            gender.length > 0
+              ? {
+                  genders: {
+                    name: {
+                      in: gender,
+                    },
+                  },
+                }
+              : {},
           ],
         },
         include: {
@@ -259,135 +306,7 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
       }
       return NextResponse.json(products);
     }
-    if (key === "color") {
-      products = await prisma.products.findMany({
-        where: {
-          productVariants: {
-            some: {
-              color: value,
-            },
-          },
-        },
-        include: {
-          rates: {
-            include: {
-              images: true,
-            },
-          },
-          productVariants: {
-            include: {
-              images: true,
-            },
-          },
-        },
-      });
-    } else if (key === "size") {
-      products = await prisma.products.findMany({
-        where: {
-          productVariants: {
-            some: {
-              size: {
-                some: {
-                  name_size: value,
-                },
-              },
-            },
-          },
-        },
-        include: {
-          productVariants: {
-            include: {
-              images: true,
-            },
-          },
-        },
-      });
-    } else if (key === "gender") {
-      products = await prisma.products.findMany({
-        where: {
-          genders: {
-            name: value,
-          },
-          AND: [
-            {
-              productVariants: {
-                some: {
-                  color: color ? color : undefined,
-                },
-              },
-            },
-            {
-              productVariants: {
-                some: {
-                  size: {
-                    some: {
-                      name_size: size ? size : undefined,
-                    },
-                  },
-                },
-              },
-            },
-          ],
-        },
-        include: {
-          productVariants: {
-            include: {
-              images: true,
-            },
-          },
-        },
-      });
-      if (price) {
-        let product = products;
-        let res;
-        if (parseInt(price) === 1) {
-          res = product.filter((product) =>
-            product.productVariants.filter((item) => item.price < 300000)
-          );
-        }
-        if (parseInt(price) === 2) {
-          res = product.filter((product) =>
-            product.productVariants.filter((item) => item.price < 500000)
-          );
-        }
-        if (parseInt(price) === 3) {
-          res = product.filter((product) =>
-            product.productVariants.filter((item) => item.price > 500000)
-          );
-        }
-        return NextResponse.json(res);
-      }
-    } else if (key === "price") {
-      let priceCondition;
-      if (parseInt(value) === 1) {
-        priceCondition = { lt: 300000 };
-      } else if (parseInt(value) === 2) {
-        priceCondition = { lt: 500000 };
-      } else if (parseInt(value) === 3) {
-        priceCondition = { gt: 500000 };
-      } else {
-        return NextResponse.json({ error: "Invalid value" });
-      }
 
-      products = await prisma.products.findMany({
-        where: {
-          productVariants: {
-            some: {
-              price: priceCondition,
-            },
-          },
-        },
-        include: {
-          productVariants: {
-            include: {
-              images: true,
-            },
-          },
-        },
-      });
-    } else {
-      return NextResponse.json({ error: "Invalid key" });
-    }
     return NextResponse.json(products);
   }
 }
