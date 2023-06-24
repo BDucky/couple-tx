@@ -4,7 +4,7 @@ export const filterColors = [
     vnColor: "Đen",
   },
   {
-    enColor: "#cccccc",
+    enColor: "gray",
     vnColor: "Xám",
   },
   {
@@ -12,15 +12,15 @@ export const filterColors = [
     vnColor: "Trắng",
   },
   {
-    enColor: "#e20fbf",
+    enColor: "pink",
     vnColor: "Hồng",
   },
   {
-    enColor: "#9d0af0",
+    enColor: "purple",
     vnColor: "Tím",
   },
   {
-    enColor: "#f0ea0a",
+    enColor: "yellow",
     vnColor: "Vàng",
   },
   {
@@ -29,6 +29,10 @@ export const filterColors = [
   },
   {
     enColor: "blue",
+    vnColor: "Xanh",
+  },
+  {
+    enColor: "orange",
     vnColor: "Cam",
   },
 ];

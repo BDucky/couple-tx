@@ -52,7 +52,7 @@ const EditProduct = () => {
   }, [getData]);
   return (
     <Layout>
-      <div className="p-2">
+      <div className="p-2 bg-[#fff] m-3">
         <Input
           data={product?.product_name}
           register={register}
@@ -82,10 +82,24 @@ const EditProduct = () => {
         />
         <ListVariants />
         <div
-          onClick={handleSubmit((data) =>
-            console.log({ ...data, productVariants })
-          )}
-          className="p-2 bg-blue-500 text-white hover:opacity-70 cursor-pointer"
+          onClick={handleSubmit((data) => {
+            const handleUpdate = async () => {
+              await axios
+                .post("/api/products/update", {
+                  ...data,
+                  product_id: id,
+                  productVariants,
+                })
+                .then(() => {
+                  alert("Updated");
+                })
+                .catch((error) => {
+                  alert("Error");
+                });
+            };
+            handleUpdate();
+          })}
+          className="p-2 inline-block bg-blue-500 text-white hover:opacity-70 cursor-pointer"
         >
           Submit
         </div>
