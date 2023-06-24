@@ -1,4 +1,15 @@
+import { ReactNode } from "react";
+
 export interface HomeButtonProps {
   title: string;
   className?: string;
+}
+export interface LayoutCardProps {
+  children: ReactNode;
+}
+
+export interface CategoryBannerProps {
+  img: string;
+  category: string;
+  descriptions: string;
 }
