@@ -57,17 +57,17 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
         <div className=" font-semibold">
           <div
             onClick={() => handleLink("/admin/products")}
-            className={` hover:text-[#4369c9] hover:bg-[#fff] text-[#fff] p-2 pl-10 mt-2 ${
+            className={`${
               path[path.length - 1] === "products" &&
-              "bg-cyan-100 text-[#4369c9]"
-            } cursor-pointer`}
+              "bg-cyan-100 text-blue-500"
+            } hover:text-[#4369c9] hover:bg-[#fff] text-[#fff] p-2 pl-10 mt-2  cursor-pointer`}
           >
             Product list
           </div>
           <div
             className={` hover:text-[#4369c9] hover:bg-[#fff] text-[#fff] p-2 pl-10 mt-2 ${
               path[path.length - 1] === "addProduct" &&
-              "bg-cyan-100 text-[#4369c9]"
+              "bg-cyan-100 text-blue-500"
             } cursor-pointer`}
             onClick={() => handleLink("/admin/products/addProduct")}
           >
