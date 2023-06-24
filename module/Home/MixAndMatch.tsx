@@ -3,6 +3,7 @@ import Image from "next/image";
 import HomeButton from "./HomeButton";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Link from "next/link";
 
 const MixAndMatch = () => {
   const [products, setProducts] = useState([]);
@@ -22,16 +23,18 @@ const MixAndMatch = () => {
       <HomeButton title="SHOP NOW"></HomeButton>
       <div className="grid grid-cols-4 gap-x-12 mt-8 mb-[34px]">
         {products &&
-          products.map((item) => (
-            <div key={item} className="max-h-[409px]">
-              <Image
-                src={item?.productVariants[0].images[0].imageUrl}
-                alt="mixandmatch"
-                width={330}
-                height={440}
-                className="object-contain w-full h-full"
-              />
-            </div>
+          products.map((item: any) => (
+            <Link key={item} href={`/products/${item?.id}`}>
+              <div className="max-h-[409px]">
+                <Image
+                  src={item?.productVariants[0].images[0].imageUrl}
+                  alt="mixandmatch"
+                  width={330}
+                  height={440}
+                  className="object-contain w-full h-full cursor-pointer"
+                />
+              </div>
+            </Link>
           ))}
       </div>
     </div>
