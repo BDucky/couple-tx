@@ -13,9 +13,12 @@ const ProductInfo = ({ content, title = "" }: any) => {
     <div className="flex flex-col gap-y-3 max-w-[380px] w-full mb-2">
       <div>
         <div className="h-[0.9px] bg-gray-700 mb-4"></div>
-        <div className="flex items-center justify-between mb-3 px-3">
+        <div
+          onClick={handleCloseTab}
+          className="flex items-center justify-between mb-3 px-3 cursor-pointer"
+        >
           <span className="font-semibold text-[14px]">{title}</span>
-          <span className="cursor-pointer" onClick={handleCloseTab}>
+          <span>
             {icon ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
