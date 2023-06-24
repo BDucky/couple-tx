@@ -96,11 +96,11 @@ const ProductSideBar = ({ product }: any) => {
       <div className="mb-3 text-xs">
         <strong>MÀU SẮC:</strong> {product.productVariants[0].color}
       </div>
-      <div className="flex gap-x-3 mb-3">
+      <div className="flex mb-3 gap-x-3">
         {product.productVariants.map((item: any, index: number) => (
           <div
             key={item.id}
-            className="rounded-full border border-black w-10 h-10 cursor-pointer"
+            className="w-10 h-10 border border-black rounded-full cursor-pointer"
             style={{
               backgroundColor: product.productVariants[index].color,
             }}
@@ -110,11 +110,11 @@ const ProductSideBar = ({ product }: any) => {
       <div className="mb-3 text-xs">
         <strong>SIZE:</strong> CHỌN SIZE
       </div>
-      <div className="flex gap-x-3 ml-1 mb-3">
+      <div className="flex mb-3 ml-1 gap-x-3">
         {product.productVariants[0].size.map((item: any, index: number) => (
           <div
             key={item.id}
-            className="px-8 py-2 border border-gray-400 text-xs"
+            className="px-8 py-2 text-xs border border-gray-400"
           >
             {item.name_size}
           </div>
@@ -122,17 +122,17 @@ const ProductSideBar = ({ product }: any) => {
       </div>
       <div className="flex gap-x-3 items-center mb-[30px]">
         <strong className="text-[14px]">SỐ LƯỢNG: </strong>
-        <div className="flex gap-x-2 font-semibold select-none">
+        <div className="flex font-semibold select-none gap-x-2">
           <div
             onClick={handleDecrease}
-            className="bg-white hover:bg-gray-50 duration-100 transition-all px-3 py-1 shadow-sm rounded-md cursor-pointer"
+            className="px-3 py-1 transition-all duration-100 bg-white rounded-md shadow-sm cursor-pointer hover:bg-gray-50"
           >
             -
           </div>
-          <div className="bg-gray-100 px-6 py-1 rounded-md">{quantity}</div>
+          <div className="px-6 py-1 bg-gray-100 rounded-md">{quantity}</div>
           <div
             onClick={handleIncrease}
-            className="bg-white duration-100 transition-all hover:bg-gray-50 px-3 py-1 shadow-sm rounded-md cursor-pointer"
+            className="px-3 py-1 transition-all duration-100 bg-white rounded-md shadow-sm cursor-pointer hover:bg-gray-50"
           >
             +
           </div>

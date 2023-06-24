@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import LoadingSkeleton from "../loading/LoadingSkeleton";
+import { useAppSelector } from "@/hooks/redux";
 
 const Card = ({ isNew = true, productId = 17 }) => {
   const [product, setProduct] = useState();
@@ -12,6 +13,9 @@ const Card = ({ isNew = true, productId = 17 }) => {
   const [colorVariant, setColorVariant] = useState([]);
   const [fillColor, setFillColor] = useState("none");
   const [favorite, setFavorite] = useState(0);
+  const [price, setPrice] = useState(0);
+  const colors = useAppSelector((state: any) => state.filterReducer.colors);
+
   const handleMouseEnter = () => {
     const image = product?.productVariants[1]?.images[0]?.imageUrl;
     setImageVariant(image || defaultImage);
@@ -46,11 +50,35 @@ const Card = ({ isNew = true, productId = 17 }) => {
   };
   useEffect(() => {
     async function getData() {
+      if (colors.length <= 0) return;
+      const queryColors = colors.map((item: any) => "&color=" + item).join("");
+      console.log("queryColors", queryColors);
+      const res = await axios.get(
+        ` http://localhost:3000/api/products/filter?color=${colors[0]}${
+          colors.length > 1 && queryColors
+        }`
+      );
+      const data = res.data;
+      console.log("data", data);
+      // setFavorite(data.favorite_counters);
+      // // setPrice(data?.productVariants[0]?.price);
+      // setProduct(data);
+      // setColorVariant(data.productVariants?.map((item: any) => item.color));
+      // const image =
+      //   data?.productVariants && data?.productVariants[0].images[0].imageUrl;
+      // setImageVariant(image);
+    }
+    getData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [colors.length]);
+  useEffect(() => {
+    async function getData() {
       const res = await axios.get(
         `http://localhost:3000/api/products/findById?id=${productId}`
       );
       const data = res.data;
       setFavorite(data.favorite_counters);
+      setPrice(data?.productVariants[0]?.price);
       setProduct(data);
       setColorVariant(data.productVariants.map((item: any) => item.color));
       const image = data.productVariants[0].images[0].imageUrl;
@@ -66,7 +94,7 @@ const Card = ({ isNew = true, productId = 17 }) => {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <Link href={`/products/${productId}`}>
+        <Link href={`/products/${productId}`} target="_blank">
           <div className="w-[330px] h-[440px]">
             {imageVariant ? (
               <Image
@@ -155,7 +183,7 @@ const Card = ({ isNew = true, productId = 17 }) => {
           )}
         </div>
         {imageVariant ? (
-          <div className="mb-2">{product?.productVariants[0]?.price} VND</div>
+          <div className="mb-2">{price} VND</div>
         ) : (
           <LoadingSkeleton className="h-3 mb-2 w-14" />
         )}

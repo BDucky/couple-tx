@@ -2,7 +2,8 @@ import Providers from "@/components/Provider";
 import LayoutFilter from "@/components/layout/LayoutFilter";
 import Image from "next/image";
 
-const Page = () => {
+const Page = async () => {
+  const products = await getProduct();
   return (
     <div className="container px-[24px]">
       <div className="flex items-center !mb-10 gap-x-12">
@@ -26,10 +27,15 @@ const Page = () => {
         </div>
       </div>
       <Providers>
-        <LayoutFilter></LayoutFilter>
+        <LayoutFilter products={products}></LayoutFilter>
       </Providers>
     </div>
   );
 };
+
+export async function getProduct() {
+  const res = await fetch(`http://localhost:3000/api/products/filter`);
+  return res.json();
+}
 
 export default Page;
