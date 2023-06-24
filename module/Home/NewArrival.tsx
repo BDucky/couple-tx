@@ -5,7 +5,7 @@ const NewArrival = () => {
     <div className="py-[90px] container relative">
       <picture>
         <img
-          className="w-100 lazyloaded"
+          className="w-full h-auto lazyloaded"
           alt="new arrival"
           src="/image/new_arrival.webp"
         />
@@ -21,23 +21,26 @@ const NewArrival = () => {
           >
             NEW ARRIVALS
           </h2>
-          <p className="mb-3 text-white text-sm " >
+          <p className="mb-3 text-white text-sm">
             Những thiết kế tinh tế, mang đến xu hướng<br />
             thời trang mới
           </p>
           <button
-            
             className="btn-cus"
-            style={{ backgroundColor: "white", color: "black", width: "202px", height: "42px", fontSize: "15px", fontWeight: "bold" }}
+            style={{
+              backgroundColor: "white",
+              color: "black",
+              width: "202px",
+              height: "42px",
+              fontSize: "15px",
+              fontWeight: "bold",
+            }}
           >
             Shop Now
           </button>
         </div>
       </div>
     </div>
-
-
-
   );
 };
 
