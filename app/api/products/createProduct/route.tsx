@@ -4,13 +4,14 @@ import { NextApiRequest } from "next";
 import prisma from "@/libs/prismadb";
 
 export async function POST(req: Request) {
-  console.log(req);
   const body = await req.json();
   const {
     product_name,
     product_preference,
     product_information,
     gender,
+    subcategory_id,
+    category_id,
     productVariants,
   } = body;
   const products = await prisma.products.create({
@@ -19,8 +20,8 @@ export async function POST(req: Request) {
       favorite_counters: 0,
       product_references: product_preference,
       information: product_information,
-      subcategory_id: 1,
-      category_id: 1,
+      subcategory_id: parseInt(subcategory_id),
+      category_id: parseInt(category_id),
       gender_id: gender.value,
       created_at: new Date(),
     },

@@ -30,7 +30,7 @@ const SelectCategory_SubCategory: React.FC<SelectCategory_SubCategoryProps> = ({
         console.log(response.data);
         const data = response.data;
         setDataAll(data);
-        setOptions(data.map((i: any) => ({ value: i.name, label: i.name })));
+        setOptions(data.map((i: any) => ({ value: i.id, label: i.name })));
       })
       .catch((error) => {
         console.log(error);
@@ -41,12 +41,12 @@ const SelectCategory_SubCategory: React.FC<SelectCategory_SubCategoryProps> = ({
     setSubCategory(null);
     if (category?.value) {
       const selectedCategory = dataAll.find(
-        (item: any) => item.name === category.value
+        (item: any) => item.id === category.value
       );
       if (selectedCategory) {
         return selectedCategory.subcategories.map((item: any) => ({
           label: item.name,
-          value: item.name,
+          value: item.id,
         }));
       }
     }

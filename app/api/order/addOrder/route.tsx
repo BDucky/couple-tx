@@ -31,6 +31,7 @@ export async function POST(req: Request, res: NextApiResponse) {
     });
 
     cart.cart_item.forEach(async (i) => {
+      console.log("jjj");
       await prisma.orderItem.create({
         data: {
           total_price: i.total_price,

@@ -13,7 +13,7 @@ const Navbar = () => {
   }, [router]);
   return (
     <div className="  bg-[#fff] p-4 flex justify-end">
-      <div className=" inline-block right-0">Welcome sir</div>
+      <div className=" inline-block text-[black] right-0">Welcome sir</div>
     </div>
   );
 };
