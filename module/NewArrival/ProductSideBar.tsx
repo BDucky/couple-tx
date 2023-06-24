@@ -8,11 +8,10 @@ import axios from "axios";
 const ProductSideBar = ({ product }: any) => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [fillColor, setFillColor] = useState("none");
-  const [favorite, setFavorite] = useState(0);
+  const [favorite, setFavorite] = useState(product.favorite_counters);
   const [quantity, setQuantity] = useState(1);
   const fixed = useAppSelector((state: any) => state.fixedReducer.fixed);
   const dispatch = useAppDispatch();
-
   const handleFavorite = useRef(() => {});
   useEffect(() => {
     const handleScroll = () => {
@@ -32,15 +31,10 @@ const ProductSideBar = ({ product }: any) => {
     };
   }, [dispatch, scrollPosition]);
 
-  useEffect(() => {
-    setFavorite(product.favorite_counters);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   handleFavorite.current = async () => {
     if (fillColor === "none") {
       setFillColor("black");
-      setFavorite((prev) => prev + 1);
+      setFavorite((prev: any) => prev + 1);
       await axios.post("http://localhost:3000/api/products/favorite", {
         key: "plus",
         product_id: product.id,
@@ -48,7 +42,7 @@ const ProductSideBar = ({ product }: any) => {
     } else {
       setFillColor("none");
       if (favorite > 0) {
-        setFavorite((prev) => prev - 1);
+        setFavorite((prev: any) => prev - 1);
         await axios.post("http://localhost:3000/api/products/favorite", {
           key: "minus",
           product_id: product.id,

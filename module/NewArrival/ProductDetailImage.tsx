@@ -1,5 +1,4 @@
 "use client";
-import { defaultImage } from "@/constant/Image";
 import { useAppSelector } from "@/hooks/redux";
 import Image from "next/image";
 import React from "react";
