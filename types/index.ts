@@ -7,3 +7,9 @@ export interface HomeButtonProps {
 export interface LayoutCardProps {
   children: ReactNode;
 }
+
+export interface CategoryBannerProps {
+  img: string;
+  category: string;
+  descriptions: string;
+}
