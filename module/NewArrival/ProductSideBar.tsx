@@ -1,17 +1,28 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ProductInfo from "./ProductInfo";
-import { useAppSelector } from "@/hooks/redux";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { handleFixed } from "@/store/fixedSlice";
+import axios from "axios";
 
 const ProductSideBar = ({ product }: any) => {
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [fillColor, setFillColor] = useState("none");
+  const [favorite, setFavorite] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const fixed = useAppSelector((state: any) => state.fixedReducer.fixed);
+  const dispatch = useAppDispatch();
 
+  const handleFavorite = useRef(() => {});
   useEffect(() => {
     const handleScroll = () => {
       const position = window.pageYOffset;
-      console.log("postion", position);
       setScrollPosition(position);
+      if (scrollPosition > 1905) {
+        dispatch(handleFixed(false));
+      } else {
+        dispatch(handleFixed(true));
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -19,12 +30,46 @@ const ProductSideBar = ({ product }: any) => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [scrollPosition]);
+  }, [dispatch, scrollPosition]);
+
+  useEffect(() => {
+    setFavorite(product.favorite_counters);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  handleFavorite.current = async () => {
+    if (fillColor === "none") {
+      setFillColor("black");
+      setFavorite((prev) => prev + 1);
+      await axios.post("http://localhost:3000/api/products/favorite", {
+        key: "plus",
+        product_id: product.id,
+      });
+    } else {
+      setFillColor("none");
+      if (favorite > 0) {
+        setFavorite((prev) => prev - 1);
+        await axios.post("http://localhost:3000/api/products/favorite", {
+          key: "minus",
+          product_id: product.id,
+        });
+      }
+    }
+  };
+  const handleIncrease = () => {
+    setQuantity((prev) => prev + 1);
+  };
+  const handleDecrease = () => {
+    if (quantity > 0) {
+      setQuantity((prev) => prev - 1);
+    }
+  };
+
   return (
     <div
-      className={`flex-grow-[2] max-h-[2500px] ${
-        fixed && "fixed right-[60px]"
-      }`}
+      className={`flex-grow-[2] max-h-[2500px] max-w-[350px] ${
+        !fixed && "mt-[1905px]"
+      } ${fixed && "fixed right-[76px]"}`}
     >
       <h1 className="font-semibold text-left text-[26px] max-w-[350px] mb-6">
         {product.product_name}
@@ -49,7 +94,7 @@ const ProductSideBar = ({ product }: any) => {
             </svg>
           ))}
         </span>
-        <span>[Yêu thích {product.favorite_counters}]</span>
+        <span>[Yêu thích {favorite}]</span>
       </div>
       <div className="font-bold text-[20px] mb-3">
         {product.productVariants[0].price} VND
@@ -83,12 +128,18 @@ const ProductSideBar = ({ product }: any) => {
       </div>
       <div className="flex gap-x-3 items-center mb-[30px]">
         <strong className="text-[14px]">SỐ LƯỢNG: </strong>
-        <div className="flex gap-x-2">
-          <div className="bg-white hover:bg-gray-50 duration-100 transition-all px-3 py-1 shadow-sm rounded-md cursor-pointer">
+        <div className="flex gap-x-2 font-semibold select-none">
+          <div
+            onClick={handleDecrease}
+            className="bg-white hover:bg-gray-50 duration-100 transition-all px-3 py-1 shadow-sm rounded-md cursor-pointer"
+          >
             -
           </div>
-          <div className="bg-gray-100 px-6 py-1 rounded-md">1</div>
-          <div className="bg-white duration-100 transition-all hover:bg-gray-50 px-3 py-1 shadow-sm rounded-md cursor-pointer">
+          <div className="bg-gray-100 px-6 py-1 rounded-md">{quantity}</div>
+          <div
+            onClick={handleIncrease}
+            className="bg-white duration-100 transition-all hover:bg-gray-50 px-3 py-1 shadow-sm rounded-md cursor-pointer"
+          >
             +
           </div>
         </div>
@@ -97,10 +148,10 @@ const ProductSideBar = ({ product }: any) => {
         <button className="text-center py-2 transition-all text-[14px] font-bold duration-200 flex-1 bg-black border border-black hover:bg-white text-white hover:text-black">
           THÊM VÀO GIỎ
         </button>
-        <span className="cursor-pointer">
+        <span onClick={handleFavorite.current} className="cursor-pointer">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            fill="none"
+            fill={fillColor}
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"

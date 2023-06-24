@@ -1,4 +1,5 @@
 "use client";
+import { defaultImage } from "@/constant/Image";
 import { useAppSelector } from "@/hooks/redux";
 import Image from "next/image";
 import React from "react";
@@ -8,7 +9,7 @@ const ProductDetailImage = ({ product }: any) => {
 
   return (
     <div
-      className={`grid gap-6 grid-cols-2 flex-grow-[8] ${
+      className={`grid gap-6 grid-cols-2 flex-grow-[8] max-w-[1014px] ${
         fixed && "mr-[456px]"
       }`}
     >
