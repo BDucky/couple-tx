@@ -36,7 +36,7 @@ const DetailOrder = () => {
 
   return (
     <Layout>
-      <div className=" shadow-xl bg-[#fff] p-4">
+      <div className=" shadow-xl bg-[#fff] m-3 p-4">
         <div>
           <p>
             {formattedDate}, {formattedWeekday}, {formattedTime}

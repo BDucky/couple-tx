@@ -44,24 +44,20 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
   return (
     <div onClick={handleClick}>
       <div
-        className={` p-3 flex  items-center text-black cursor-pointer hover:bg-[#e8effd] ${
+        className={` p-3 flex text-[#fff]  items-center transition cursor-pointer hover:text-[#4369c9] hover:bg-[#fff] ${
           selected && " bg-cyan-100"
         } `}
       >
-        <Icon size={28} color={`${selected ? "#4369c9" : "#888888"}`} />
-        <p
-          className={`ml-2 font-bold ${
-            selected ? "text-[#4369c9]" : "text-[#888888]"
-          }`}
-        >
+        <Icon size={28} className={`${selected && "text-[#4369c9]"}`} />
+        <p className={`ml-2 font-bold ${selected && "text-[#4369c9]"}`}>
           {label}
         </p>
       </div>
       {show && (
-        <div className="text-[#888888] font-semibold">
+        <div className=" font-semibold">
           <div
             onClick={() => handleLink("/admin/products")}
-            className={` p-2 pl-10 mt-2 ${
+            className={` hover:text-[#4369c9] hover:bg-[#fff] text-[#fff] p-2 pl-10 mt-2 ${
               path[path.length - 1] === "products" &&
               "bg-cyan-100 text-[#4369c9]"
             } cursor-pointer`}
@@ -69,7 +65,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
             Product list
           </div>
           <div
-            className={` p-2 pl-10 mt-2 ${
+            className={` hover:text-[#4369c9] hover:bg-[#fff] text-[#fff] p-2 pl-10 mt-2 ${
               path[path.length - 1] === "addProduct" &&
               "bg-cyan-100 text-[#4369c9]"
             } cursor-pointer`}

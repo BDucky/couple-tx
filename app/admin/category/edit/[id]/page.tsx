@@ -109,9 +109,7 @@ const Edit = () => {
             />
             <div className="flex">
               <ImageUpload onChange={handleUploadImg} />
-              {url !== "" && (
-                <Image alt="" src={url} width={300} height={300} />
-              )}
+              {url !== "" && <img alt="" src={url} width={300} height={300} />}
             </div>
           </div>
           <div
