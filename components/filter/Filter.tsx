@@ -14,7 +14,6 @@ const Filter = () => {
     const handleScroll = () => {
       const position = window.pageYOffset;
       setScrollPosition(position);
-      console.log("scrollPosition", scrollPosition);
       if (scrollPosition > 398) {
         dispatch(handleFixed(true));
       } else {
