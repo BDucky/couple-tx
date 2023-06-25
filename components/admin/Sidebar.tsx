@@ -3,6 +3,7 @@
 import React, { useMemo } from "react";
 import { AiFillAppstore } from "react-icons/ai";
 import { HiShoppingCart, HiUser } from "react-icons/hi";
+import { BsFilePost } from "react-icons/bs";
 import { MdCategory } from "react-icons/md";
 import SidebarItem from "./SidebarItem";
 import { usePathname } from "next/navigation";
@@ -38,6 +39,13 @@ const Sidebar = () => {
         href: `/admin/category`,
         onClick: undefined,
         selected: pathname === "/admin/category",
+      },
+      {
+        icon: BsFilePost,
+        label: "Blogs",
+        href: `/admin/blogs`,
+        onClick: undefined,
+        selected: pathname.includes("/admin/blogs"),
       },
     ],
     [pathname]

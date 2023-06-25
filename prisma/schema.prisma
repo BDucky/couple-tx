@@ -113,19 +113,7 @@ model Sale{
   product Products[]
 }
 
-model User{
-  id      Int      @id @default(autoincrement())
-  phone String
-  first_name String?
-  last_name String?
-  gender String
-  date_of_birth DateTime? @default(now())
 
-  order Order[]
-  cart Cart[]
-  blog Blogs[]
-  post Posts[]
-}
 model Order{
   id      Int      @id @default(autoincrement())
   user_id Int
@@ -169,15 +157,32 @@ model CartItem{
   cart Cart @relation(fields: [cart_id],references: [id],onDelete:Cascade)
 }
 
-model Blogs{
-  id      Int      @id @default(autoincrement())
-  title String
-  user_id Int
+model Blogs {
+  id        Int      @id @default(autoincrement())
+  title     String
+  user_id   Int
+  image     String
   created_at DateTime @default(now())
 
-  post Posts[]
-  user User @relation(fields: [user_id],references: [id],onDelete: Cascade)
+  posts Posts[]
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
 }
+
+model User {
+  id            Int       @id @default(autoincrement())
+  phone         String
+  first_name    String?
+  last_name     String?
+  gender        String
+  date_of_birth DateTime? @default(now())
+
+  orders Order[]
+  carts  Cart[]
+  blogs  Blogs[]
+  posts  Posts[]
+}
+
 
 model Posts{
   id      Int      @id @default(autoincrement())

@@ -8,17 +8,26 @@ import { FieldValues, UseFormRegister } from "react-hook-form";
 interface IImageUploadWrapperProps {
   register: UseFormRegister<FieldValues>;
   data?: any;
+  single?: boolean;
 }
 
 const ImageUploadWrapper: React.FC<IImageUploadWrapperProps> = ({
   register,
   data,
+  single,
 }) => {
   const [state, setState] = useState<string[]>([]);
 
-  const handleChange = useCallback((value: string) => {
-    setState((prevState) => [...prevState, value]);
-  }, []);
+  const handleChange = useCallback(
+    (value: string) => {
+      if (single) {
+        setState([value]);
+      } else {
+        setState((prevState) => [...prevState, value]);
+      }
+    },
+    [single]
+  );
   const handleConfirm = useCallback(() => {
     register("images", { value: state });
     alert("Đã lưu");
@@ -41,11 +50,16 @@ const ImageUploadWrapper: React.FC<IImageUploadWrapperProps> = ({
       <p className=" mb-2">Image</p>
       <div className="flex gap-1 flex-wrap">
         <ImageUpload onChange={handleChange} />
-        {state.length > 0 &&
+
+        {single && state.length > 0 ? (
+          <img width={200} height={200} src={state[0]} alt="" />
+        ) : (
+          state.length > 0 &&
           state.map((link: any, index) => (
             // eslint-disable-next-line @next/next/no-img-element
             <img width={200} height={200} key={index} src={link} alt="" />
-          ))}
+          ))
+        )}
       </div>
       <p
         onClick={handleConfirm}
