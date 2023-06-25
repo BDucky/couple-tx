@@ -1,38 +1,23 @@
+"use client";
 import React from "react";
-import Filter from "../Filter";
+import Filter from "../filter/Filter";
 import LayoutCard from "./LayoutCard";
-import Providers from "../Provider";
 import ColorItem from "../ColorItem";
-import { Card } from "../home";
 
-const LayoutFilter = async () => {
-  const products = await getProduct();
+const LayoutFilter = async ({ products }: any) => {
   return (
     <div className="flex items-start !mb-10 gap-x-3">
       <div>
         <Filter></Filter>
       </div>
       <div className="flex flex-col gap-y-5">
+        {products && products.length > 0 && <ColorItem></ColorItem>}
         {products && products.length > 0 && (
-          <Providers>
-            <ColorItem></ColorItem>
-          </Providers>
-        )}
-        {products && products.length > 0 && (
-          <LayoutCard>
-            {products.map((product: any) => (
-              <Card key={product.product_name} productId={product.id}></Card>
-            ))}
-          </LayoutCard>
+          <LayoutCard products={products}></LayoutCard>
         )}
       </div>
     </div>
   );
 };
-
-export async function getProduct() {
-  const res = await fetch(`http://localhost:3000/api/products/filter`);
-  return res.json();
-}
 
 export default LayoutFilter;

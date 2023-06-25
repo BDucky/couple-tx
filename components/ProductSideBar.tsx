@@ -1,17 +1,31 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ProductInfo from "./ProductInfo";
-import { useAppSelector } from "@/hooks/redux";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { handleFixed } from "@/store/fixedSlice";
+import { handleVariant } from "@/store/variantSlice";
+import axios from "axios";
 
 const ProductSideBar = ({ product }: any) => {
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [fillColor, setFillColor] = useState("none");
+  const [favorite, setFavorite] = useState(product.favorite_counters);
+  const [quantity, setQuantity] = useState(1);
   const fixed = useAppSelector((state: any) => state.fixedReducer.fixed);
-
+  const dispatch = useAppDispatch();
+  const handleChangeVariant = (index: number) => {
+    dispatch(handleVariant(index));
+  };
+  const handleFavorite = useRef(() => {});
   useEffect(() => {
     const handleScroll = () => {
       const position = window.pageYOffset;
-      console.log("postion", position);
       setScrollPosition(position);
+      if (scrollPosition > 1905) {
+        dispatch(handleFixed(false));
+      } else {
+        dispatch(handleFixed(true));
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -19,12 +33,41 @@ const ProductSideBar = ({ product }: any) => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [scrollPosition]);
+  }, [dispatch, scrollPosition]);
+
+  handleFavorite.current = async () => {
+    if (fillColor === "none") {
+      setFillColor("black");
+      setFavorite((prev: any) => prev + 1);
+      await axios.post("http://localhost:3000/api/products/favorite", {
+        key: "plus",
+        product_id: product.id,
+      });
+    } else {
+      setFillColor("none");
+      if (favorite > 0) {
+        setFavorite((prev: any) => prev - 1);
+        await axios.post("http://localhost:3000/api/products/favorite", {
+          key: "minus",
+          product_id: product.id,
+        });
+      }
+    }
+  };
+  const handleIncrease = () => {
+    setQuantity((prev) => prev + 1);
+  };
+  const handleDecrease = () => {
+    if (quantity > 0) {
+      setQuantity((prev) => prev - 1);
+    }
+  };
+
   return (
     <div
-      className={`flex-grow-[2] max-h-[2500px] ${
-        fixed && "fixed right-[60px]"
-      }`}
+      className={`flex-grow-[2] max-h-[2500px] max-w-[350px] ${
+        !fixed && "mt-[1905px]"
+      } ${fixed && "fixed right-[76px]"}`}
     >
       <h1 className="font-semibold text-left text-[26px] max-w-[350px] mb-6">
         {product.product_name}
@@ -49,7 +92,7 @@ const ProductSideBar = ({ product }: any) => {
             </svg>
           ))}
         </span>
-        <span>[Yêu thích {product.favorite_counters}]</span>
+        <span>[Yêu thích {favorite}]</span>
       </div>
       <div className="font-bold text-[20px] mb-3">
         {product.productVariants[0].price} VND
@@ -57,11 +100,12 @@ const ProductSideBar = ({ product }: any) => {
       <div className="mb-3 text-xs">
         <strong>MÀU SẮC:</strong> {product.productVariants[0].color}
       </div>
-      <div className="flex gap-x-3 mb-3">
+      <div className="flex mb-3 gap-x-3">
         {product.productVariants.map((item: any, index: number) => (
           <div
+            onClick={() => handleChangeVariant(index)}
             key={item.id}
-            className="rounded-full border border-black w-10 h-10 cursor-pointer"
+            className="w-10 h-10 border border-black rounded-full cursor-pointer"
             style={{
               backgroundColor: product.productVariants[index].color,
             }}
@@ -71,11 +115,11 @@ const ProductSideBar = ({ product }: any) => {
       <div className="mb-3 text-xs">
         <strong>SIZE:</strong> CHỌN SIZE
       </div>
-      <div className="flex gap-x-3 ml-1 mb-3">
+      <div className="flex mb-3 ml-1 gap-x-3">
         {product.productVariants[0].size.map((item: any, index: number) => (
           <div
             key={item.id}
-            className="px-8 py-2 border border-gray-400 text-xs"
+            className="px-8 py-2 text-xs border border-gray-400"
           >
             {item.name_size}
           </div>
@@ -83,12 +127,18 @@ const ProductSideBar = ({ product }: any) => {
       </div>
       <div className="flex gap-x-3 items-center mb-[30px]">
         <strong className="text-[14px]">SỐ LƯỢNG: </strong>
-        <div className="flex gap-x-2">
-          <div className="bg-white hover:bg-gray-50 duration-100 transition-all px-3 py-1 shadow-sm rounded-md cursor-pointer">
+        <div className="flex font-semibold select-none gap-x-2">
+          <div
+            onClick={handleDecrease}
+            className="px-3 py-1 transition-all duration-100 bg-white rounded-md shadow-sm cursor-pointer hover:bg-gray-50"
+          >
             -
           </div>
-          <div className="bg-gray-100 px-6 py-1 rounded-md">1</div>
-          <div className="bg-white duration-100 transition-all hover:bg-gray-50 px-3 py-1 shadow-sm rounded-md cursor-pointer">
+          <div className="px-6 py-1 bg-gray-100 rounded-md">{quantity}</div>
+          <div
+            onClick={handleIncrease}
+            className="px-3 py-1 transition-all duration-100 bg-white rounded-md shadow-sm cursor-pointer hover:bg-gray-50"
+          >
             +
           </div>
         </div>
@@ -97,10 +147,10 @@ const ProductSideBar = ({ product }: any) => {
         <button className="text-center py-2 transition-all text-[14px] font-bold duration-200 flex-1 bg-black border border-black hover:bg-white text-white hover:text-black">
           THÊM VÀO GIỎ
         </button>
-        <span className="cursor-pointer">
+        <span onClick={handleFavorite.current} className="cursor-pointer">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            fill="none"
+            fill={fillColor}
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
