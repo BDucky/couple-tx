@@ -9,7 +9,7 @@ export async function GET(req: Request, res: NextApiResponse) {
   const id = searchParams.get("id") as string;
   const orders = await prisma.order.findFirst({
     where: {
-      id: parseInt(id, 10),
+      id: parseInt(id),
     },
     include: {
       user: true,

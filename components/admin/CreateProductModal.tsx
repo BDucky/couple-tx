@@ -29,7 +29,12 @@ const CreateProductModal = () => {
   const onSubmitHandler = async (data: any) => {
     setLoading(true);
     await axios
-      .post("/api/products/createProduct", { ...data, productVariants })
+      .post("/api/products/createProduct", {
+        ...data,
+        subcategory_id: data.sub_category.value,
+        category_id: data.category.value,
+        productVariants,
+      })
       .then((response) => {
         localStorage.removeItem("product_variants");
         alert("Tạo thành công !");

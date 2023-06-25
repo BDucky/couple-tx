@@ -23,6 +23,11 @@ export async function GET(req: NextApiRequest) {
       genders: true,
       category: true,
       sub_category: true,
+      rates: {
+        include: {
+          images: true,
+        },
+      },
 
       productVariants: {
         include: {
