@@ -3,20 +3,23 @@ import LayoutProductDetail from "@/components/layout/LayoutProductDetail";
 import ProductDetailImage from "@/components/ProductDetailImage";
 import ProductSideBar from "@/components/ProductSideBar";
 import React from "react";
+import LayoutWebsite from "@/components/layout/LayoutWebsite";
 
 const ProductDetial = async ({ params }: { params: { id: string } }) => {
   const product = await getProductDetial(params.id);
   return (
-    <div className="min-h-[3000px] mx-auto max-w-[1480px]">
-      <Providers>
-        <LayoutProductDetail>
-          <>
-            <ProductDetailImage product={product}></ProductDetailImage>
-            <ProductSideBar product={product}></ProductSideBar>
-          </>
-        </LayoutProductDetail>
-      </Providers>
-    </div>
+    <LayoutWebsite>
+      <div className="min-h-[3000px] mx-auto max-w-[1480px]">
+        <Providers>
+          <LayoutProductDetail>
+            <>
+              <ProductDetailImage product={product}></ProductDetailImage>
+              <ProductSideBar product={product}></ProductSideBar>
+            </>
+          </LayoutProductDetail>
+        </Providers>
+      </div>
+    </LayoutWebsite>
   );
 };
 
