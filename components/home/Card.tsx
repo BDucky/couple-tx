@@ -60,13 +60,6 @@ const Card = ({ isNew = true, productId = 17 }) => {
       );
       const data = res.data;
       console.log("data", data);
-      // setFavorite(data.favorite_counters);
-      // // setPrice(data?.productVariants[0]?.price);
-      // setProduct(data);
-      // setColorVariant(data.productVariants?.map((item: any) => item.color));
-      // const image =
-      //   data?.productVariants && data?.productVariants[0].images[0].imageUrl;
-      // setImageVariant(image);
     }
     getData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -144,7 +137,7 @@ const Card = ({ isNew = true, productId = 17 }) => {
       </div>
       <div>
         {imageVariant ? (
-          <Link href={`/products/${productId}`}>
+          <Link href={`/products/${productId}`} target="_blank">
             <h1 className="text-base w-[330px]">{product?.product_name}</h1>
           </Link>
         ) : (
