@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import ProductInfo from "./ProductInfo";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { handleFixed } from "@/store/fixedSlice";
+import { handleVariant } from "@/store/variantSlice";
 import axios from "axios";
 
 const ProductSideBar = ({ product }: any) => {
@@ -12,6 +13,9 @@ const ProductSideBar = ({ product }: any) => {
   const [quantity, setQuantity] = useState(1);
   const fixed = useAppSelector((state: any) => state.fixedReducer.fixed);
   const dispatch = useAppDispatch();
+  const handleChangeVariant = (index: number) => {
+    dispatch(handleVariant(index));
+  };
   const handleFavorite = useRef(() => {});
   useEffect(() => {
     const handleScroll = () => {
@@ -99,6 +103,7 @@ const ProductSideBar = ({ product }: any) => {
       <div className="flex mb-3 gap-x-3">
         {product.productVariants.map((item: any, index: number) => (
           <div
+            onClick={() => handleChangeVariant(index)}
             key={item.id}
             className="w-10 h-10 border border-black rounded-full cursor-pointer"
             style={{

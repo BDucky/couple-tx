@@ -1,7 +1,7 @@
 import Providers from "@/components/Provider";
 import LayoutProductDetail from "@/components/layout/LayoutProductDetail";
-import ProductDetailImage from "@/module/NewArrival/ProductDetailImage";
-import ProductSideBar from "@/module/NewArrival/ProductSideBar";
+import ProductDetailImage from "@/components/ProductDetailImage";
+import ProductSideBar from "@/components/ProductSideBar";
 import React from "react";
 
 const ProductDetial = async ({ params }: { params: { id: string } }) => {

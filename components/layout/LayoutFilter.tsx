@@ -1,9 +1,8 @@
 "use client";
 import React from "react";
-import Filter from "../Filter";
+import Filter from "../filter/Filter";
 import LayoutCard from "./LayoutCard";
 import ColorItem from "../ColorItem";
-import { Card } from "../home";
 
 const LayoutFilter = async ({ products }: any) => {
   return (
