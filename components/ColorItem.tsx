@@ -13,7 +13,7 @@ const ColorItem = () => {
   return (
     <Fragment>
       {colors && colors.length > 0 && (
-        <div className="flex gap-x-2">
+        <>
           {colors &&
             colors.length > 0 &&
             colors.map((item: string, index: number) => (
@@ -63,7 +63,7 @@ const ColorItem = () => {
                 </div>
               </div>
             ))}
-        </div>
+        </>
       )}
     </Fragment>
   );

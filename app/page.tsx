@@ -15,8 +15,6 @@ export default function Home() {
       <FlashSale></FlashSale>
       {/* New Arrival */}
       <NewArrival></NewArrival>
-      {/* Footer */}
-      <Footer></Footer>
     </div>
-  )
+  );
 }
