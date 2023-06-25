@@ -1,5 +1,6 @@
 "use client"
-import React, { useRef } from 'react';
+import clsx from 'clsx';
+import React, { useEffect, useRef, useState } from 'react';
 import Marquee from "react-fast-marquee";
 
 const Header: React.FC = () => {
@@ -8,6 +9,21 @@ const Header: React.FC = () => {
     const tagRefM = useRef<HTMLDivElement>(null)
     const tagRefW = useRef<HTMLDivElement>(null)
     const tagRefK = useRef<HTMLDivElement>(null)
+    const [isSticky, setIsSticky] = useState(false);
+    const [isFlex, setIsFlex] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsSticky(window.pageYOffset > 0);
+            setIsFlex(window.pageYOffset > 0);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
 
 
     const handleMouseOverNA = () => {
@@ -70,9 +86,17 @@ const Header: React.FC = () => {
         }
     }
 
+    const headerFlex = clsx(
+        'relative',
+        'bg-white',
+        {
+            'flex items-center': isFlex,
+        }
+    );
+
     return (
-        <header className="">
-            <div className="relative h-[50px] text-xs flex-wrap bg-[#000] text-[#fff] flex justify-center items-center font-bold uppercase tracking-widest leading-tight overflow-hidden">
+        <header className={isSticky ? 'sticky top-0 left-auto z-10' : ''}>
+            <div className="relative h-[50px] text-xs flex-wrap bg-[#000] text-[#fff] flex justify-center items-center font-bold uppercase tracking-widest leading-tight overflow-hidden" >
                 <div className='flex h-[50px] justify-center items-center font-bold uppercase tracking-widest leading-tight overflow-hidden max-w-[80%]'>
                     <Marquee direction="left" speed={70}>
                         <a href="https://coupletx.com/collections/outlet-blooming-sale" className='mr-[100px]'>GIÁ ĐẶC BIỆT TỚI 50%</a>
@@ -83,15 +107,508 @@ const Header: React.FC = () => {
                     </Marquee>
                 </div>
             </div>
-            <div className="flex relative items-start justify-between">
-                <button aria-label="Open menu" className="header__menu--toggle toggle_menu d-lg-none d-block">
-                    <img className="icon navigation-menu svg-navigation-menu-dims w-100" src="https://file.hstatic.net/1000364782/file/hamburger_167d1eb64106499f94c58df4a3f0c10b.svg" alt="Menu" />
-                </button>
-                <div className="my-[25px] mx-auto mb-[45px]">
-                    <a aria-label="home" href="/">
-                        <img src="/image/logo.svg" alt="CPTX" className='w-[172px] h-[41px]' />
-                    </a>
+            <div className={headerFlex}>
+                <div className="flex relative items-start justify-between">
+                    <button aria-label="Open menu" className="header__menu--toggle toggle_menu d-lg-none d-block">
+                        <img className="icon navigation-menu svg-navigation-menu-dims w-100" src="https://file.hstatic.net/1000364782/file/hamburger_167d1eb64106499f94c58df4a3f0c10b.svg" alt="Menu" />
+                    </button>
+                    <div className="my-[25px] mx-auto mb-[45px]">
+                        <a aria-label="home" href="/">
+                            <img src="/image/logo.svg" alt="CPTX" className='w-[172px] h-[41px]' />
+                        </a>
+                    </div>
                 </div>
+                <div className='w-full h-full static transition-left duration-200 ease-in mt-0 box-border'>
+                    <div>
+                        <ul className='border-0 my-[16px] h-[44px] w-full max-w-[1200px] mx-auto text-center p-0'>
+                            <li className='uppercase inline-block h-[37px]'>
+                                <a onMouseOver={handleMouseOverNA} onMouseOut={handleMouseOutNA} href="" className='px-[10px] relative pb-[15px] h-full block w-full tracking-[0.08em] font-bold hover:after:scale-x-100'>
+                                    New Arrival
+                                </a>
+                                <div ref={tagRefNA} className='bg-white shadow-md text-black absolute left-0 right-0 z-10 justify-center p-[30px] flex invisible opacity-100 flex-nowrap border-t-[1px] border-gray-300'>
+                                    <div className="basis-[230px] max-w-[230px] text-left">
+                                        <h2 className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold uppercase'>
+                                            <a href="" className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold inline-block tracking-[0.03em] m-0 w-fit uppercase'>Áo thun</a>
+                                        </h2>
+                                    </div>
+                                    <div className="basis-[230px] max-w-[230px] text-left">
+                                        <h2 className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold'>
+                                            <a href="" className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold inline-block tracking-[0.03em] m-0 w-fit uppercase'>Áo Polo</a>
+                                        </h2>
+                                    </div>
+                                    <div className="basis-[230px] max-w-[230px] text-left">
+                                        <h2 className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold'>
+                                            <a href="" className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold inline-block tracking-[0.03em] m-0 w-fit uppercase'>Áo khoác</a>
+                                        </h2>
+                                    </div>
+                                    <div className="basis-[230px] max-w-[230px] text-left">
+                                        <h2 className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold'>
+                                            <a href="" className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold inline-block tracking-[0.03em] m-0 w-fit uppercase'>Quần | Chân váy</a>
+                                        </h2>
+                                    </div>
+                                    <div className="basis-[230px] max-w-[230px] text-left">
+                                        <h2 className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold'>
+                                            <a href="" className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold inline-block tracking-[0.03em] m-0 w-fit uppercase'>Phụ kiện</a>
+                                        </h2>
+                                    </div>
+                                    <div className="basis-[255px] max-w-[255px] text-left">
+                                        <a href="" className='text-[0.75rem] p-0 inline-block tracking-[0.03em] font-normal uppercase m-0'>
+                                            <div>
+                                                <div>
+                                                    <img src="/image/banner_1.webp" alt="" className='w-full' />
+                                                </div>
+                                            </div>
+                                            <h2 className='flex text-[0.8125rem] mt-[10px] p-0 leading-[18px] font-bold text-center'>
+                                                XEM TẤT CẢ SP NEW ARRIVALS
+                                                <div>
+                                                    <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" height="100%" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M192 128l128 128-128 128z"></path></svg>
+                                                </div>
+                                            </h2>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li className='uppercase inline-block h-[37px]'>
+                                <a onMouseOver={handleMouseOverOW} onMouseOut={handleMouseOutOW} href="" className='px-[10px] pb-[15px] h-full block w-full tracking-[0.08em] font-bold'>Outerwear</a>
+                                <div ref={tagRefOW} className='bg-white shadow-md text-black absolute left-0 right-0 z-10 justify-center p-[30px] flex invisible opacity-100 flex-nowrap border-t-[1px] border-gray-300'>
+                                    <div className="basis-[230px] max-w-[230px] text-left">
+                                        <h2 className='text-[0.8125rem] font-bold leading-[18px] m-0 p-0'>
+                                            <a href="" className='uppercase'>
+                                                Áo khoác nữ
+                                            </a>
+                                        </h2>
+                                        <ul className='basis-[230px] max-w-[230px] text-left'>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Chống nắng UV
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Trượt nước
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Khoác kiểu
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Easywear
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    CTX Studio
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div className="basis-[230px] max-w-[230px] text-left">
+                                        <h2 className='text-[0.8125rem] font-bold leading-[18px] m-0 p-0'>
+                                            <a href="" className='uppercase'>
+                                                Áo khoác nam
+                                            </a>
+                                        </h2>
+                                        <ul className='basis-[230px] max-w-[230px] text-left'>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Chống nắng UV
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Trượt nước
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Khoác kiểu
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Easywear
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    CTX Studio
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div className="basis-[255px] max-w-[255px] text-left">
+                                        <a href="" className='text-[0.75rem] p-0 inline-block tracking-[0.03em] font-normal uppercase m-0'>
+                                            <div>
+                                                <div>
+                                                    <img src="/image/outerwear.jpg" alt="" className='w-full' />
+                                                </div>
+                                            </div>
+                                            <h2 className='flex text-[0.8125rem] mt-[10px] p-0 leading-[18px] font-bold text-center'>
+                                                XEM TẤT CẢ SP OUTERWEAR
+                                                <div>
+                                                    <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" height="100%" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M192 128l128 128-128 128z"></path></svg>
+                                                </div>
+                                            </h2>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li className='uppercase inline-block h-[37px]'>
+                                <a onMouseOver={handleMouseOverM} onMouseOut={handleMouseOutM} href="" className='px-[10px] pb-[15px] h-full block w-full tracking-[0.08em] font-bold'>Men</a>
+                                <div ref={tagRefM} className='bg-white shadow-md text-black absolute left-0 right-0 z-10 justify-center p-[30px] flex invisible opacity-100 flex-nowrap border-t-[1px] border-gray-300'>
+                                    <div className="basis-[230px] max-w-[230px] text-left">
+                                        <h2 className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold uppercase'>
+                                            <a href="" className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold inline-block tracking-[0.03em] m-0 w-fit uppercase'>Bộ Sưu Tập</a>
+                                        </h2>
+                                        <ul className='basis-[230px] max-w-[230px] text-left'>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    BST Summer
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Chống Nắng UV
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Phong Cách Basic
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    BST Minions
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div className="basis-[230px] max-w-[230px] text-left">
+                                        <h2 className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold'>
+                                            <a href="" className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold inline-block tracking-[0.03em] m-0 w-fit uppercase'>Áo Nam</a>
+                                        </h2>
+                                        <ul className='basis-[230px] max-w-[230px] text-left'>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Áo Khoác Nam
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Áo Thun
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Áo Polo
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Áo Sơ Mi
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Áo Thun Đôi
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Áo Sweater
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div className="basis-[230px] max-w-[230px] text-left">
+                                        <h2 className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold'>
+                                            <a href="" className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold inline-block tracking-[0.03em] m-0 w-fit uppercase'>Quần Nam</a>
+                                        </h2>
+                                        <ul className='basis-[230px] max-w-[230px] text-left'>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Quần Ngắn
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Quần Dài
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Quần Jean
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div className="basis-[230px] max-w-[230px] text-left">
+                                        <h2 className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold'>
+                                            <a href="" className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold inline-block tracking-[0.03em] m-0 w-fit uppercase'>Khám Phá</a>
+                                        </h2>
+                                        <ul className='basis-[230px] max-w-[230px] text-left'>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Hàng Mới
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Được Ưa Chuộng
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Sale Hấp Dẫn
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div className="basis-[230px] max-w-[230px] text-left">
+                                        <h2 className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold'>
+                                            <a href="" className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold inline-block tracking-[0.03em] m-0 w-fit uppercase'>Phụ kiện</a>
+                                        </h2>
+                                        <ul className='basis-[230px] max-w-[230px] text-left'>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Tất - Vớ
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Balo - Túi Xách
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Mũ - Nón
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div className="basis-[255px] max-w-[255px] text-left">
+                                        <a href="" className='text-[0.75rem] p-0 inline-block tracking-[0.03em] font-normal uppercase m-0'>
+                                            <div>
+                                                <div>
+                                                    <img src="/image/cate_1.webp" alt="" className='w-full' />
+                                                </div>
+                                            </div>
+                                            <h2 className='flex text-[0.8125rem] mt-[10px] p-0 leading-[18px] font-bold text-center'>
+                                                XEM TẤT CẢ SP MEN
+                                                <div>
+                                                    <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" height="100%" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M192 128l128 128-128 128z"></path></svg>
+                                                </div>
+                                            </h2>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li className='uppercase inline-block h-[37px]'>
+                                <a onMouseOver={handleMouseOverW} onMouseOut={handleMouseOutW} href="" className='px-[10px] pb-[15px] h-full block w-full tracking-[0.08em] font-bold'>Women</a>
+                                <div ref={tagRefW} className='bg-white shadow-md text-black absolute left-0 right-0 z-10 justify-center p-[30px] flex invisible opacity-100 flex-nowrap border-t-[1px] border-gray-300'>
+                                    <div className="basis-[230px] max-w-[230px] text-left">
+                                        <h2 className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold uppercase'>
+                                            <a href="" className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold inline-block tracking-[0.03em] m-0 w-fit uppercase'>Bộ Sưu Tập</a>
+                                        </h2>
+                                        <ul className='basis-[230px] max-w-[230px] text-left'>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    BST Summer
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    BST Croptop
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    BST Chống Nắng UV
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Phong Cách Basic
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    BST Minions
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div className="basis-[230px] max-w-[230px] text-left">
+                                        <h2 className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold'>
+                                            <a href="" className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold inline-block tracking-[0.03em] m-0 w-fit uppercase'>Áo Nữ</a>
+                                        </h2>
+                                        <ul className='basis-[230px] max-w-[230px] text-left'>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Áo Khoác
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Áo Thun
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Áo Polo
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Áo Sơ Mi - Áo Kiểu
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Áo Thun Đôi
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Áo Sweater
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div className="basis-[230px] max-w-[230px] text-left">
+                                        <h2 className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold'>
+                                            <a href="" className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold inline-block tracking-[0.03em] m-0 w-fit uppercase'>Quần/ Váy Nữ</a>
+                                        </h2>
+                                        <ul className='basis-[230px] max-w-[230px] text-left'>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Váy
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Đầm
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Quần Ngắn
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Quần Dài
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Quần Jean
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div className="basis-[230px] max-w-[230px] text-left">
+                                        <h2 className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold'>
+                                            <a href="" className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold inline-block tracking-[0.03em] m-0 w-fit uppercase'>Khám Phá</a>
+                                        </h2>
+                                        <ul className='basis-[230px] max-w-[230px] text-left'>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Được Ưa Chuộng
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Sale Hấp Dẫn
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Thời Trang Mới - Nữ
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div className="basis-[230px] max-w-[230px] text-left">
+                                        <h2 className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold'>
+                                            <a href="" className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold inline-block tracking-[0.03em] m-0 w-fit uppercase'>Phụ kiện</a>
+                                        </h2>
+                                        <ul className='basis-[230px] max-w-[230px] text-left'>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Tất - Vớ
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Balo - Túi Xách
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
+                                                    Mũ - Nón
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div className="basis-[255px] max-w-[255px] text-left">
+                                        <a href="" className='text-[0.75rem] p-0 inline-block tracking-[0.03em] font-normal uppercase m-0'>
+                                            <div>
+                                                <div>
+                                                    <img src="/image/cate_2.jpg" alt="" className='w-full' />
+                                                </div>
+                                            </div>
+                                            <h2 className='flex text-[0.8125rem] mt-[10px] p-0 leading-[18px] font-bold text-center'>
+                                                XEM TẤT CẢ SP WOMEN
+                                                <div>
+                                                    <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" height="100%" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M192 128l128 128-128 128z"></path></svg>
+                                                </div>
+                                            </h2>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li className='uppercase inline-block h-[37px]'>
+                                <a onMouseOver={handleMouseOverOW} onMouseOut={handleMouseOutOW} href="" className='px-[10px] pb-[15px] h-full block w-full tracking-[0.08em] font-bold'>Kid</a>
+                                <div ref={tagRefOW} className='bg-white shadow-md text-black absolute left-0 right-0 z-10 justify-center p-[30px] flex invisible opacity-100 flex-nowrap border-t-[1px] border-gray-300'>
+                                    <div className="basis-[230px] max-w-[230px] text-left">
+                                        <h2 className='text-[0.8125rem] font-bold leading-[18px] m-0 p-0'>
+                                            <a href="" className='uppercase'>
+                                                Trẻ Em
+                                            </a>
+                                        </h2>
+                                    </div>
+                                    <div className="basis-[230px] max-w-[230px] text-left">
+                                        <h2 className='text-[0.8125rem] font-bold leading-[18px] m-0 p-0'>
+                                            <a href="" className='uppercase'>
+                                                Gia Đình
+                                            </a>
+                                        </h2>
+                                    </div>
+                                    <div className="basis-[255px] max-w-[255px] text-left">
+                                        <a href="" className='text-[0.75rem] p-0 inline-block tracking-[0.03em] font-normal uppercase m-0'>
+                                            <div>
+                                                <div>
+                                                    <img src="/image/kid.webp" alt="" className='w-full' />
+                                                </div>
+                                            </div>
+                                            <h2 className='flex text-[0.8125rem] mt-[10px] p-0 leading-[18px] font-bold text-center'>
+                                                XEM TẤT CẢ SP KID
+                                                <div>
+                                                    <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" height="100%" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M192 128l128 128-128 128z"></path></svg>
+                                                </div>
+                                            </h2>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
                 <div className='mt-[25px] absolute flex right-[100px] top-0'>
                     <div className="bg-transparent border-transparent inline-block align-top h-auto m-0 py-[1px] px-[18px] text-center">
                         <span className="flex flex-row-reverse border-b-[1px] border-black text-black pb-[3px] w-[145px] items-baseline justify-between cursor-pointer">
@@ -110,471 +627,12 @@ const Header: React.FC = () => {
                         </a>
                     </div>
                 </div>
-                <div className="absolute right-[60px] top-[25px]">
+                <div className="absolute right-[60px] top-0 mt-[25px]">
                     <a href="" className='block px-0 pb-[20px] pr-[16px] pt-[3] font-[400] text-[10px]'>
                         <svg className='tracking-[0.27px] relative leading-[14px] h-[16px] w-[20px]' stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 32 32" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M 16 3 C 13.253906 3 11 5.253906 11 8 L 11 9 L 6.0625 9 L 6 9.9375 L 5 27.9375 L 4.9375 29 L 27.0625 29 L 27 27.9375 L 26 9.9375 L 25.9375 9 L 21 9 L 21 8 C 21 5.253906 18.746094 3 16 3 Z M 16 5 C 17.65625 5 19 6.34375 19 8 L 19 9 L 13 9 L 13 8 C 13 6.34375 14.34375 5 16 5 Z M 7.9375 11 L 11 11 L 11 14 L 13 14 L 13 11 L 19 11 L 19 14 L 21 14 L 21 11 L 24.0625 11 L 24.9375 27 L 7.0625 27 Z"></path></svg>
                         <span className='p-0 absolute left-[25px] top-[10px] text-center bottom-[19px] leading-[0.5]'>0</span>
                         <span className='block tracking-[0.27px] leading-[14px] pt-[6px]'>Cart</span>
                     </a>
-                </div>
-            </div>
-            <div className='w-full h-full static transition-left duration-200 ease-in mt-0 box-border'>
-                <div>
-                    <ul className='border-0 my-[16px] h-[44px] w-full max-w-[1200px] mx-auto text-center p-0'>
-                        <li className='uppercase inline-block h-[37px]'>
-                            <a onMouseOver={handleMouseOverNA} onMouseOut={handleMouseOutNA} href="" className='px-[10px] relative pb-[15px] h-full block w-full tracking-[0.08em] font-bold hover:after:scale-x-100'>
-                                New Arrival
-                            </a>
-                            <div ref={tagRefNA} className='bg-white shadow-md text-black absolute left-0 right-0 z-10 justify-center p-[30px] flex invisible opacity-100 flex-nowrap border-t-[1px] border-gray-300'>
-                                <div className="basis-[230px] max-w-[230px] text-left">
-                                    <h2 className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold uppercase'>
-                                        <a href="" className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold inline-block tracking-[0.03em] m-0 w-fit uppercase'>Áo thun</a>
-                                    </h2>
-                                </div>
-                                <div className="basis-[230px] max-w-[230px] text-left">
-                                    <h2 className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold'>
-                                        <a href="" className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold inline-block tracking-[0.03em] m-0 w-fit uppercase'>Áo Polo</a>
-                                    </h2>
-                                </div>
-                                <div className="basis-[230px] max-w-[230px] text-left">
-                                    <h2 className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold'>
-                                        <a href="" className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold inline-block tracking-[0.03em] m-0 w-fit uppercase'>Áo khoác</a>
-                                    </h2>
-                                </div>
-                                <div className="basis-[230px] max-w-[230px] text-left">
-                                    <h2 className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold'>
-                                        <a href="" className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold inline-block tracking-[0.03em] m-0 w-fit uppercase'>Quần | Chân váy</a>
-                                    </h2>
-                                </div>
-                                <div className="basis-[230px] max-w-[230px] text-left">
-                                    <h2 className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold'>
-                                        <a href="" className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold inline-block tracking-[0.03em] m-0 w-fit uppercase'>Phụ kiện</a>
-                                    </h2>
-                                </div>
-                                <div className="basis-[255px] max-w-[255px] text-left">
-                                    <a href="" className='text-[0.75rem] p-0 inline-block tracking-[0.03em] font-normal uppercase m-0'>
-                                        <div>
-                                            <div>
-                                                <img src="/image/banner_1.webp" alt="" className='w-full' />
-                                            </div>
-                                        </div>
-                                        <h2 className='flex text-[0.8125rem] mt-[10px] p-0 leading-[18px] font-bold text-center'>
-                                            XEM TẤT CẢ SP NEW ARRIVALS
-                                            <div>
-                                                <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" height="100%" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M192 128l128 128-128 128z"></path></svg>
-                                            </div>
-                                        </h2>
-                                    </a>
-                                </div>
-                            </div>
-                        </li>
-                        <li className='uppercase inline-block h-[37px]'>
-                            <a onMouseOver={handleMouseOverOW} onMouseOut={handleMouseOutOW} href="" className='px-[10px] pb-[15px] h-full block w-full tracking-[0.08em] font-bold'>Outerwear</a>
-                            <div ref={tagRefOW} className='bg-white shadow-md text-black absolute left-0 right-0 z-10 justify-center p-[30px] flex invisible opacity-100 flex-nowrap border-t-[1px] border-gray-300'>
-                                <div className="basis-[230px] max-w-[230px] text-left">
-                                    <h2 className='text-[0.8125rem] font-bold leading-[18px] m-0 p-0'>
-                                        <a href="" className='uppercase'>
-                                            Áo khoác nữ
-                                        </a>
-                                    </h2>
-                                    <ul className='basis-[230px] max-w-[230px] text-left'>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Chống nắng UV
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Trượt nước
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Khoác kiểu
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Easywear
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                CTX Studio
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div className="basis-[230px] max-w-[230px] text-left">
-                                    <h2 className='text-[0.8125rem] font-bold leading-[18px] m-0 p-0'>
-                                        <a href="" className='uppercase'>
-                                            Áo khoác nam
-                                        </a>
-                                    </h2>
-                                    <ul className='basis-[230px] max-w-[230px] text-left'>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Chống nắng UV
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Trượt nước
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Khoác kiểu
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Easywear
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                CTX Studio
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div className="basis-[255px] max-w-[255px] text-left">
-                                    <a href="" className='text-[0.75rem] p-0 inline-block tracking-[0.03em] font-normal uppercase m-0'>
-                                        <div>
-                                            <div>
-                                                <img src="/image/outerwear.jpg" alt="" className='w-full' />
-                                            </div>
-                                        </div>
-                                        <h2 className='flex text-[0.8125rem] mt-[10px] p-0 leading-[18px] font-bold text-center'>
-                                            XEM TẤT CẢ SP OUTERWEAR
-                                            <div>
-                                                <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" height="100%" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M192 128l128 128-128 128z"></path></svg>
-                                            </div>
-                                        </h2>
-                                    </a>
-                                </div>
-                            </div>
-                        </li>
-                        <li className='uppercase inline-block h-[37px]'>
-                            <a onMouseOver={handleMouseOverM} onMouseOut={handleMouseOutM} href="" className='px-[10px] pb-[15px] h-full block w-full tracking-[0.08em] font-bold'>Men</a>
-                            <div ref={tagRefM} className='bg-white shadow-md text-black absolute left-0 right-0 z-10 justify-center p-[30px] flex invisible opacity-100 flex-nowrap border-t-[1px] border-gray-300'>
-                                <div className="basis-[230px] max-w-[230px] text-left">
-                                    <h2 className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold uppercase'>
-                                        <a href="" className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold inline-block tracking-[0.03em] m-0 w-fit uppercase'>Bộ Sưu Tập</a>
-                                    </h2>
-                                    <ul className='basis-[230px] max-w-[230px] text-left'>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                BST Summer
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Chống Nắng UV
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Phong Cách Basic
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                BST Minions
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div className="basis-[230px] max-w-[230px] text-left">
-                                    <h2 className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold'>
-                                        <a href="" className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold inline-block tracking-[0.03em] m-0 w-fit uppercase'>Áo Nam</a>
-                                    </h2>
-                                    <ul className='basis-[230px] max-w-[230px] text-left'>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Áo Khoác Nam
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Áo Thun
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Áo Polo
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Áo Sơ Mi
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Áo Thun Đôi
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Áo Sweater
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div className="basis-[230px] max-w-[230px] text-left">
-                                    <h2 className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold'>
-                                        <a href="" className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold inline-block tracking-[0.03em] m-0 w-fit uppercase'>Quần Nam</a>
-                                    </h2>
-                                    <ul className='basis-[230px] max-w-[230px] text-left'>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Quần Ngắn
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Quần Dài
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Quần Jean
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div className="basis-[230px] max-w-[230px] text-left">
-                                    <h2 className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold'>
-                                        <a href="" className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold inline-block tracking-[0.03em] m-0 w-fit uppercase'>Khám Phá</a>
-                                    </h2>
-                                    <ul className='basis-[230px] max-w-[230px] text-left'>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Hàng Mới
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Được Ưa Chuộng
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Sale Hấp Dẫn
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div className="basis-[230px] max-w-[230px] text-left">
-                                    <h2 className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold'>
-                                        <a href="" className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold inline-block tracking-[0.03em] m-0 w-fit uppercase'>Phụ kiện</a>
-                                    </h2>
-                                    <ul className='basis-[230px] max-w-[230px] text-left'>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Tất - Vớ
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Balo - Túi Xách
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Mũ - Nón
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div className="basis-[255px] max-w-[255px] text-left">
-                                    <a href="" className='text-[0.75rem] p-0 inline-block tracking-[0.03em] font-normal uppercase m-0'>
-                                        <div>
-                                            <div>
-                                                <img src="/image/cate_1.webp" alt="" className='w-full' />
-                                            </div>
-                                        </div>
-                                        <h2 className='flex text-[0.8125rem] mt-[10px] p-0 leading-[18px] font-bold text-center'>
-                                            XEM TẤT CẢ SP MEN
-                                            <div>
-                                                <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" height="100%" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M192 128l128 128-128 128z"></path></svg>
-                                            </div>
-                                        </h2>
-                                    </a>
-                                </div>
-                            </div>
-                        </li>
-                        <li className='uppercase inline-block h-[37px]'>
-                            <a onMouseOver={handleMouseOverW} onMouseOut={handleMouseOutW} href="" className='px-[10px] pb-[15px] h-full block w-full tracking-[0.08em] font-bold'>Women</a>
-                            <div ref={tagRefW} className='bg-white shadow-md text-black absolute left-0 right-0 z-10 justify-center p-[30px] flex invisible opacity-100 flex-nowrap border-t-[1px] border-gray-300'>
-                                <div className="basis-[230px] max-w-[230px] text-left">
-                                    <h2 className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold uppercase'>
-                                        <a href="" className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold inline-block tracking-[0.03em] m-0 w-fit uppercase'>Bộ Sưu Tập</a>
-                                    </h2>
-                                    <ul className='basis-[230px] max-w-[230px] text-left'>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                BST Summer
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                BST Croptop
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                BST Chống Nắng UV
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Phong Cách Basic
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                BST Minions
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div className="basis-[230px] max-w-[230px] text-left">
-                                    <h2 className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold'>
-                                        <a href="" className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold inline-block tracking-[0.03em] m-0 w-fit uppercase'>Áo Nữ</a>
-                                    </h2>
-                                    <ul className='basis-[230px] max-w-[230px] text-left'>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Áo Khoác 
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Áo Thun
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Áo Polo
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Áo Sơ Mi - Áo Kiểu
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Áo Thun Đôi
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Áo Sweater
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div className="basis-[230px] max-w-[230px] text-left">
-                                    <h2 className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold'>
-                                        <a href="" className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold inline-block tracking-[0.03em] m-0 w-fit uppercase'>Quần/ Váy Nữ</a>
-                                    </h2>
-                                    <ul className='basis-[230px] max-w-[230px] text-left'>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Váy
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Đầm
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Quần Ngắn
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Quần Dài
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Quần Jean
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div className="basis-[230px] max-w-[230px] text-left">
-                                    <h2 className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold'>
-                                        <a href="" className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold inline-block tracking-[0.03em] m-0 w-fit uppercase'>Khám Phá</a>
-                                    </h2>
-                                    <ul className='basis-[230px] max-w-[230px] text-left'>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>  
-                                            Được Ưa Chuộng
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Sale Hấp Dẫn
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Thời Trang Mới - Nữ
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div className="basis-[230px] max-w-[230px] text-left">
-                                    <h2 className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold'>
-                                        <a href="" className='text-[0.8125rem] m-0 p-0 leading-[18px] font-bold inline-block tracking-[0.03em] m-0 w-fit uppercase'>Phụ kiện</a>
-                                    </h2>
-                                    <ul className='basis-[230px] max-w-[230px] text-left'>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Tất - Vớ
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Balo - Túi Xách
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" className='text-[0.75rem] p-0 font-normal tracking-[0.03em] uppercase inline-block w-fit	'>
-                                                Mũ - Nón
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div className="basis-[255px] max-w-[255px] text-left">
-                                    <a href="" className='text-[0.75rem] p-0 inline-block tracking-[0.03em] font-normal uppercase m-0'>
-                                        <div>
-                                            <div>
-                                                <img src="/image/cate_1.webp" alt="" className='w-full' />
-                                            </div>
-                                        </div>
-                                        <h2 className='flex text-[0.8125rem] mt-[10px] p-0 leading-[18px] font-bold text-center'>
-                                            XEM TẤT CẢ SP MEN
-                                            <div>
-                                                <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" height="100%" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M192 128l128 128-128 128z"></path></svg>
-                                            </div>
-                                        </h2>
-                                    </a>
-                                </div>
-                            </div>
-                        </li>
-                        <li className='uppercase inline-block h-[37px]'>
-                            <a href="" className='px-[10px] pb-[15px] h-full block w-full tracking-[0.08em] font-bold'>Kid</a>
-                        </li>
-                    </ul>
                 </div>
             </div>
         </header>
