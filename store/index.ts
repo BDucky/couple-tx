@@ -1,11 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 import filterReducer from "./filterSlice";
 import fixedReducer from "./fixedSlice";
+import showFilterReducer from "./showFilterSlice";
+import variantReducer from "./variantSlice";
 
 export const store = configureStore({
   reducer: {
     filterReducer,
     fixedReducer,
+    showFilterReducer,
+    variantReducer,
   },
 });
 
