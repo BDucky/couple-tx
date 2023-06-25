@@ -14,6 +14,7 @@ export async function GET(req: NextApiRequest) {
     },
     include: {
       images: true,
+      user: true,
     },
   });
   return NextResponse.json(reviews);
