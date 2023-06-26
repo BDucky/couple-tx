@@ -2,12 +2,13 @@ import HomeButton from "./HomeButton";
 
 const NewArrival = () => {
   return (
-    <div className="py-[90px] container relative">
+    <div className="container relative overflow-hidden">
       <picture>
         <img
-          className="w-full h-auto lazyloaded"
+          className="relative touch-pan-y select-none mb-[20px]"
           alt="new arrival"
           src="/image/new_arrival.webp"
+          style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "cover" }}
         />
       </picture>
       <div

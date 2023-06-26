@@ -6,154 +6,163 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
 model Categories {
   id           Int           @id @default(autoincrement())
   name         String 
-  gender String
-  image String
+  gender       String
+  image        String
   subcategories SubCategory[]
-  products Products[]
+  products     Products[]
 }
 
 model SubCategory {
-  id          Int         @id @default(autoincrement())
-  name        String
-  image String
-  category_id Int
-
-  products Products[]
-  category    Categories  @relation(fields: [category_id], references: [id], onDelete: Cascade)
+  id           Int         @id @default(autoincrement())
+  name         String
+  image        String
+  category_id  Int
+  products     Products[]
+  category     Categories  @relation(fields: [category_id], references: [id], onDelete: Cascade)
 }
+
 model Products {
   id                Int       @id @default(autoincrement())
-  product_name              String
+  product_name      String
   category_id       Int
-  subcategory_id Int
+  subcategory_id    Int
   favorite_counters Int
-  product_references        String
+  product_references String
   information       String
   created_at        DateTime
   gender_id         Int
-  sale_id Int @default(-10)
+  sale_id           Int       @default(-10)
 
-  rates Rate[]
-  productVariants ProductsVariant[]
-  sale              Sale @relation(fields: [sale_id],references: [id],onDelete: Cascade)
-  genders           Gender  @relation(fields: [gender_id],references: [id])
-  category        Categories @relation(fields: [category_id],references: [id],onDelete: Cascade)
-  sub_category SubCategory @relation(fields: [subcategory_id],references: [id],onDelete: Cascade)
+  rates            Rate[]
+  productVariants  ProductsVariant[]
+  sale              Sale     @relation(fields: [sale_id], references: [id], onDelete: Cascade)
+  genders           Gender   @relation(fields: [gender_id], references: [id])
+  category          Categories @relation(fields: [category_id], references: [id], onDelete: Cascade)
+  sub_category      SubCategory @relation(fields: [subcategory_id], references: [id], onDelete: Cascade)
 }
-model ProductsVariant{
-  id                Int       @id @default(autoincrement())
+
+model ProductsVariant {
+  id                  Int       @id @default(autoincrement())
   product_variant_name String
-  product_id Int
-  price Float
-  color String
-  quantity Int
+  product_id           Int
+  price                Float
+  color                String
+  quantity             Int
 
-  size Size[]
-  images ProductsVariantImage[]
-  order_item OrderItem[]
-  cart_item CartItem[]
-  product Products @relation(fields: [product_id],references: [id],onDelete: Cascade)
+  size              Size[]
+  images            ProductsVariantImage[]
+  order_item        OrderItem[]
+  cart_item         CartItem[]
+  product           Products   @relation(fields: [product_id], references: [id], onDelete: Cascade)
 }
-model Size{
-  id                Int       @id @default(autoincrement())
-  name_size String
-  product_variant_id Int
+
+model Size {
+  id                    Int       @id @default(autoincrement())
+  name_size             String
+  product_variant_id    Int
 
   technical_specification Technical_specification[]
-  product_variant ProductsVariant @relation(fields: [product_variant_id],references: [id],onDelete: Cascade)
+  product_variant        ProductsVariant @relation(fields: [product_variant_id], references: [id], onDelete: Cascade)
 }
-model Technical_specification{
-  id                Int       @id @default(autoincrement())
-  name_technical_specification String
-  value Float
-  size_id Int
 
-  size Size @relation(fields: [size_id],references: [id],onDelete: Cascade)
+model Technical_specification {
+  id                             Int       @id @default(autoincrement())
+  name_technical_specification   String
+  value                          Float
+  size_id                        Int
+
+  size                           Size      @relation(fields: [size_id], references: [id], onDelete: Cascade)
 }
-model ProductsVariantImage{
-  id      Int      @id @default(autoincrement())
-  imageUrl String
-  product_variant_id Int
-  productVariant ProductsVariant @relation(fields: [product_variant_id],references: [id],onDelete: Cascade)
+
+model ProductsVariantImage {
+  id                   Int       @id @default(autoincrement())
+  imageUrl             String
+  product_variant_id   Int
+  productVariant       ProductsVariant @relation(fields: [product_variant_id], references: [id], onDelete: Cascade)
 }
+
 model Gender {
   id      Int      @id @default(autoincrement())
   name    String
-  products Products []
+  products Products[]
 }
-model Rate{
-  id      Int      @id @default(autoincrement())
-  title String
+
+model Rate {
+  id         Int      @id @default(autoincrement())
+  title      String
   description String
-  star Float
+  star       Float
   product_id Int
-  user_id Int
+  user_id    Int
   created_at DateTime @default(now())
 
-  user User @relation(fields: [user_id],references: [id],onDelete: Cascade)
+  user   User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
   images RateImage[]
-  product Products @relation(fields: [product_id],references: [id],onDelete: Cascade)
+  product Products @relation(fields: [product_id], references: [id], onDelete: Cascade)
 }
+
+
 model RateImage{
   id      Int      @id @default(autoincrement())  
   imageUrl String
-  rate_id Int
-  rate Rate @relation(fields: [rate_id],references: [id],onDelete: Cascade)
+  rate_id  Int
+  rate     Rate     @relation(fields: [rate_id], references: [id], onDelete: Cascade)
 }
-model Sale{
-  id      Int      @id @default(autoincrement())
+
+model Sale {
+  id                  Int      @id @default(autoincrement())
   discount_percentage Int
-  sale_start_date DateTime?
-  sale_end_date DateTime?
+  sale_start_date     DateTime?
+  sale_end_date       DateTime?
 
   product Products[]
 }
 
-
-model Order{
-  id      Int      @id @default(autoincrement())
-  user_id Int
-  total_price Float
-  address String
+model Order {
+  id             Int      @id @default(autoincrement())
+  user_id        Int
+  total_price    Float
+  address        String
   payment_method String
-  created_at DateTime @default(now())
-
+  created_at     DateTime @default(now())
 
   order_item OrderItem[]
 
-  user User @relation(fields: [user_id],references: [id],onDelete: Cascade)
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
 }
-model OrderItem{
-  id      Int      @id @default(autoincrement())
-  order_id Int
-  product_variant_id Int
-  quantity Int
-  total_price Float
 
-  
-  product_variant ProductsVariant @relation(fields: [product_variant_id],references: [id],onDelete: Cascade)
-  order Order @relation(fields: [order_id],references: [id],onDelete: Cascade)
-  
+model OrderItem {
+  id                  Int      @id @default(autoincrement())
+  order_id            Int
+  product_variant_id  Int
+  quantity            Int
+  total_price         Float
+
+  product_variant     ProductsVariant @relation(fields: [product_variant_id], references: [id], onDelete: Cascade)
+  order               Order           @relation(fields: [order_id], references: [id], onDelete: Cascade)
 }
-model Cart{
+
+model Cart {
   id      Int      @id @default(autoincrement())
   user_id Int
 
   cart_item CartItem[]
-  user User @relation(fields: [user_id],references: [id],onDelete: Cascade)
+  user      User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
 }
-model CartItem{
-  id      Int      @id @default(autoincrement())
-  product_variant_id Int
-  total_price Float
-  cart_id Int
-  quantity Int
 
-  product_variant ProductsVariant @relation(fields: [product_variant_id],references: [id],onDelete:Cascade)
-  cart Cart @relation(fields: [cart_id],references: [id],onDelete:Cascade)
+model CartItem {
+  id                  Int      @id @default(autoincrement())
+  product_variant_id  Int
+  total_price         Float
+  cart_id             Int
+  quantity            Int
+
+  product_variant     ProductsVariant @relation(fields: [product_variant_id], references: [id], onDelete: Cascade)
+  cart                Cart            @relation(fields: [cart_id], references: [id], onDelete: Cascade)
 }
 
 model Blogs {
@@ -183,16 +192,15 @@ model User {
   reviews Rate[]
 }
 
-
-model Posts{
-  id      Int      @id @default(autoincrement())
-  title String
-  author_id Int
+model Posts {
+  id         Int      @id @default(autoincrement())
+  title      String
+  author_id  Int
   created_at DateTime @default(now())
-  body String
-  blog_id Int
-  image String
+  body       String
+  blog_id    Int
+  image      String
 
-  user User @relation(fields: [author_id],references: [id],onDelete: Cascade)
-  blog Blogs @relation(fields: [blog_id],references: [id],onDelete: Cascade)
+  user User  @relation(fields: [author_id], references: [id], onDelete: Cascade)
+  blog Blogs @relation(fields: [blog_id], references: [id], onDelete: Cascade)
 }
