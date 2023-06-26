@@ -2,7 +2,7 @@
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import CategoryBanner from "./CategoryBanner";
-import BlogList from "@/components/user/blog/BlogsList";
+import Page from "@/app/collections/blog/page";
 
 const HomeBanner = () => {
   return (
