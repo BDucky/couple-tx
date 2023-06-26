@@ -105,8 +105,9 @@ model Rate {
   product Products @relation(fields: [product_id], references: [id], onDelete: Cascade)
 }
 
-model RateImage {
-  id      Int      @id @default(autoincrement())
+
+model RateImage{
+  id      Int      @id @default(autoincrement())  
   imageUrl String
   rate_id  Int
   rate     Rate     @relation(fields: [rate_id], references: [id], onDelete: Cascade)
