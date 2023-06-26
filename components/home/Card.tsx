@@ -70,11 +70,11 @@ const Card = ({ isNew = true, productId = 17 }) => {
         `http://localhost:3000/api/products/findById?id=${productId}`
       );
       const data = res.data;
-      setFavorite(data.favorite_counters);
+      setFavorite(data?.favorite_counters);
       setPrice(data?.productVariants[0]?.price);
       setProduct(data);
-      setColorVariant(data.productVariants.map((item: any) => item.color));
-      const image = data.productVariants[0].images[0].imageUrl;
+      setColorVariant(data?.productVariants.map((item: any) => item.color));
+      const image = data?.productVariants[0].images[0].imageUrl;
       setImageVariant(image);
     }
     getData();
