@@ -7,7 +7,7 @@ import SortBtn from "./Sort";
 const HomeBanner = () => {
     return (
         <div className="p-0 mt-0 m-auto max-w-[90rem] h-[100%]">
-            <div className="relative touch-pan-y select-none">
+            <div className="relative touch-pan-y select-none mb-[20px]">
                 <Carousel
                     showThumbs={false}
                     autoPlay
@@ -30,7 +30,7 @@ const HomeBanner = () => {
                     </div>
                 </Carousel>
             </div>
-            <div className="flex">
+            <div className="flex mb-[20px]">
                 <div className="w-[33%] pr-[0.75rem]">
                     <CategoryBanner
                         img="/image/cate_1.webp"
