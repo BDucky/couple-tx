@@ -89,6 +89,7 @@ CREATE TABLE `Rate` (
     `description` VARCHAR(191) NOT NULL,
     `star` DOUBLE NOT NULL,
     `product_id` INTEGER NOT NULL,
+    `user_id` INTEGER NOT NULL,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
     PRIMARY KEY (`id`)
@@ -109,18 +110,6 @@ CREATE TABLE `Sale` (
     `discount_percentage` INTEGER NOT NULL,
     `sale_start_date` DATETIME(3) NULL,
     `sale_end_date` DATETIME(3) NULL,
-
-    PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
-CREATE TABLE `User` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `phone` VARCHAR(191) NOT NULL,
-    `first_name` VARCHAR(191) NULL,
-    `last_name` VARCHAR(191) NULL,
-    `gender` VARCHAR(191) NOT NULL,
-    `date_of_birth` DATETIME(3) NULL DEFAULT CURRENT_TIMESTAMP(3),
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -179,6 +168,18 @@ CREATE TABLE `Blogs` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
+CREATE TABLE `User` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `phone` VARCHAR(191) NOT NULL,
+    `first_name` VARCHAR(191) NULL,
+    `last_name` VARCHAR(191) NULL,
+    `gender` VARCHAR(191) NOT NULL,
+    `date_of_birth` DATETIME(3) NULL DEFAULT CURRENT_TIMESTAMP(3),
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
 CREATE TABLE `Posts` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `title` VARCHAR(191) NOT NULL,
@@ -217,6 +218,9 @@ ALTER TABLE `Technical_specification` ADD CONSTRAINT `Technical_specification_si
 
 -- AddForeignKey
 ALTER TABLE `ProductsVariantImage` ADD CONSTRAINT `ProductsVariantImage_product_variant_id_fkey` FOREIGN KEY (`product_variant_id`) REFERENCES `ProductsVariant`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Rate` ADD CONSTRAINT `Rate_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `User`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Rate` ADD CONSTRAINT `Rate_product_id_fkey` FOREIGN KEY (`product_id`) REFERENCES `Products`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
