@@ -1,4 +1,8 @@
-export const filterColors = [
+interface filterColorsType {
+  enColor: string;
+  vnColor: string;
+}
+export const filterColors: filterColorsType[] = [
   {
     enColor: "black",
     vnColor: "Đen",

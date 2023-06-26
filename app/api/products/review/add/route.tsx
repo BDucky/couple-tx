@@ -4,10 +4,12 @@ import { NextApiRequest } from "next";
 import prisma from "@/libs/prismadb";
 
 export async function POST(req: Request) {
-  const { title, description, star, product_id, images } = await req.json();
+  const { user_id, title, description, star, product_id, images } =
+    await req.json();
 
   const review = await prisma.rate.create({
     data: {
+      user_id: user_id,
       title: title,
       description: description,
       star: parseFloat(star),

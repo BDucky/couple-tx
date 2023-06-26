@@ -1,22 +1,33 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Card } from "../home";
 import { useAppSelector } from "@/hooks/redux";
 import axios from "axios";
 
-const LayoutCard = ({ products }: any) => {
+const LayoutCard = ({ products = [] }: any) => {
   const [filterProduct, setFilterProduct] = useState(products);
   const colors = useAppSelector((state: any) => state.filterReducer.colors);
+  const sizes = useAppSelector((state: any) => state.filterReducer.sizes);
+  const firstValue = useRef("");
+
   useEffect(() => {
     async function getData() {
-      if (colors.length > 0) {
+      if (colors.length > 0 || sizes.length > 0) {
+        if (colors.length > 0 && sizes.length <= 0) {
+          firstValue.current = `color=${colors[0]}`;
+        } else if (sizes.length > 0 && colors.length <= 0) {
+          firstValue.current = `size=${sizes[0]}`;
+        }
         const queryColors = colors
           .map((item: any) => "&color=" + item)
           .join("");
+        const querySize = sizes.map((item: any) => "&size=" + item).join("");
         const res = await axios.get(
-          ` http://localhost:3000/api/products/filter?color=${colors[0]}${
-            colors.length > 1 ? queryColors : ""
-          }`
+          ` http://localhost:3000/api/products/filter?${firstValue.current}${
+            colors.length > 0 ? queryColors : ""
+          }
+          ${sizes.length > 0 ? querySize : ""}
+          `
         );
         const data = res.data;
         setFilterProduct(data);
@@ -26,7 +37,7 @@ const LayoutCard = ({ products }: any) => {
     }
     getData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [colors.length, colors]);
+  }, [colors.length, sizes.length]);
   return (
     <div
       className="grid"
