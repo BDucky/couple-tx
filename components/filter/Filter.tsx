@@ -14,8 +14,12 @@ const Filter = () => {
     const handleScroll = () => {
       const position = window.pageYOffset;
       setScrollPosition(position);
-      if (scrollPosition > 398) {
-        dispatch(handleFixed(true));
+      if (scrollPosition > 380) {
+        if (scrollPosition > 1300) {
+          dispatch(handleFixed(false));
+        } else {
+          dispatch(handleFixed(true));
+        }
       } else {
         dispatch(handleFixed(false));
       }
@@ -28,9 +32,9 @@ const Filter = () => {
   }, [dispatch, scrollPosition]);
   return (
     <div
-      className={`flex flex-col gap-y-3 p-3 border border-black w-[330px] ${
-        fixed && "fixed top-[160px] z-10"
-      }`}
+      className={`flex flex-col gap-y-3 p-3 border ${
+        scrollPosition > 1300 && "mt-[1100px]"
+      } border-black w-[330px] ${fixed && "fixed top-[160px] z-10"}`}
     >
       <FilterColor></FilterColor>
       <FilterSize></FilterSize>
