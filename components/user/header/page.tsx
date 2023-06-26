@@ -89,12 +89,12 @@ const Header: React.FC = () => {
         "flex items-center h-[65px]": isFlex,
     });
 
-    const logoClass = clsx("my-[25px]", "mx-auto", "mb-[45px]", {
-        "ml-[15px] mb-[25px] ": isFlex,
+    const logoClass = clsx("mt-[25px]", "mx-auto", "mb-[45px]", {
+        "ml-[15px] !mb-[25px]": isFlex,
     })
 
     const headerUlClass = clsx("border-0", "h-full", "w-full", " max-w-[1200px]", "mx-auto", "text-center", "p-0", {
-        "flex items-center justify-center mt-[7px]": isFlex,
+        "flex items-center justify-center mt-[7px] mr-[5px]": isFlex,
     })
 
     const headerUltiClass = clsx("mt-[25px]", "absolute", "flex", "right-[100px]", "top-0", {
@@ -106,7 +106,7 @@ const Header: React.FC = () => {
     })
 
     const searchBarClass = clsx("flex", "flex-row-reverse", "border-b-[1px]", "border-black", "text-black", "pb-[3px]", "w-[145px]", "items-baseline", "justify-between", "cursor-pointer", {
-        "border-b-0": isFlex,
+        "!border-b-[0px]": isFlex,
     })
 
     const searctTextClass = clsx("text-xs", "text-gray-700", {
@@ -825,6 +825,16 @@ const Header: React.FC = () => {
                                     className="px-[10px] pb-[15px] h-full block w-full tracking-[0.08em] font-bold"
                                 >
                                     Our Products
+                                </a>
+                            </li>
+                            <li className="uppercase inline-block h-[37px]">
+                                <a
+                                    onMouseOver={handleMouseOverOW}
+                                    onMouseOut={handleMouseOutOW}
+                                    href=""
+                                    className="px-[10px] pb-[15px] h-full block w-full tracking-[0.08em] font-bold"
+                                >
+                                    Blog
                                 </a>
                             </li>
                         </ul>
