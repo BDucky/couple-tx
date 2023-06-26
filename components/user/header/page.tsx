@@ -221,14 +221,14 @@ const Header: React.FC = () => {
           <div className="h-full">
             <ul className={headerUlClass}>
               <li className="uppercase inline-block h-[37px]">
-                <a
+                <Link
                   onMouseOver={handleMouseOverNA}
                   onMouseOut={handleMouseOutNA}
-                  href=""
+                  href="/collections/newarrivals"
                   className="px-[10px] relative pb-[15px] h-full block w-full tracking-[0.08em] font-bold hover:after:scale-x-100"
                 >
                   New Arrival
-                </a>
+                </Link>
                 <div
                   ref={tagRefNA}
                   className="bg-white shadow-md text-black absolute left-0 right-0 z-10 justify-center p-[30px] flex invisible opacity-100 flex-nowrap border-t-[1px] border-gray-300"
