@@ -9,9 +9,8 @@ const ProductDetailImage = ({ product }: any) => {
 
   return (
     <div
-      className={`grid gap-6 grid-cols-2 flex-grow-[8] max-w-[1014px] ${
-        fixed && "mr-[456px]"
-      }`}
+      className={`grid gap-6 grid-cols-2 flex-grow-[8] max-w-[1014px] ${fixed && "mr-[456px]"
+        }`}
     >
       {product.productVariants[variant].images
         .map((item: any) => item.imageUrl)
