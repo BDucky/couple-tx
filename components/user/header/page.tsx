@@ -89,12 +89,12 @@ const Header: React.FC = () => {
         "flex items-center h-[65px]": isFlex,
     });
 
-    const logoClass = clsx("mt-[25px]", "mx-auto", "mb-[45px]", {
+    const logoClass = clsx("my-[25px]", "mx-auto", "mb-[45px]", {
         "ml-[15px] !mb-[25px]": isFlex,
     })
 
     const headerUlClass = clsx("border-0", "h-full", "w-full", " max-w-[1200px]", "mx-auto", "text-center", "p-0", {
-        "flex items-center justify-center mt-[7px] mr-[5px]": isFlex,
+        "flex items-center justify-center mt-[7px]": isFlex,
     })
 
     const headerUltiClass = clsx("mt-[25px]", "absolute", "flex", "right-[100px]", "top-0", {
@@ -106,10 +106,10 @@ const Header: React.FC = () => {
     })
 
     const searchBarClass = clsx("flex", "flex-row-reverse", "border-b-[1px]", "border-black", "text-black", "pb-[3px]", "w-[145px]", "items-baseline", "justify-between", "cursor-pointer", {
-        "!border-b-[0px]": isFlex,
+        "border-b-0": isFlex,
     })
 
-    const searctTextClass = clsx("text-xs", "text-gray-700", {
+    const searctTextClass = clsx("text-xs", "text-gray-700", "w-full", "!outline-none", {
         "hidden": isFlex,
     })
 
@@ -858,7 +858,7 @@ const Header: React.FC = () => {
                                     <path d="M909.6 854.5L649.9 594.8C690.2 542.7 712 479 712 412c0-80.2-31.3-155.4-87.9-212.1-56.6-56.7-132-87.9-212.1-87.9s-155.5 31.3-212.1 87.9C143.2 256.5 112 331.8 112 412c0 80.1 31.3 155.5 87.9 212.1C256.5 680.8 331.8 712 412 712c67 0 130.6-21.8 182.7-62l259.7 259.6a8.2 8.2 0 0 0 11.6 0l43.6-43.5a8.2 8.2 0 0 0 0-11.6zM570.4 570.4C528 612.7 471.8 636 412 636s-116-23.3-158.4-65.6C211.3 528 188 471.8 188 412s23.3-116.1 65.6-158.4C296 211.3 352.2 188 412 188s116.1 23.2 158.4 65.6S636 352.2 636 412s-23.3 116.1-65.6 158.4z"></path>
                                 </svg>
                             </button>
-                            <span className={searctTextClass}>Tìm kiếm</span>
+                            <input className={searctTextClass} placeholder="Tìm kiếm"></input>
                         </span>
                     </div>
                     <div className="text-[10px]">

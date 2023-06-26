@@ -13,3 +13,8 @@ export interface CategoryBannerProps {
   category: string;
   descriptions: string;
 }
+
+export interface BlogListProps {
+  img: string;
+  title: string;
+}
