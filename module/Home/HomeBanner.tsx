@@ -2,6 +2,7 @@
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import CategoryBanner from "./CategoryBanner";
+import BlogList from "@/components/user/blog/BlogsList";
 
 const HomeBanner = () => {
   return (
@@ -51,6 +52,9 @@ const HomeBanner = () => {
             category="Women"
           ></CategoryBanner>
         </div>
+      </div>
+      <div>
+        <BlogList></BlogList>
       </div>
     </div>
   );
