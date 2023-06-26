@@ -53,9 +53,6 @@ const HomeBanner = () => {
           ></CategoryBanner>
         </div>
       </div>
-      <div>
-        <BlogList></BlogList>
-      </div>
     </div>
   );
 };
