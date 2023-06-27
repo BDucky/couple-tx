@@ -10,7 +10,7 @@ export async function GET(req: NextApiRequest) {
 
   const reviews = await prisma.rate.findMany({
     where: {
-      id: parseInt(product_id),
+      product_id: parseInt(product_id),
     },
     include: {
       images: true,

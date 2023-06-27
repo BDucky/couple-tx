@@ -6,8 +6,8 @@ import { Table } from "antd";
 
 const TableUser = () => {
   const router = useRouter();
-  const [loading, setLoading] = useState<boolean>(true);
-  const [loadingDelete, setLoadingDelete] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [loadingDelete, setLoadingDelete] = useState<boolean>(false);
   const [list, setList] = useState<any>();
 
   const getList = useCallback(async () => {

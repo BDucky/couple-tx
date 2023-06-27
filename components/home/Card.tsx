@@ -8,7 +8,7 @@ import LoadingSkeleton from "../loading/LoadingSkeleton";
 import { useAppSelector } from "@/hooks/redux";
 
 const Card = ({ isNew = true, productId = 17 }) => {
-  const [product, setProduct] = useState();
+  const [product, setProduct] = useState<any>();
   const [imageVariant, setImageVariant] = useState("");
   const [colorVariant, setColorVariant] = useState([]);
   const [fillColor, setFillColor] = useState("none");

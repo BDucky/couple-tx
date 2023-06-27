@@ -64,11 +64,7 @@ const ProductSideBar = ({ product }: any) => {
   };
 
   return (
-    <div
-      className={`flex-grow-[2] max-h-[2500px] max-w-[350px] ${
-        !fixed && "mt-[1905px]"
-      } ${fixed && "fixed right-[76px]"}`}
-    >
+    <div className={`flex-grow-[2] max-w-[350px] `}>
       <h1 className="font-semibold text-left text-[26px] max-w-[350px] mb-6">
         {product.product_name}
       </h1>

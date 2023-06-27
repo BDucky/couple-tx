@@ -40,6 +40,7 @@ const SizeVariantItem: React.FC<SizeVariantItemProps> = ({
       setSizes((pre: any) => [...pre, data]);
       console.log(data);
     }
+    alert("Đã lưu");
   }, [nameSize, inputValues, setSizes, sizes]);
 
   return (
