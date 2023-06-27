@@ -30,10 +30,21 @@ const Page = ({ params }: { params: { id: string } }) => {
         
           return (
             <LayoutWebsite>
-              <div className="w-full px-[15px]">
+              <div className="max-w-lg mx-auto p-4">
                 <div className="md:max-w-[768px] lg:max-w-[1024px] mx-auto px-[15px]">
                   {posts?.map((post) => (
                     <div key={post?.id} className="post">
+                      
+                        <div className="image">
+                        <img
+                          src={post?.image}
+                          alt=""
+                          className="w-full mb-4"
+                        />
+                      </div>
+                      <div className="title">
+                        <h1 className="text-center text-2xl font-bold mb-2">{post?.title}</h1>
+                      </div>
                       <div className="content">
                         <article className="prose mx-auto lg:prose-xl">
                           <div
@@ -43,16 +54,8 @@ const Page = ({ params }: { params: { id: string } }) => {
                           />
                         </article>
                       </div>
-                      <div className="image">
-                        <img
-                          src={post?.image}
-                          alt=""
-                          className="w-full max-w-full transition-all duration-200 ease-in-out"
-                        />
-                      </div>
-                      <div className="title">
-                        <h1 className="text-center text-bold text-3xl">{post?.title}</h1>
-                      </div>
+                      
+                      
                     </div>
                   ))}
                 </div>
@@ -60,6 +63,6 @@ const Page = ({ params }: { params: { id: string } }) => {
             </LayoutWebsite>
           );
         };
-        
+
 export default Page;
         
