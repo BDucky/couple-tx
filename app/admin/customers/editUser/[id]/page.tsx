@@ -2,6 +2,7 @@
 
 import Input from "@/components/admin/customers/Input";
 import Layout from "@/components/admin/layout";
+import { LoadingOutlined } from "@ant-design/icons";
 import { Select } from "antd";
 import axios from "axios";
 import { useParams } from "next/navigation";
@@ -14,6 +15,7 @@ const EditUser = () => {
   const [lastName, setLastName] = useState<string>("");
   const [gender, setGender] = useState<any>(null);
   const [birthDate, setBirthDate] = useState<any>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const options = [
     { value: "Nam", label: "Nam" },
@@ -41,6 +43,7 @@ const EditUser = () => {
   }, [id]);
 
   const handleClick = useCallback(async () => {
+    setLoading(true);
     await axios.post("/api/user/update", {
       id,
       phone,
@@ -49,6 +52,8 @@ const EditUser = () => {
       gender,
       date_of_birth: birthDate,
     });
+    setLoading(false);
+    alert("Updated");
   }, [id, phone, firstName, lastName, gender, birthDate]);
   useEffect(() => {
     getData();
@@ -63,6 +68,7 @@ const EditUser = () => {
         <div className=" w-[100%]">
           <p className=" w-[200px] block">Gender</p>
           <Select
+            className="w-[100px]"
             size="large"
             onChange={(e) => {
               setGender(e);
@@ -84,7 +90,7 @@ const EditUser = () => {
           className=" mt-3 cursor-pointer hover:opacity-70  inline-block p-3 bg-blue-500 text-white"
         >
           {" "}
-          Save Change
+          {loading ? <LoadingOutlined /> : "Save Change"}
         </div>
       </div>
     </Layout>

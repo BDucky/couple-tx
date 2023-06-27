@@ -2,9 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-/* li {
+li {
   list-style: disc !important;
-} */
+}
 
 .container {
   max-width: 1440px;
@@ -34,6 +34,21 @@
 
 .scrollBar::-webkit-scrollbar {
   display: none;
+}
+
+@layer utilities {
+  @variants responsive {
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
+  }
 }
 
 /* Hide scrollbar for IE, Edge and Firefox */

@@ -9,20 +9,29 @@ export async function POST(req: Request) {
     product_id,
     product_name,
     productVariants,
-    category,
-    sub_category,
+    category_id,
+    subcategory_id,
     product_preference,
     product_information,
     gender,
   } = body;
-  if (!product_name || !category || !sub_category) {
-    return NextResponse.error();
+  if (!product_name || !category_id || !subcategory_id) {
+    return NextResponse.json("thieeu");
   }
   await prisma.productsVariant.deleteMany({
     where: {
       product_id: parseInt(product_id),
     },
   });
+  const product = await prisma.products.findFirst({
+    where: {
+      id: parseInt(product_id),
+    },
+  });
+  let productFind = undefined;
+  if (product) {
+    productFind = product;
+  }
   const products = await prisma.products.update({
     where: {
       id: parseInt(product_id),
@@ -31,9 +40,9 @@ export async function POST(req: Request) {
       product_name: product_name,
       product_references: product_preference,
       information: product_information,
-      subcategory_id: 1,
-      category_id: 1,
-      gender_id: gender.value,
+      subcategory_id: parseInt(subcategory_id),
+      category_id: parseInt(category_id),
+      gender_id: gender.value ? gender.value : productFind?.gender_id,
       created_at: new Date(),
     },
   });

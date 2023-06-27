@@ -13,6 +13,17 @@ const TableBlogs: React.FC<TableBlogsProps> = ({ reload }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<any>(true);
 
+  const handleDelete = useCallback(async (id: number) => {
+    await axios
+      .post("/api/blog/delete", { blog_id: id })
+      .then(() => {
+        alert("Deleted");
+      })
+      .catch((error) => {
+        alert("Error: " + error);
+      });
+  }, []);
+
   const columns = useMemo(
     () => [
       {
@@ -45,7 +56,10 @@ const TableBlogs: React.FC<TableBlogsProps> = ({ reload }) => {
             >
               Add post
             </div>
-            <div className=" cursor-pointer transition hover:bg-red-500 hover:text-white w-20 flex justify-center border p-1 border-[red]">
+            <div
+              onClick={() => handleDelete(record.id)}
+              className=" cursor-pointer transition hover:bg-red-500 hover:text-white w-20 flex justify-center border p-1 border-[red]"
+            >
               {loading ? <LoadingOutlined /> : "Delete"}
             </div>
           </div>
