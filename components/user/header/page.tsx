@@ -141,7 +141,7 @@ const Header: React.FC = () => {
     "justify-between",
     "cursor-pointer",
     {
-      "border-b-0": isFlex,
+      "!border-b-0": isFlex,
     }
   );
 
