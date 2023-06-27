@@ -8,7 +8,7 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <div className="flex bg-[#f7f7f7]">
+    <div className="flex list-disc bg-[#f7f7f7]">
       <Sidebar />
 
       <div className="w-[80%] relative left-[20%]">

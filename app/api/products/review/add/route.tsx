@@ -16,13 +16,15 @@ export async function POST(req: Request) {
       product_id: product_id,
     },
   });
-  images.forEach(async (img: string) => {
-    await prisma.rateImage.create({
-      data: {
-        rate_id: review.id,
-        imageUrl: img,
-      },
+  if (images.length > 0) {
+    images.forEach(async (img: string) => {
+      await prisma.rateImage.create({
+        data: {
+          rate_id: review.id,
+          imageUrl: img,
+        },
+      });
     });
-  });
+  }
   return NextResponse.json("added");
 }

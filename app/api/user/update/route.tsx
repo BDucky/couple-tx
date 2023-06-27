@@ -7,7 +7,7 @@ export async function POST(req: Request, res: Response) {
 
   await prisma.user.update({
     where: {
-      id: id,
+      id: parseInt(id),
     },
     data: {
       phone: phone,
