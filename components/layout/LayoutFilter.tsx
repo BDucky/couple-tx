@@ -1,13 +1,17 @@
 "use client";
 import React from "react";
 import Filter from "../filter/Filter";
-import LayoutCard from "./LayoutCard";
-import ColorItem from "../ColorItem";
-import SizeItem from "../SizeItem";
-import { SortBtn } from "@/module/Home";
 import LayoutDetail from "./LayoutDetail";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { setGender } from "@/store/genderSlice";
 
-const LayoutFilter = async ({ products = [] }: any) => {
+const LayoutFilter = async ({ products = [], gender = "" }: any) => {
+  const dispatch = useAppDispatch();
+  if (gender === "men") {
+    dispatch(setGender("men"));
+  } else if (gender === "women") {
+    dispatch(setGender("women"));
+  }
   return (
     <div className="flex items-start !mb-10 gap-x-3">
       <div>

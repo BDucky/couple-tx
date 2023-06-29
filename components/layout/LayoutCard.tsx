@@ -8,6 +8,7 @@ const LayoutCard = ({ products = [] }: any) => {
   const [filterProduct, setFilterProduct] = useState(products);
   const colors = useAppSelector((state: any) => state.filterReducer.colors);
   const sizes = useAppSelector((state: any) => state.filterReducer.sizes);
+  const gender = useAppSelector((state: any) => state.GenderReducer.gender);
   const firstValue = useRef("");
 
   useEffect(() => {
@@ -23,10 +24,17 @@ const LayoutCard = ({ products = [] }: any) => {
           .join("");
         const querySize = sizes.map((item: any) => "&size=" + item).join("");
         const res = await axios.get(
-          ` http://localhost:3000/api/products/filter?${firstValue.current}${
+          `http://localhost:3000/api/products/filter?${firstValue.current}${
             colors.length > 0 ? queryColors : ""
           }
           ${sizes.length > 0 ? querySize : ""}
+          ${
+            gender === "men"
+              ? "&gender=nam"
+              : gender === "women"
+              ? "&gender=Nữ"
+              : ""
+          }
           `
         );
         const data = res.data;
