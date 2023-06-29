@@ -36,7 +36,6 @@ model Products {
   created_at        DateTime
   gender_id         Int
   sale_id           Int       @default(-10)
-
   rates            Rate[]
   productVariants  ProductsVariant[]
   sale              Sale     @relation(fields: [sale_id], references: [id], onDelete: Cascade)
@@ -52,7 +51,6 @@ model ProductsVariant {
   price                Float
   color                String
   quantity             Int
-
   size              Size[]
   images            ProductsVariantImage[]
   order_item        OrderItem[]
@@ -64,7 +62,6 @@ model Size {
   id                    Int       @id @default(autoincrement())
   name_size             String
   product_variant_id    Int
-
   technical_specification Technical_specification[]
   product_variant        ProductsVariant @relation(fields: [product_variant_id], references: [id], onDelete: Cascade)
 }
@@ -74,7 +71,6 @@ model Technical_specification {
   name_technical_specification   String
   value                          Float
   size_id                        Int
-
   size                           Size      @relation(fields: [size_id], references: [id], onDelete: Cascade)
 }
 
@@ -99,12 +95,10 @@ model Rate {
   product_id Int
   user_id    Int
   created_at DateTime @default(now())
-
   user   User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
   images RateImage[]
   product Products @relation(fields: [product_id], references: [id], onDelete: Cascade)
 }
-
 
 model RateImage{
   id      Int      @id @default(autoincrement())  
@@ -118,7 +112,6 @@ model Sale {
   discount_percentage Int
   sale_start_date     DateTime?
   sale_end_date       DateTime?
-
   product Products[]
 }
 
@@ -129,9 +122,7 @@ model Order {
   address        String
   payment_method String
   created_at     DateTime @default(now())
-
   order_item OrderItem[]
-
   user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
 }
 
@@ -141,7 +132,6 @@ model OrderItem {
   product_variant_id  Int
   quantity            Int
   total_price         Float
-
   product_variant     ProductsVariant @relation(fields: [product_variant_id], references: [id], onDelete: Cascade)
   order               Order           @relation(fields: [order_id], references: [id], onDelete: Cascade)
 }
@@ -149,7 +139,6 @@ model OrderItem {
 model Cart {
   id      Int      @id @default(autoincrement())
   user_id Int
-
   cart_item CartItem[]
   user      User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
 }
@@ -160,7 +149,6 @@ model CartItem {
   total_price         Float
   cart_id             Int
   quantity            Int
-
   product_variant     ProductsVariant @relation(fields: [product_variant_id], references: [id], onDelete: Cascade)
   cart                Cart            @relation(fields: [cart_id], references: [id], onDelete: Cascade)
 }
@@ -171,9 +159,7 @@ model Blogs {
   user_id   Int
   image     String
   created_at DateTime @default(now())
-
   posts Posts[]
-
   user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
 }
 
@@ -184,7 +170,6 @@ model User {
   last_name     String?
   gender        String
   date_of_birth DateTime? @default(now())
-
   orders Order[]
   carts  Cart[]
   blogs  Blogs[]
@@ -200,7 +185,6 @@ model Posts {
   body String @db.VarChar(1000)
   blog_id Int
   image String
-
   user User  @relation(fields: [author_id], references: [id], onDelete: Cascade)
   blog Blogs @relation(fields: [blog_id], references: [id], onDelete: Cascade)
 }
