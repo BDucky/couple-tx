@@ -3,7 +3,6 @@ import filterReducer from "./filterSlice";
 import fixedReducer from "./fixedSlice";
 import showFilterReducer from "./showFilterSlice";
 import variantReducer from "./variantSlice";
-import getProductReducer from "./productSlice";
 import GenderReducer from "./genderSlice";
 
 export const store = configureStore({
@@ -12,7 +11,6 @@ export const store = configureStore({
     fixedReducer,
     showFilterReducer,
     variantReducer,
-    getProductReducer,
     GenderReducer,
   },
 });
