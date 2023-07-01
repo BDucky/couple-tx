@@ -18,3 +18,9 @@ export interface BlogListProps {
   img: string;
   title: string;
 }
+
+export interface CheckOutProps {
+  img: string;
+  category: string;
+  descriptions: string;
+}

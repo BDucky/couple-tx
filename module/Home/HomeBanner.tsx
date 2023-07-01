@@ -3,6 +3,7 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import CategoryBanner from "./CategoryBanner";
 import Page from "@/app/collections/blog/page";
+import CheckOut from "./CheckOut";
 
 const HomeBanner = () => {
   return (
@@ -53,6 +54,7 @@ const HomeBanner = () => {
           ></CategoryBanner>
         </div>
       </div>
+      <CheckOut img="/image/polo.webp" category="" descriptions=""></CheckOut>
     </div>
   );
 };
