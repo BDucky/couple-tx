@@ -21,6 +21,8 @@ export interface BlogListProps {
 
 export interface CheckOutProps {
   img: string;
+  productName: string;
+  productPrice: number;
   category: string;
   descriptions: string;
 }

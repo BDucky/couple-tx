@@ -54,7 +54,7 @@ const HomeBanner = () => {
           ></CategoryBanner>
         </div>
       </div>
-      <CheckOut img="/image/polo.webp" category="" descriptions=""></CheckOut>
+      <CheckOut img="/image/polo.webp" productName="Áo Khoác Dù Nam Trượt Nước Vải Gân Mờ MOP 1029" productPrice={300000} category="" descriptions=""></CheckOut>
     </div>
   );
 };

@@ -4,6 +4,8 @@ import React from "react";
 
 const CheckOut = ({
     img,
+    productName,
+    productPrice,
     category,
     descriptions,
 }: CheckOutProps) => {
@@ -20,10 +22,26 @@ const CheckOut = ({
                                     </svg>
                                 </button>
                             </div>
-                            <div></div>
+                            <div>
+                                <div className="flex flex-wrap mx-[-0.75rem] justify-center items-center">
+                                    <div className="w-1/2 px-[0.75rem] mb-[1.5rem] cursor-pointer">
+                                        <img src={img} alt="" className="w-100" />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div></div>
+                    <div className="pr-[1.25rem] w-[400px] mx-[20px] mb-[5.25rem]">
+                        <div>
+                            <form action="">
+                                <div className="text-[1.625rem] tracking-[0.024em] leading-[1.2] mt-0 mb-[1.1875rem] text-left font-[600]">{productName}</div>
+                                {/* <div className="flex flex-wrap items-center"></div> */}
+                                <div className="text-[1.25rem] font-bold tracking-[0.05em] leading-[1.25] mt-[1.4375rem]">
+                                    <span>{productPrice.toLocaleString()} VND</span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
