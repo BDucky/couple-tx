@@ -160,6 +160,8 @@ model CartItem {
   total_price         Float
   cart_id             Int
   quantity            Int
+  size String
+  color String
 
   product_variant     ProductsVariant @relation(fields: [product_variant_id], references: [id], onDelete: Cascade)
   cart                Cart            @relation(fields: [cart_id], references: [id], onDelete: Cascade)
@@ -197,7 +199,7 @@ model Posts {
   title      String
   author_id  Int
   created_at DateTime @default(now())
-  body String @db.VarChar(1000)
+  body String @db.VarChar(3000)
   blog_id Int
   image String
 

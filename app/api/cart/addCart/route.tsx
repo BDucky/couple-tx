@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request, res: NextApiResponse) {
   const body = await req.json();
-  const { user_id, product_variant_id, quantity } = body;
+  const { user_id, product_variant_id, quantity, size, color } = body;
 
   const cart = await prisma.cart.findFirst({
     where: {
@@ -16,6 +16,7 @@ export async function POST(req: Request, res: NextApiResponse) {
     const cartItem = await prisma.cartItem.findFirst({
       where: {
         product_variant_id: parseInt(product_variant_id),
+        size: size,
       },
     });
 
@@ -32,6 +33,8 @@ export async function POST(req: Request, res: NextApiResponse) {
             quantity: quantity,
             cart_id: cart.id,
             total_price: variant.price * parseInt(quantity, 10),
+            size: size,
+            color: color,
           },
         });
       }
@@ -43,6 +46,7 @@ export async function POST(req: Request, res: NextApiResponse) {
         },
         data: {
           quantity: cartItem.quantity + quantity,
+          total_price: cartItem.total_price * cartItem.quantity,
         },
       });
       const productVariant = await prisma.productsVariant.findFirst({
@@ -83,6 +87,8 @@ export async function POST(req: Request, res: NextApiResponse) {
           quantity: parseInt(quantity, 10),
           total_price: parseInt(quantity, 10) * productVariant.price,
           cart_id: cart.id,
+          size: size,
+          color: color,
         },
       });
     }
