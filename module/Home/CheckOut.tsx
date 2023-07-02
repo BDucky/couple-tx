@@ -12,218 +12,219 @@ const CheckOut = ({
 
             <div className=" w-3/5">
                 <div className="main ">
-                    <div className="">
+                    <div className="mb-[20px]">
                         <div className="border">
-                            <div className="">
-                                <h1 className="font-bold text-2xl">Thông tin giao hàng</h1>
-                            </div>
-                            <div className="">
-                                <p className="">
-                                    Bạn đã có tài khoản? <a href="">Đăng nhập</a>
-                                </p>
+                            <div className="m-[15px]">
                                 <div className="">
-                                    <div className="">
-                                        <div className="">
-                                            <input
-                                                placeholder="Họ và tên"
-                                                className="w-full px-3 py-2 mb-1 border border-gray-200 focus:outline-none focus:border-indigo-500 transition-colors"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="flex">
-                                        <div className="w-3/5">
-                                            <input
-                                                placeholder="Email"
-                                                className="w-full px-3 py-2 mb-1 border border-gray-200 focus:outline-none focus:border-indigo-500 transition-colors"
-                                                type="email"
-                                            />
-                                        </div>
-                                        <div className="px-2 w-2/5">
-                                            <input
-                                                placeholder="Số điện thoại"
-                                                className="w-full px-3 py-2 mb-1 border border-gray-200 focus:outline-none focus:border-indigo-500 transition-colors"
-                                                maxLength="15"
-                                                type="tel"
-                                            />
-                                        </div>
-                                    </div>
+                                    <h1 className="font-bold text-2xl">Thông tin giao hàng</h1>
                                 </div>
-                            </div>
-
-                            <div className="border">
                                 <div className="">
-                                    <form
-                                        id="form_update_shipping_method"
-                                        className=""
-                                        acceptCharset="UTF-8"
-                                        method="post"
-                                    >
-                                        <input name="utf8" type="hidden" value="✓" />
+                                    <p className="">
+                                        Bạn đã có tài khoản? <a href="">Đăng nhập</a>
+                                    </p>
+                                    <div className="">
                                         <div className="">
                                             <div className="">
-                                                <label className="">
-                                                    <span className="">Giao tận nơi</span>
-                                                </label>
-                                                <div className="px-2 w-full">
-                                                    <input
-                                                        placeholder="Địa Chỉ"
-                                                        className="w-full px-3 py-2 mb-1 border border-gray-200 focus:outline-none focus:border-indigo-500 transition-colors"
-                                                        type="text"
-                                                    />
-                                                </div>
+                                                <input
+                                                    placeholder="Họ và tên"
+                                                    className="w-full px-3 py-2 mb-1 border border-gray-200 focus:outline-none focus:border-indigo-500 transition-colors"
+                                                />
                                             </div>
                                         </div>
-                                    </form>
+                                        <div className="flex">
+                                            <div className="w-3/5">
+                                                <input
+                                                    placeholder="Email"
+                                                    className="w-full px-3 py-2 mb-1 border border-gray-200 focus:outline-none focus:border-indigo-500 transition-colors"
+                                                    type="email"
+                                                />
+                                            </div>
+                                            <div className="pl-2 w-2/5">
+                                                <input
+                                                    placeholder="Số điện thoại"
+                                                    className="w-full px-3 py-2 mb-1 border border-gray-200 focus:outline-none focus:border-indigo-500 transition-colors"
+                                                    maxLength="15"
+                                                    type="tel"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div>
-                                <div className="">
-                                    <div className="">
-                                        <div className=""></div>
+                                <div className="border">
+                                    <div className="m-[5px]">
+                                        <form
+                                            id="form_update_shipping_method"
+                                            className=""
+                                            acceptCharset="UTF-8"
+                                            method="post"
+                                        >
+                                            <input name="utf8" type="hidden" value="✓" />
+                                            <div className="">
+                                                <div className="">
+                                                    <label className="">
+                                                        <span className="">Giao tận nơi</span>
+                                                    </label>
+                                                    <div className="px-2 w-full">
+                                                        <input
+                                                            placeholder="Địa Chỉ"
+                                                            className="w-full px-3 py-2 mb-1 border border-gray-200 focus:outline-none focus:border-indigo-500 transition-colors"
+                                                            type="text"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
-                                    <div className="">
-                                        <h2 className="font-bold text-2xl">Phương thức thanh toán</h2>
-                                    </div>
+                                </div>
+
+                                <div>
                                     <div className="">
                                         <div className="">
-                                            <div className="radio-wrapper content-box-row">
-                                                <label className="radio-label" htmlFor="payment_method_id_509146">
-                                                    <div className="radio-input payment-method-checkbox">
-                                                        <input
-                                                            type-id="1"
-                                                            id="payment_method_id_509146"
-                                                            className="input-radio"
-                                                            name="payment_method_id"
-                                                            type="radio"
-                                                            value="509146"
-                                                            checked=""
-                                                        />
-                                                    </div>
-                                                    <div className="radio-content-input">
-                                                        <div className="flex items-center">
-                                                            <img
-                                                                className="main-img col-span-6"
-                                                                src="https://hstatic.net/0/0/global/design/seller/image/payment/cod.svg?v=4"
+                                            <div className=""></div>
+                                        </div>
+                                        <div className="">
+                                            <h2 className="font-bold text-2xl">Phương thức thanh toán</h2>
+                                        </div>
+                                        <div className="">
+                                            <div className="">
+                                                <div className="radio-wrapper content-box-row">
+                                                    <label className="radio-label flex" htmlFor="payment_method_id_509146">
+                                                        <div className="radio-input payment-method-checkbox">
+                                                            <input
+                                                                type-id="1"
+                                                                id="payment_method_id_509146"
+                                                                className="input-radio"
+                                                                name="payment_method_id"
+                                                                type="radio"
+                                                                value="509146"
+                                                                checked=""
                                                             />
                                                         </div>
-                                                        <div>
-                                                            <span className="radio-label-primary">
-                                                                Thanh toán khi giao hàng (COD)
-                                                            </span>
-                                                            <span className="quick-tagline hidden"></span>
+                                                        <div className="radio-content-input ml-[10px]">
+                                                            <div className="flex items-center">
+                                                                <img
+                                                                    className="main-img col-span-6"
+                                                                    src="https://hstatic.net/0/0/global/design/seller/image/payment/cod.svg?v=4"
+                                                                />
+                                                            </div>
+                                                            <div>
+                                                                <span className="radio-label-primary">
+                                                                    Thanh toán khi giao hàng (COD)
+                                                                </span>
+                                                                <span className="quick-tagline hidden"></span>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </label>
-                                            </div>
-                                            <hr className="my-4" /> 
-                                            <div className="radio-wrapper content-box-row">
-                                                <label className="radio-label" htmlFor="payment_method_id_1002465170">
-                                                    <div className="radio-input payment-method-checkbox">
-                                                        <input
-                                                            type-id="8"
-                                                            id="payment_method_id_1002465170"
-                                                            className="input-radio"
-                                                            name="payment_method_id"
-                                                            type="radio"
-                                                            value="1002465170"
-                                                        />
-                                                    </div>
-                                                    <div className="col-span-1 self-center relative">
-                                                        <div>
-                                                            <span className="radio-label-primary">
-                                                                Thanh toán online qua ATM/Visa/MasterCard/JCB
-                                                            </span>
-                                                            <span className="quick-tagline hidden"></span>
-                                                            <img
-                                                                className="child-img"
-                                                                src="https://hstatic.net/0/0/global/design/seller/image/payment/atm_visa_master_jcb.svg?v=4"
+                                                    </label>
+                                                </div>
+                                                <hr className="my-4" />
+                                                <div className="radio-wrapper content-box-row">
+                                                    <label className="radio-label flex" htmlFor="payment_method_id_1002465170">
+                                                        <div className="radio-input payment-method-checkbox">
+                                                            <input
+                                                                type-id="8"
+                                                                id="payment_method_id_1002465170"
+                                                                className="input-radio"
+                                                                name="payment_method_id"
+                                                                type="radio"
+                                                                value="1002465170"
                                                             />
                                                         </div>
-                                                    </div>
-                                                    <p className="hd_payment moca" style={{ display: "none" }}>
-                                                        Khi bấm vào "Hoàn tất đơn hàng" bạn sẽ được mở sang cổng thanh toán của{" "}
-                                                        <img
-                                                            src="//file.hstatic.net/1000184601/file/logo-vnpayqr-update_7504b421fbb747818543c8ef939add41.png"
-                                                            alt=""
-                                                        />{" "}
-                                                        để thực hiện thanh toán.
-                                                    </p>
-                                                </label>
-                                            </div>
-                                            <hr className="my-4" /> 
-                                            <div className="radio-wrapper content-box-row">
-                                                <label className="radio-label" htmlFor="payment_method_id_1002663486">
-                                                    <div className="radio-input payment-method-checkbox">
-                                                        <input
-                                                            type-id="36"
-                                                            id="payment_method_id_1002663486"
-                                                            className="input-radio"
-                                                            name="payment_method_id"
-                                                            type="radio"
-                                                            value="1002663486"
-                                                        />
-                                                    </div>
-                                                    <div className="radio-content-input">
-                                                        <div className="flex items-center">
+                                                        <div className="col-span-1 self-center relative ml-[10px]">
+                                                            <div>
+                                                                <span className="radio-label-primary">
+                                                                    Thanh toán online qua ATM/Visa/MasterCard/JCB
+                                                                </span>
+                                                                <span className="quick-tagline hidden"></span>
+                                                                <img
+                                                                    className="child-img cursor-pointer"
+                                                                    src="https://hstatic.net/0/0/global/design/seller/image/payment/atm_visa_master_jcb.svg?v=4"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                        <p className="hd_payment moca" style={{ display: "none" }}>
+                                                            Khi bấm vào "Hoàn tất đơn hàng" bạn sẽ được mở sang cổng thanh toán của{" "}
                                                             <img
-                                                                className="main-img col-span-6"
-                                                                src="https://hstatic.net/0/0/global/design/seller/image/payment/grabmoca.svg?v=4"
+                                                                src="//file.hstatic.net/1000184601/file/logo-vnpayqr-update_7504b421fbb747818543c8ef939add41.png"
+                                                                alt=""
+                                                            />{" "}
+                                                            để thực hiện thanh toán.
+                                                        </p>
+                                                    </label>
+                                                </div>
+                                                <hr className="my-4" />
+                                                <div className="radio-wrapper content-box-row">
+                                                    <label className="radio-label flex" htmlFor="payment_method_id_1002663486">
+                                                        <div className="radio-input payment-method-checkbox">
+                                                            <input
+                                                                type-id="36"
+                                                                id="payment_method_id_1002663486"
+                                                                className="input-radio"
+                                                                name="payment_method_id"
+                                                                type="radio"
+                                                                value="1002663486"
                                                             />
                                                         </div>
-                                                        <div>
-                                                            <span className="radio-label-primary">Ví Moca trên ứng dụng Grab</span>
-                                                            <span className="quick-tagline hidden"></span>
+                                                        <div className="radio-content-input ml-[10px]">
+                                                            <div className="flex items-center">
+                                                                <img
+                                                                    className="main-img col-span-6"
+                                                                    src="https://hstatic.net/0/0/global/design/seller/image/payment/grabmoca.svg?v=4"
+                                                                />
+                                                            </div>
+                                                            <div>
+                                                                <span className="radio-label-primary">Ví Moca trên ứng dụng Grab</span>
+                                                                <span className="quick-tagline hidden"></span>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <p className="hd_payment moca" style={{ display: "none" }}>
-                                                        Khi bấm vào "Hoàn tất đơn hàng" bạn sẽ được mở sang cổng thanh toán của{" "}
-                                                        <img
-                                                            src="//file.hstatic.net/1000184601/file/logo-moca_cb6e7457cf6f4d45bb60fe276374b78e.png"
-                                                            alt=""
-                                                        />{" "}
-                                                        để thực hiện thanh toán.
-                                                    </p>
-                                                </label>
-                                            </div>
-                                            <hr className="my-4" /> 
-                                            <div className="radio-wrapper content-box-row">
-                                                <label className="radio-label" htmlFor="payment_method_id_1003043687">
-                                                    <div className="radio-input payment-method-checkbox">
-                                                        <input
-                                                            type-id="2"
-                                                            id="payment_method_id_1003043687"
-                                                            className="input-radio"
-                                                            name="payment_method_id"
-                                                            type="radio"
-                                                            value="1003043687"
-                                                        />
-                                                    </div>
-                                                    <div className="radio-content-input">
-                                                        <div className="flex items-center">
+                                                        <p className="hd_payment moca" style={{ display: "none" }}>
+                                                            Khi bấm vào "Hoàn tất đơn hàng" bạn sẽ được mở sang cổng thanh toán của{" "}
                                                             <img
-                                                                className="main-img col-span-6"
-                                                                src="https://hstatic.net/0/0/global/design/seller/image/payment/other.svg?v=4"
+                                                                src="//file.hstatic.net/1000184601/file/logo-moca_cb6e7457cf6f4d45bb60fe276374b78e.png"
+                                                                alt=""
+                                                            />{" "}
+                                                            để thực hiện thanh toán.
+                                                        </p>
+                                                    </label>
+                                                </div>
+                                                <hr className="my-4" />
+                                                <div className="radio-wrapper content-box-row">
+                                                    <label className="radio-label flex" htmlFor="payment_method_id_1003043687">
+                                                        <div className="radio-input payment-method-checkbox">
+                                                            <input
+                                                                type-id="2"
+                                                                id="payment_method_id_1003043687"
+                                                                className="input-radio"
+                                                                name="payment_method_id"
+                                                                type="radio"
+                                                                value="1003043687"
                                                             />
                                                         </div>
-                                                        <div>
-                                                            <span className="radio-label-primary">Chuyển khoản qua ngân hàng</span>
-                                                            <span className="quick-tagline hidden"></span>
+                                                        <div className="radio-content-input ml-[10px]">
+                                                            <div className="flex items-center">
+                                                                <img
+                                                                    className="main-img col-span-6"
+                                                                    src="https://hstatic.net/0/0/global/design/seller/image/payment/other.svg?v=4"
+                                                                />
+                                                            </div>
+                                                            <div>
+                                                                <span className="radio-label-primary">Chuyển khoản qua ngân hàng</span>
+                                                                <span className="quick-tagline hidden"></span>
+                                                            </div>
                                                         </div>
+                                                    </label>
+                                                </div>
+                                                <hr className="my-4" />
+                                                <div className="radio-wrapper content-box-row content-box-row-secondary hidden">
+                                                    <div className="blank-slate">
+                                                        Quý khách vui lòng đọc kĩ hướng dẫn thanh toán trước khi hoàn tất qua hình thức chuyển khoản: a. Quý khách vui lòng kiểm tra lại đơn hàng trước khi thanh toán b. Quý khách chuyển khoản đúng số tiền trên hóa đơn theo thông tin: Số tài khoản: 060209753025 Tên tài khoản: CTY TNHH COUPLE TX Ngân hàng Sacombank- CN Phương Nam Nội dung: Tên quý khách - coupletx.com Sau khi hoàn tất, Couple TX sẽ liên hệ để xác nhận và gửi đơn hàng cho quý khách, chân thành cảm ơn quý khách vì đã yêu mến Couple TX.
                                                     </div>
-                                                </label>
-                                            </div>
-                                            <hr className="my-4" /> 
-                                            <div className="radio-wrapper content-box-row content-box-row-secondary hidden">
-                                                <div className="blank-slate">
-                                                    Quý khách vui lòng đọc kĩ hướng dẫn thanh toán trước khi hoàn tất qua hình thức chuyển khoản: a. Quý khách vui lòng kiểm tra lại đơn hàng trước khi thanh toán b. Quý khách chuyển khoản đúng số tiền trên hóa đơn theo thông tin: Số tài khoản: 060209753025 Tên tài khoản: CTY TNHH COUPLE TX Ngân hàng Sacombank- CN Phương Nam Nội dung: Tên quý khách - coupletx.com Sau khi hoàn tất, Couple TX sẽ liên hệ để xác nhận và gửi đơn hàng cho quý khách, chân thành cảm ơn quý khách vì đã yêu mến Couple TX.
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                         <div className="text-center">
                             <button
