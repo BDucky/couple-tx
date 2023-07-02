@@ -2,7 +2,7 @@
 import React from "react";
 import Filter from "../filter/Filter";
 import LayoutDetail from "./LayoutDetail";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { useAppDispatch } from "@/hooks/redux";
 import { setGender } from "@/store/genderSlice";
 
 const LayoutFilter = ({ products = [], gender = "" }: any) => {

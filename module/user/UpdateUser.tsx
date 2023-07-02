@@ -23,15 +23,24 @@ const UpdateUser = () => {
   const {
     control,
     handleSubmit,
+    reset,
+    watch,
     formState: { isSubmitting, isValid, errors },
   } = useForm({
     resolver: yupResolver(schema),
     mode: "onBlur",
   });
+  const watchGender = watch("gender");
   const router = useRouter();
+  const addDays = function (str: string, days: number) {
+    const myDate = new Date(str);
+    myDate.setDate(myDate.getDate() + days);
+    return myDate;
+  };
 
   const handleUpdateUser = async (values: any) => {
     const { lastName, firstName, date, gender } = values;
+    console.log("date", date);
     if (!isValid) {
       toast.error("It seems your info was wrong");
       return;
@@ -44,7 +53,7 @@ const UpdateUser = () => {
         phone,
         last_name: lastName,
         first_name: firstName,
-        date_of_birth: date.toISOString(),
+        date_of_birth: addDays(date.toISOString(), 1),
         gender,
       });
       router.push("/account");
@@ -60,6 +69,25 @@ const UpdateUser = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [errors]);
+
+  useEffect(() => {
+    async function getData() {
+      try {
+        const id = Cookie.get("id");
+        const res = await axios.get(`/api/user/find?key=${id}`);
+        const data = res.data;
+        reset({
+          lastName: data.last_name,
+          firstName: data.first_name,
+          date: data.date_of_birth.substr(0, 10),
+          gender: data.gender,
+        });
+      } catch (err) {
+        console.log("error", err);
+      }
+    }
+    getData();
+  }, [reset]);
   return (
     <div className="p-8">
       <p className="mb-5 font-light text-gray-7000">Cập nhật thông tin</p>
@@ -111,6 +139,7 @@ const UpdateUser = () => {
                 type="radio"
                 name="gender"
                 id="Nam"
+                checked={watchGender === "Nam"}
                 value={"Nam"}
                 className="radio"
               />
@@ -122,6 +151,7 @@ const UpdateUser = () => {
                 type="radio"
                 name="gender"
                 id="Nữ"
+                checked={watchGender === "Nữ"}
                 value={"Nữ"}
                 className="radio"
               />
@@ -129,7 +159,11 @@ const UpdateUser = () => {
             </div>
           </div>
         </div>
-        <Button isSubmitting={isSubmitting} title="Cập nhật"></Button>
+        <Button
+          isSubmitting={isSubmitting}
+          title="Cập nhật"
+          className="font-semibold"
+        ></Button>
       </FormSubmit>
       <ToastContainer />
     </div>
