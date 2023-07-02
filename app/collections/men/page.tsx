@@ -76,7 +76,7 @@ const Page = () => {
           </div>
         </div>
         <Providers>
-          <LayoutFilter products={products}></LayoutFilter>
+          <LayoutFilter products={products} gender="men"></LayoutFilter>
         </Providers>
       </div>
     </LayoutWebsite>
