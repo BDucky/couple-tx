@@ -5,7 +5,7 @@ import LayoutDetail from "./LayoutDetail";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { setGender } from "@/store/genderSlice";
 
-const LayoutFilter = async ({ products = [], gender = "" }: any) => {
+const LayoutFilter = ({ products = [], gender = "" }: any) => {
   const dispatch = useAppDispatch();
   if (gender === "men") {
     dispatch(setGender("men"));
