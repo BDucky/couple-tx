@@ -4,6 +4,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import CategoryBanner from "./CategoryBanner";
 import Page from "@/app/collections/blog/page";
 import CheckOut from "./CheckOut";
+import Cart from "./Cart";
 
 const HomeBanner = () => {
   return (
@@ -55,6 +56,7 @@ const HomeBanner = () => {
         </div>
       </div>
       <CheckOut img="/image/polo.webp" category="" descriptions=""></CheckOut>
+      <Cart img="/image/Ao_thun.webp" title="ÁO KHOÁC DÙ NAM TRƯỢT NƯỚC VẢI GÂN MỜ MOP 1029" price={299000} color="Vàng bơ" gender="Nam" size="XL"></Cart>
     </div>
   );
 };

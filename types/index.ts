@@ -24,3 +24,12 @@ export interface CheckOutProps {
   category: string;
   descriptions: string;
 }
+
+export interface CartProps {
+  img: string;
+  title: string;
+  price: number;
+  color: string;
+  gender: string;
+  size: string;
+}
