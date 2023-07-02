@@ -5,19 +5,15 @@ import LayoutDetail from "./LayoutDetail";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { setGender } from "@/store/genderSlice";
 
-const LayoutFilter = async ({ products = [], gender = "" }: any) => {
-  const dispatch = useAppDispatch();
-  if (gender === "men") {
-    dispatch(setGender("men"));
-  } else if (gender === "women") {
-    dispatch(setGender("women"));
-  }
+const LayoutFilter = (products: any) => {
+  console.log(products.products);
+
   return (
     <div className="flex items-start !mb-10 gap-x-3">
       <div>
         <Filter></Filter>
       </div>
-      <LayoutDetail products={products}></LayoutDetail>
+      <LayoutDetail products={products.products}></LayoutDetail>
     </div>
   );
 };

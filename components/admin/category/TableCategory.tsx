@@ -13,16 +13,32 @@ const TableCategory: React.FC<TableCategoryProps> = ({ reload }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<any>(true);
 
-  const handleDelete = useCallback(async (id: number) => {
+  const getData = useCallback(async () => {
+    setLoading(true);
     await axios
-      .post("/api/category/delete", { category_id: id })
-      .then(() => {
-        alert("Deleted");
+      .get("/api/category")
+      .then((response) => {
+        setData(response.data);
       })
       .catch((error) => {
-        alert("Error: " + error);
+        console.log(error);
       });
+    setLoading(false);
   }, []);
+  const handleDelete = useCallback(
+    async (id: number) => {
+      await axios
+        .post("/api/category/delete", { category_id: id })
+        .then(() => {
+          alert("Deleted");
+        })
+        .catch((error) => {
+          alert("Error: " + error);
+        });
+      getData();
+    },
+    [getData]
+  );
 
   const columns = useMemo(
     () => [
@@ -66,19 +82,6 @@ const TableCategory: React.FC<TableCategoryProps> = ({ reload }) => {
     ],
     [loading, router, handleDelete]
   );
-
-  const getData = useCallback(async () => {
-    setLoading(true);
-    await axios
-      .get("/api/category")
-      .then((response) => {
-        setData(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    setLoading(false);
-  }, []);
 
   useEffect(() => {
     getData();

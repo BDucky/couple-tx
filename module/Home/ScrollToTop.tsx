@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { ChevronUpIcon } from "@heroicons/react/solid";
+import { BiSolidChevronUpCircle } from "react-icons/bi";
 
 const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -24,14 +24,20 @@ const ScrollToTop = () => {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth"
+      behavior: "smooth",
     });
   };
 
   return (
-    <div className="scroll-to-top" style={{ display: isVisible ? 'block' : 'none' }}>
-      <button onClick={scrollToTop} className="bg-gray-900 text-white fixed right-4 bottom-4 p-3 rounded-full shadow-lg transition-opacity duration-300 hover:opacity-70">
-        <ChevronUpIcon className="h-6 w-6" />
+    <div
+      className="scroll-to-top"
+      style={{ display: isVisible ? "block" : "none" }}
+    >
+      <button
+        onClick={scrollToTop}
+        className="bg-gray-900 text-white fixed right-4 bottom-4 p-3 rounded-full shadow-lg transition-opacity duration-300 hover:opacity-70"
+      >
+        <BiSolidChevronUpCircle className="h-6 w-6" />
       </button>
     </div>
   );
