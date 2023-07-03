@@ -9,7 +9,7 @@ const MixAndMatch = () => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
     async function getData() {
-      const res = await axios.get("http://localhost:3000/api/products/filter");
+      const res = await axios.get("/api/products/filter");
       setProducts(res.data.slice(0, 4));
     }
     getData();

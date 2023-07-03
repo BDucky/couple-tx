@@ -119,6 +119,8 @@ model Order {
   id             Int      @id @default(autoincrement())
   user_id        Int
   total_price    Float
+  full_name String
+  phone_number String
   address        String
   payment_method String
   created_at     DateTime @default(now())

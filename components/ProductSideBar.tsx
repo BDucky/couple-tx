@@ -45,7 +45,7 @@ const ProductSideBar = ({ product }: any) => {
     if (fillColor === "none") {
       setFillColor("black");
       setFavorite((prev: any) => prev + 1);
-      await axios.post("http://localhost:3000/api/products/favorite", {
+      await axios.post("/api/products/favorite", {
         key: "plus",
         product_id: product.id,
       });
@@ -53,7 +53,7 @@ const ProductSideBar = ({ product }: any) => {
       setFillColor("none");
       if (favorite > 0) {
         setFavorite((prev: any) => prev - 1);
-        await axios.post("http://localhost:3000/api/products/favorite", {
+        await axios.post("/api/products/favorite", {
           key: "minus",
           product_id: product.id,
         });
@@ -69,12 +69,6 @@ const ProductSideBar = ({ product }: any) => {
     }
   };
   const handleAddCart = async () => {
-    console.log(
-      quantity,
-      product.productVariants[index],
-      selectedSize,
-      selectedColor
-    );
     await axios
       .post("/api/cart/addCart", {
         product_variant_id: product.productVariants[index].id,

@@ -17,14 +17,14 @@ const Card = ({ isNew = true, productId = 17 }) => {
   const colors = useAppSelector((state: any) => state.filterReducer.colors);
 
   const handleMouseEnter = () => {
-    const image = product?.productVariants[1]?.images[0]?.imageUrl;
-    setImageVariant(image || defaultImage);
+    const image = product?.productVariants[0]?.images[1]?.imageUrl;
+    setImageVariant(image);
   };
   const handleFavorite = async () => {
     if (fillColor === "none") {
       setFillColor("black");
       setFavorite((prev) => prev + 1);
-      await axios.post("http://localhost:3000/api/products/favorite", {
+      await axios.post("api/products/favorite", {
         key: "plus",
         product_id: productId,
       });
@@ -32,7 +32,7 @@ const Card = ({ isNew = true, productId = 17 }) => {
       setFillColor("none");
       if (favorite > 0) {
         setFavorite((prev) => prev - 1);
-        await axios.post("http://localhost:3000/api/products/favorite", {
+        await axios.post("api/products/favorite", {
           key: "minus",
           product_id: productId,
         });
@@ -54,7 +54,7 @@ const Card = ({ isNew = true, productId = 17 }) => {
       const queryColors = colors.map((item: any) => "&color=" + item).join("");
       console.log("queryColors", queryColors);
       const res = await axios.get(
-        ` http://localhost:3000/api/products/filter?color=${colors[0]}${
+        `/api/products/filter?color=${colors[0]}${
           colors.length > 1 && queryColors
         }`
       );
@@ -66,9 +66,7 @@ const Card = ({ isNew = true, productId = 17 }) => {
   }, [colors.length]);
   useEffect(() => {
     async function getData() {
-      const res = await axios.get(
-        `http://localhost:3000/api/products/findById?id=${productId}`
-      );
+      const res = await axios.get(`/api/products/findById?id=${productId}`);
       const data = res.data;
       setFavorite(data?.favorite_counters);
       setPrice(data?.productVariants[0]?.price);

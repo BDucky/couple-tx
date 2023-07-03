@@ -41,7 +41,7 @@ const ColorItem = () => {
                   <span>
                     {
                       filterColors.find((color) => color.enColor == item)
-                        .vnColor
+                        ?.vnColor
                     }
                   </span>
                   <span onClick={() => handleDeleteFilterColor(item)}>

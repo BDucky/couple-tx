@@ -1,10 +1,22 @@
+"use client";
+
 import Providers from "@/components/Provider";
 import LayoutFilter from "@/components/layout/LayoutFilter";
 import LayoutWebsite from "@/components/layout/LayoutWebsite";
 import Image from "next/image";
+import { useCallback, useEffect, useState } from "react";
 
-const Page = async () => {
-  const products = await getProduct();
+const Page = () => {
+  const [products, setProducts] = useState<any>();
+
+  const getData = useCallback(async () => {
+    const res = await fetch(`http://localhost:3000/api/products/filter`);
+    return setProducts(res.json());
+  }, []);
+  useEffect(() => {
+    getData();
+  }, [getData]);
+
   return (
     <LayoutWebsite>
       <div className="container px-[24px]">
@@ -35,10 +47,5 @@ const Page = async () => {
     </LayoutWebsite>
   );
 };
-
-export async function getProduct() {
-  const res = await fetch(`http://localhost:3000/api/products/filter`);
-  return res.json();
-}
 
 export default Page;

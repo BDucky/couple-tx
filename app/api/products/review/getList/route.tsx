@@ -3,7 +3,7 @@ import { parse } from "url";
 import { NextApiRequest } from "next";
 import { NextResponse } from "next/server";
 
-export async function GET(req: NextApiRequest) {
+export async function GET(req: any) {
   const { search } = parse(req.url || "", true);
   const searchParams = new URLSearchParams(search || "");
   const product_id = searchParams.get("product_id") as string;

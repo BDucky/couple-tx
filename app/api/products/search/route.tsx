@@ -4,7 +4,7 @@ import prisma from "@/libs/prismadb";
 import { NextResponse } from "next/server";
 import { parse } from "url";
 
-export async function GET(req: NextApiRequest) {
+export async function GET(req: any) {
   if (req.method === "GET") {
     const { search } = parse(req.url || "", true);
     const searchParams = new URLSearchParams(search || "");
