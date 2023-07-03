@@ -5,15 +5,21 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { handleFixed } from "@/store/fixedSlice";
 import { handleVariant } from "@/store/variantSlice";
 import axios from "axios";
+import useCartModal from "@/hooks/useCartModal";
 
 const ProductSideBar = ({ product }: any) => {
+  const { isOpen, onOpen, onLoad } = useCartModal();
+  const [index, setIndex] = useState<number>(-1);
   const [scrollPosition, setScrollPosition] = useState(0);
   const [fillColor, setFillColor] = useState("none");
-  const [favorite, setFavorite] = useState(product.favorite_counters);
+  const [favorite, setFavorite] = useState(product?.favorite_counters);
   const [quantity, setQuantity] = useState(1);
-  const fixed = useAppSelector((state: any) => state.fixedReducer.fixed);
+  const [selectedSize, setSelectedSize] = useState<string>("");
+  const [selectedColor, setSelectedColor] = useState<string>("");
   const dispatch = useAppDispatch();
+
   const handleChangeVariant = (index: number) => {
+    setIndex(index);
     dispatch(handleVariant(index));
   };
   const handleFavorite = useRef(() => {});
@@ -62,11 +68,33 @@ const ProductSideBar = ({ product }: any) => {
       setQuantity((prev) => prev - 1);
     }
   };
+  const handleAddCart = async () => {
+    console.log(
+      quantity,
+      product.productVariants[index],
+      selectedSize,
+      selectedColor
+    );
+    await axios
+      .post("/api/cart/addCart", {
+        product_variant_id: product.productVariants[index].id,
+        user_id: 1,
+        quantity: quantity,
+        size: selectedSize,
+        color: selectedColor,
+      })
+      .then(() => {
+        alert("Đã thêm");
+        onLoad();
+        onOpen();
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div className={`flex-grow-[2] max-w-[350px] `}>
       <h1 className="font-semibold text-left text-[26px] max-w-[350px] mb-6">
-        {product.product_name}
+        {product?.product_name}
       </h1>
       <div className="flex gap-x-2 mb-[26px]">
         <span className="flex text-yellow-300">
@@ -91,19 +119,24 @@ const ProductSideBar = ({ product }: any) => {
         <span>[Yêu thích {favorite}]</span>
       </div>
       <div className="font-bold text-[20px] mb-3">
-        {product.productVariants[0].price} VND
+        {product?.productVariants[0].price} VND
       </div>
       <div className="mb-3 text-xs">
-        <strong>MÀU SẮC:</strong> {product.productVariants[0].color}
+        <strong>MÀU SẮC:</strong> {product?.productVariants[0].color}
       </div>
       <div className="flex mb-3 gap-x-3">
-        {product.productVariants.map((item: any, index: number) => (
+        {product?.productVariants.map((item: any, index: number) => (
           <div
-            onClick={() => handleChangeVariant(index)}
+            onClick={() => {
+              handleChangeVariant(index);
+              setSelectedColor(item.color);
+            }}
             key={item.id}
-            className="w-10 h-10 border border-black rounded-full cursor-pointer"
+            className={`${
+              selectedColor === item.color && " border-2"
+            } w-10 h-10 border border-black rounded-full cursor-pointer`}
             style={{
-              backgroundColor: product.productVariants[index].color,
+              backgroundColor: product?.productVariants[index].color,
             }}
           ></div>
         ))}
@@ -112,10 +145,13 @@ const ProductSideBar = ({ product }: any) => {
         <strong>SIZE:</strong> CHỌN SIZE
       </div>
       <div className="flex mb-3 ml-1 gap-x-3">
-        {product.productVariants[0].size.map((item: any, index: number) => (
+        {product?.productVariants[0].size.map((item: any, index: number) => (
           <div
             key={item.id}
-            className="px-8 py-2 text-xs border border-gray-400"
+            onClick={() => setSelectedSize(item.name_size)}
+            className={`${
+              selectedSize === item.name_size && "bg-black text-white"
+            } px-8 py-2 text-xs border cursor-pointer border-gray-400`}
           >
             {item.name_size}
           </div>
@@ -140,7 +176,14 @@ const ProductSideBar = ({ product }: any) => {
         </div>
       </div>
       <div className="flex gap-x-3 items-center max-w-[380px] mb-[40px]">
-        <button className="text-center py-2 transition-all text-[14px] font-bold duration-200 flex-1 bg-black border border-black hover:bg-white text-white hover:text-black">
+        <button
+          onClick={() => handleAddCart()}
+          className={` ${
+            selectedColor === "" || selectedSize === ""
+              ? "pointer-events-none opacity-50"
+              : ""
+          } text-center py-2 transition-all text-[14px] font-bold duration-200 flex-1 bg-black border border-black hover:bg-white text-white hover:text-black`}
+        >
           THÊM VÀO GIỎ
         </button>
         <span onClick={handleFavorite.current} className="cursor-pointer">
@@ -162,11 +205,11 @@ const ProductSideBar = ({ product }: any) => {
       </div>
       <ProductInfo
         title="THÔNG TIN SẢN PHẨM"
-        content={product.information}
+        content={product?.information}
       ></ProductInfo>
       <ProductInfo
         title="THAM KHẢO"
-        content={product.product_references}
+        content={product?.product_references}
       ></ProductInfo>
     </div>
   );

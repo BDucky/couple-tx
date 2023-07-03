@@ -23,13 +23,13 @@ const Comment: React.FC<ComponentProps> = ({ product }) => {
   const [images, setImages] = useState<string[]>([]);
   const [star, setStar] = useState<number>(0);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const calculationRating = () => {
-    const value = product.rates.reduce(
+  const calculationRating = useCallback(() => {
+    const value = product?.rates.reduce(
       (acc: number, i: any) => acc + i.star,
       0
     );
-    setRating(value / product.rates.length);
-  };
+    setRating(value / product?.rates.length);
+  }, [product]);
 
   const getUser = useCallback(() => {
     const data = localStorage.getItem("user");
@@ -70,7 +70,7 @@ const Comment: React.FC<ComponentProps> = ({ product }) => {
     setLoading(false);
     alert("Đã đánh giá");
     window.location.reload();
-  }, [description, images, product.id, star, title, user]);
+  }, [description, images, product?.id, star, title, user]);
 
   useEffect(() => {
     console.log(product);
@@ -82,8 +82,8 @@ const Comment: React.FC<ComponentProps> = ({ product }) => {
       <h1 className=" inline-block font-bold text-3xl">Đánh giá sản phẩm</h1>
       <div className="flex w-[100%] justify-between">
         <div className="flex items-center justify-center flex-col">
-          <Rate disabled defaultValue={rating} />
-          <div>Dựa trên {product.rates.length} lượt đánh giá</div>
+          <Rate disabled value={rating} />
+          <div>Dựa trên {product?.rates.length} lượt đánh giá</div>
         </div>
         <div>
           <div

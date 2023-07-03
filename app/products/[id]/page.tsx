@@ -1,14 +1,28 @@
+"use client";
+
 import Providers from "@/components/Provider";
 import LayoutProductDetail from "@/components/layout/LayoutProductDetail";
 import ProductDetailImage from "@/components/ProductDetailImage";
 import ProductSideBar from "@/components/ProductSideBar";
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import LayoutWebsite from "@/components/layout/LayoutWebsite";
 import Comment from "@/components/Comment";
 import ListComment from "@/components/ListComment";
+import { useParams } from "next/navigation";
+import axios from "axios";
 
-const ProductDetial = async ({ params }: { params: { id: string } }) => {
-  const product = await getProductDetial(params.id);
+const ProductDetial = () => {
+  const { id } = useParams();
+  const [product, setProduct] = useState<any>();
+  const getData = useCallback(async () => {
+    await axios
+      .get(`/api/products/findById?id=${id}`)
+      .then((response) => setProduct(response.data))
+      .catch((error) => console.log(error));
+  }, [id]);
+  useEffect(() => {
+    getData();
+  }, [getData]);
   return (
     <LayoutWebsite>
       <div className=" p-3 mx-auto max-w-[1480px]">
@@ -16,22 +30,15 @@ const ProductDetial = async ({ params }: { params: { id: string } }) => {
           <LayoutProductDetail>
             <>
               <ProductDetailImage product={product}></ProductDetailImage>
-              <ProductSideBar product={product}></ProductSideBar>
+              <ProductSideBar product={product && product}></ProductSideBar>
             </>
           </LayoutProductDetail>
           <Comment product={product} />
-          <ListComment id={product.id} />
+          <ListComment id={product && product.id} />
         </Providers>
       </div>
     </LayoutWebsite>
   );
 };
-
-async function getProductDetial(id: string) {
-  const res = await fetch(
-    `http://localhost:3000/api/products/findById?id=${id}`
-  );
-  return res.json();
-}
 
 export default ProductDetial;

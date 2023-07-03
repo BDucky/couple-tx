@@ -45,6 +45,7 @@ const AddPost = () => {
         })
         .then(() => {
           console.log("created");
+          alert("created");
         })
         .catch((err) => {
           console.log(err);

@@ -5,7 +5,7 @@ import ColorItem from "../ColorItem";
 import SizeItem from "../SizeItem";
 import { useAppSelector } from "@/hooks/redux";
 
-const LayoutDetail = ({ products = [] }: any) => {
+const LayoutDetail = ({ products }: any) => {
   const fixed = useAppSelector((state: any) => state.filterReducer.fixed);
 
   return (

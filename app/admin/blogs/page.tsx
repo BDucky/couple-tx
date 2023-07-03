@@ -50,7 +50,7 @@ const Blogs = () => {
       <div className="p-3 m-6 bg-[#fff] shadow-lg">
         <form onSubmit={handleSubmit((data) => onHandleSubmit(data))}>
           <ImageUploadWrapper single register={register} />
-          <Input id="name" register={register} label="Category Name" />
+          <Input id="name" register={register} label="Blog Name" />
           {loading ? (
             <LoadingOutlined size={28} />
           ) : (

@@ -1,8 +1,13 @@
 import React from "react";
 import LayoutWebsite from "@/components/layout/LayoutWebsite";
 import LayoutCardPost from "@/components/layout/LayoutCardPost";
+import { Blogs } from "@prisma/client";
 
-const Page = ({ blogs }) => {
+interface BlogProps {
+  blogs: Blogs;
+}
+
+const Blog: React.FC<BlogProps> = ({ blogs }) => {
   return (
     <LayoutWebsite>
       <div className="md:max-w-[768px] lg:max-w-[1024px] mx-auto px-[15px] mb-[30px]">
@@ -10,9 +15,9 @@ const Page = ({ blogs }) => {
           Blogs
         </h1>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {blogs.map((blog) => (
+          {/* {blogs.map((blog) => (
             <LayoutCardPost key={blog.id} blog={blog} />
-          ))}
+          ))} */}
         </div>
       </div>
     </LayoutWebsite>
@@ -30,4 +35,4 @@ export async function getStaticProps() {
   };
 }
 
-export default Page;
+export default Blog;

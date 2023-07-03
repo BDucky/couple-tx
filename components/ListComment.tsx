@@ -13,13 +13,15 @@ const ListComment: React.FC<ListCommentProps> = ({ id }) => {
   const [rates, setRates] = useState<any>([]);
 
   const getData = useCallback(async () => {
-    await axios
-      .get(`/api/products/review/getList?product_id=${id}`)
-      .then((response) => {
-        setRates(response.data);
-        console.log(response.data);
-      })
-      .catch((error) => console.log(error));
+    if (id) {
+      await axios
+        .get(`/api/products/review/getList?product_id=${id}`)
+        .then((response) => {
+          setRates(response.data);
+          console.log(response.data);
+        })
+        .catch((error) => console.log(error));
+    }
   }, [id]);
   useEffect(() => {
     getData();

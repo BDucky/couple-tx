@@ -47,6 +47,7 @@ const Edit = () => {
       .post("/api/category/create", { id: id, ...dataV2 })
       .then((response) => {
         console.log(response.data);
+        alert("Updated");
       })
       .catch((errors) => {
         console.log(errors);

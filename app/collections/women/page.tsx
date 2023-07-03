@@ -1,10 +1,28 @@
+"use client";
 import Providers from "@/components/Provider";
 import LayoutFilter from "@/components/layout/LayoutFilter";
 import LayoutWebsite from "@/components/layout/LayoutWebsite";
+import axios from "axios";
 import Image from "next/image";
+import { useCallback, useEffect, useState } from "react";
 
-const Page = async () => {
-  const products = await getProduct();
+const Page = () => {
+  const [products, setProduct] = useState<any>();
+  const getProduct = useCallback(async () => {
+    await axios
+      .get(`/api/products/filter?gender=Nữ`)
+
+      .then((response) => {
+        setProduct(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+  useEffect(() => {
+    getProduct();
+  }, [getProduct]);
   return (
     <LayoutWebsite>
       <div className="container px-[24px]">
@@ -56,18 +74,11 @@ const Page = async () => {
           </div>
         </div>
         <Providers>
-          <LayoutFilter products={products}></LayoutFilter>
+          <LayoutFilter products={products} gender="women"></LayoutFilter>
         </Providers>
       </div>
     </LayoutWebsite>
   );
 };
-
-export async function getProduct() {
-  const res = await fetch(
-    `http://localhost:3000/api/products/filter?gender=nu`
-  );
-  return res.json();
-}
 
 export default Page;
