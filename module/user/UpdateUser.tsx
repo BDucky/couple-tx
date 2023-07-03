@@ -71,8 +71,9 @@ const UpdateUser = () => {
 
   useEffect(() => {
     async function getData() {
+      const id = Cookie.get("id");
+      if (id === undefined) return;
       try {
-        const id = Cookie.get("id");
         const res = await axios.get(`/api/user/find?key=${id}`);
         const data = res.data;
         reset({
