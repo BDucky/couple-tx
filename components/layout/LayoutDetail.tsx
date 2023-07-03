@@ -7,7 +7,6 @@ import { useAppSelector } from "@/hooks/redux";
 
 const LayoutDetail = ({ products }: any) => {
   const fixed = useAppSelector((state: any) => state.filterReducer.fixed);
-  console.log(products);
 
   return (
     <div className={`flex flex-col gap-y-5 ${fixed && "ml-[330px]"}`}>
