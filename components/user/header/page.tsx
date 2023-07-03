@@ -11,7 +11,7 @@ import ShowUserInfo from "@/components/account/ShowUserInfo";
 
 const Header: React.FC = () => {
   const [show, setShow] = useState(false);
-  const { isOpen, onOpen } = useCartModal();
+  const { isOpen, onOpen, cartQuantity } = useCartModal();
   const tagRefNA = useRef<HTMLDivElement>(null);
   const tagRefOW = useRef<HTMLDivElement>(null);
   const tagRefM = useRef<HTMLDivElement>(null);
