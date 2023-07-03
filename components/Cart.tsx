@@ -19,7 +19,7 @@ const Cart = () => {
       .then((response) => {
         // console.log(response.data);
         setCartItems(response.data[0].cart_item);
-        setCart(response.data[1].cart_item.length);
+        setCart(response.data[0].cart_item.length);
         setToTalPrice(
           response.data[0].cart_item.reduce(
             (total: number, cartItem: any) => total + cartItem.total_price,
@@ -28,7 +28,7 @@ const Cart = () => {
         );
       })
       .catch((error) => console.log(error));
-  }, []);
+  }, [setCart]);
 
   useEffect(() => {
     getData();
