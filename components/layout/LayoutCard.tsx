@@ -24,13 +24,13 @@ const LayoutCard = ({ products = [] }: any) => {
           .join("");
         const querySize = sizes.map((item: any) => "&size=" + item).join("");
         const res = await axios.get(
-          `http://localhost:3000/api/products/filter?${firstValue.current}${
+          `/api/products/filter?${firstValue.current}${
             colors.length > 0 ? queryColors : ""
           }
           ${sizes.length > 0 ? querySize : ""}
           ${
             gender === "men"
-              ? "&gender=nam"
+              ? "&gender=Nam"
               : gender === "women"
               ? "&gender=Nữ"
               : ""

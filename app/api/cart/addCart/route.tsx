@@ -40,22 +40,21 @@ export async function POST(req: Request, res: NextApiResponse) {
       }
     }
     if (cartItem) {
-      await prisma.cartItem.update({
-        where: {
-          id: cartItem.id,
-        },
-        data: {
-          quantity: cartItem.quantity + quantity,
-          total_price: cartItem.total_price * cartItem.quantity,
-        },
-      });
       const productVariant = await prisma.productsVariant.findFirst({
         where: {
           id: product_variant_id,
         },
       });
-
       if (productVariant) {
+        await prisma.cartItem.update({
+          where: {
+            id: cartItem.id,
+          },
+          data: {
+            quantity: cartItem.quantity + quantity,
+            total_price: productVariant.price * cartItem.quantity,
+          },
+        });
         const currentQuantity = productVariant.quantity;
         const updatedQuantity = currentQuantity - quantity;
         await prisma.productsVariant.update({

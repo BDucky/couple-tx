@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request, res: NextApiResponse) {
   const body = await req.json();
-  const { user_id, payment_method, address } = body;
+  const { user_id, payment_method, address, phone, full_name } = body;
 
   const cart = await prisma.cart.findFirst({
     where: {
@@ -27,11 +27,12 @@ export async function POST(req: Request, res: NextApiResponse) {
         address: address,
         payment_method: payment_method,
         total_price: total_price,
+        full_name: full_name,
+        phone_number: phone,
       },
     });
 
     cart.cart_item.forEach(async (i) => {
-      console.log("jjj");
       await prisma.orderItem.create({
         data: {
           total_price: i.total_price,

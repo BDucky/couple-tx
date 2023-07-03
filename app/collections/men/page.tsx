@@ -11,7 +11,7 @@ const Page = () => {
   const [products, setProduct] = useState<any>();
   const getProduct = useCallback(async () => {
     await axios
-      .get(`/api/products/filter?gender=Nữ`)
+      .get(`/api/products/filter?gender=Nam`)
 
       .then((response) => {
         setProduct(response.data);

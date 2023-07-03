@@ -1,15 +1,16 @@
-
 "use client";
 import LayoutWebsite from "@/components/layout/LayoutWebsite";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 const Page = () => {
-  const [blogs, setBlogs] = useState([]);
+  const [blogs, setBlogs] = useState<any[]>([]);
   useEffect(() => {
     async function fetchData() {
-      const res = await fetch("http://localhost:3000/api/blog/post/findById?id=${id}");
-      const data = await res.json();
-      setBlogs(data);
+      await axios
+        .get("/api/blog/post/findById?id=${id}")
+        .then((response) => setBlogs(response.data))
+        .catch((err) => console.log(err));
     }
     fetchData();
   }, []);
@@ -19,32 +20,19 @@ const Page = () => {
       <div className="flex justify-center items-center h-screen">
         <div className="container mx-auto">
           {blogs.map((blog) => (
-            <article
-              key={blog?.id}
-              href=""
-              className=""
-            >
+            <article key={blog.id} className="">
               <div className="feature">
-                <img
-                  src={blog?.image}
-                  alt=""
-                  className="mx-auto"
-                />
+                <img src={blog?.image} alt="" className="mx-auto" />
               </div>
               <div className="container">
-                <h3 className="text-center bold">
-                  {blog?.title}
-                </h3>
+                <h3 className="text-center bold">{blog?.title}</h3>
                 <div
-                            dangerouslySetInnerHTML={{
-                                __html: blog?.body,
-                            }}
-                        />
-
+                  dangerouslySetInnerHTML={{
+                    __html: blog?.body,
+                  }}
+                />
               </div>
             </article>
-
-            
           ))}
         </div>
       </div>

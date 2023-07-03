@@ -4,7 +4,6 @@ import Image from "next/image";
 import React from "react";
 
 const ProductDetailImage = ({ product }: any) => {
-  const fixed = useAppSelector((state: any) => state.fixedReducer.fixed);
   const variant = useAppSelector((state: any) => state.variantReducer.variant);
 
   return (

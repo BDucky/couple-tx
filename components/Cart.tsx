@@ -1,16 +1,17 @@
 "use client";
 
 import useCartModal from "@/hooks/useCartModal";
-import { CartItem } from "@prisma/client";
 import { FiShoppingCart } from "react-icons/fi";
 import React, { useState, useCallback, useEffect } from "react";
 import { AiFillCloseCircle } from "react-icons/ai";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const Cart = () => {
-  const { isOpen, onClose, isReload } = useCartModal();
+  const { isOpen, onClose, isReload, setCart } = useCartModal();
   const [cartItems, setCartItems] = useState<any[]>([]);
   const [totalPrice, setToTalPrice] = useState<number>(0);
+  const router = useRouter();
 
   const getData = useCallback(async () => {
     await axios
@@ -18,6 +19,7 @@ const Cart = () => {
       .then((response) => {
         // console.log(response.data);
         setCartItems(response.data[0].cart_item);
+        setCart(response.data[1].cart_item.length);
         setToTalPrice(
           response.data[0].cart_item.reduce(
             (total: number, cartItem: any) => total + cartItem.total_price,
@@ -88,7 +90,10 @@ const Cart = () => {
             <p className=" uppercase font-extralight">Tổng tiền:</p>
             <p className=" font-bold">{totalPrice} VND</p>
           </div>
-          <div className=" uppercase flex justify-center items-center p-3 text-white bg-black font-bold mt-3 cursor-pointer hover:opacity-70">
+          <div
+            onClick={() => router.push("/cart")}
+            className=" uppercase flex justify-center items-center p-3 text-white bg-black font-bold mt-3 cursor-pointer hover:opacity-70"
+          >
             Thanh toán
           </div>
         </div>
