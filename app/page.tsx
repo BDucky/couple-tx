@@ -1,4 +1,3 @@
-import Footer from "@/components/user/footer/page";
 import {
   FlashSale,
   MixAndMatch,
@@ -7,7 +6,6 @@ import {
   ScrollToTop,
 } from "@/module/Home";
 import HiddenGem from "@/module/Home/HidenGem";
-
 import LayoutWebsite from "@/components/layout/LayoutWebsite";
 import HomeBanner from "@/module/Home/HomeBanner";
 

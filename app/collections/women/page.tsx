@@ -1,9 +1,7 @@
 "use client";
-
 import Providers from "@/components/Provider";
 import LayoutFilter from "@/components/layout/LayoutFilter";
 import LayoutWebsite from "@/components/layout/LayoutWebsite";
-import { Products } from "@prisma/client";
 import axios from "axios";
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
@@ -76,7 +74,7 @@ const Page = () => {
           </div>
         </div>
         <Providers>
-          <LayoutFilter products={products}></LayoutFilter>
+          <LayoutFilter products={products} gender="women"></LayoutFilter>
         </Providers>
       </div>
     </LayoutWebsite>
