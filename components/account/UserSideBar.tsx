@@ -38,7 +38,7 @@ const UserSideBar = () => {
           <div className="bg-[url('/image/avatar-border.webp')] !bg-no-repeat bg-cover bg-center w-[140px] h-[140px] top-2/4 -translate-y-2/4 left-2/4 -translate-x-2/4 absolute"></div>
         </div>
         <h1 className="mb-6 font-light text-gray-700">
-          {user.first_name && user.first_name
+          {user.first_name && user.last_name
             ? user.first_name + " " + user.last_name
             : "Your Name"}
         </h1>
