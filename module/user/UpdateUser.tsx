@@ -40,7 +40,6 @@ const UpdateUser = () => {
 
   const handleUpdateUser = async (values: any) => {
     const { lastName, firstName, date, gender } = values;
-    console.log("date", date);
     if (!isValid) {
       toast.error("It seems your info was wrong");
       return;
@@ -56,8 +55,8 @@ const UpdateUser = () => {
         date_of_birth: addDays(date.toISOString(), 1),
         gender,
       });
-      router.push("/account");
       toast.success("update Successfully!");
+      router.push("/account");
     } catch (error) {
       toast.error("It seems your info was wrong");
     }
